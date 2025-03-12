@@ -6,10 +6,13 @@ import { Stack } from "@mui/material";
 import ServicesCard from "../components/servicesCard";
 import NutriImage from "../assets/servicesnutrition.jpg";
 import TrainImage from "../assets/servicestraining.jpg";
+import MyMission from "../components/myMission";
+import Footer from "../components/footer";
+
 
 const Home: React.FC = () => {
   return (
-    <Stack>
+    <Stack width="100%">
       <Navbar />
       <CtaCover />
       <TrainWithMe />
@@ -19,6 +22,8 @@ const Home: React.FC = () => {
           { title: "Személyi Edzés", backgroundImage: TrainImage },
         ]}
       />
+      <MyMission />
+      <Footer />
     </Stack>
   );
 };

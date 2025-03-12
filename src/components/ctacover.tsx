@@ -17,14 +17,16 @@ const CtaCover = () => {
         }}
       >
         <Box sx={{ padding: "10vh 20px 0", alignItems: "center" }}>
-          <Typography variant="h2" sx={{ color: "white", textAlign: "center" }}>
-            ÁBRAHÁM VIVIEN
-          </Typography>
-          <Typography variant="h5" sx={{ color: "white", textAlign: "center" }}>
-            Mindenki egyedi, így a megoldásaink is azok.
-            <br />
-            Én segítek megtalálni a Te utadat!
-          </Typography>
+            <Typography variant="h2" sx={{ color: "white", textAlign: "center", fontFamily: "'Chloe', sans-serif", fontSize: "6rem", lineHeight: "1" }}>
+            ÁBRAHÁM <br/> VIVIEN
+            </Typography>
+            
+              <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
+              <Typography variant="h5" sx={{ color: "white", textAlign: "center", fontFamily: "'Montserrat', sans-serif", maxWidth: "600px", fontSize: { xs: '1.2rem', sm: '1.5rem' } }}>
+              Mindenki egyedi, így a megoldásaink is azok.
+              Én segítek megtalálni a Te utadat!
+              </Typography>
+              </Box>
           <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
             <button
               style={{
@@ -64,8 +66,9 @@ const CtaCover = () => {
             color: "#333",
             textAlign: "center",
             fontStyle: "italic",
-            fontWeight: '300',
+            fontWeight: 'ExtraLight',
             fontSize: "2.8rem",
+            fontFamily: "'Montserrat', sans-serif"
           }}
         >
           "A Jólét Új Szintjei"

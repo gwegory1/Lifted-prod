@@ -23,6 +23,11 @@ const Navbar: React.FC = () => {
             top: 0,
             left: 0,
             right: 0,
+            fontFamily: 'Montserrat, sans-serif',
+            fontSize: "1.2rem",
+            width: "100%",
+            position: "sticky" as "sticky",
+            zIndex: 1000,
         },
         navList: {
             display: "flex",
@@ -31,26 +36,48 @@ const Navbar: React.FC = () => {
             margin: 0,
             padding: 0,
             justifyContent: "space-around",
+            fontFamily: 'Montserrat, sans-serif',
         },
         navItem: (isHovered: boolean) => ({
             padding: "0.5rem",
             background: isHovered ? "#333" : "transparent",
             borderRadius: "0.25rem",
             transition: "background 0.3s ease",
+            fontFamily: 'Montserrat, sans-serif',
         }),
         navLink: (isHovered: boolean) => ({
             textDecoration: "none",
             color: isHovered ? "#fff" : "#333",
             fontWeight: 500,
             transition: "color 0.3s ease",
+            fontFamily: 'Montserrat, sans-serif',
         }),
+        drawer: {
+            background: "linear-gradient(to right, #F8E5DE, #ffffff, #F8E5DE)",
+            fontFamily: 'Montserrat, sans-serif',
+            fontSize: "1.2rem",
+            width: 250,
+            height: "100%",
+        },
+        drawerItem: {
+            padding: "0.5rem 1rem", // Increased padding for touch targets
+            borderRadius: "0.25rem",
+            transition: "background 0.3s ease, color 0.3s ease",
+            "&:hover": {
+                background: "#333",
+                "& .MuiListItemText-primary": {
+                    color: "#fff",
+                },
+            },
+        },
         drawerLink: {
             textDecoration: "none",
-            color: "#000",
+            color: "#333",
             width: "100%",
             display: "block",
-            padding: "10px",
-        }
+            fontWeight: 500,
+            fontFamily: 'Montserrat, sans-serif',
+        },
     };
 
     const toggleDrawer = (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -65,7 +92,7 @@ const Navbar: React.FC = () => {
 
     const drawerContent = (
         <Box
-            sx={{ width: 250 }}
+            sx={navStyles.drawer}
             role="presentation"
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
@@ -75,11 +102,22 @@ const Navbar: React.FC = () => {
                     { text: 'Home', path: '/' },
                     { text: 'About', path: '/about' },
                     { text: 'Training', path: '/training' },
-                    { text: 'Nutrition', path: '/nutrition' }
+                    { text: 'Nutrition', path: '/nutrition' },
                 ].map((item) => (
-                    <ListItem component="button" key={item.text}>
+                    <ListItem
+                        key={item.text}
+                        sx={navStyles.drawerItem}
+                        disablePadding
+                    >
                         <Link to={item.path} style={navStyles.drawerLink}>
-                            <ListItemText primary={item.text} />
+                            <ListItemText
+                                primary={item.text}
+                                primaryTypographyProps={{
+                                    fontSize: "1.2rem",
+                                    fontFamily: 'Montserrat, sans-serif',
+                                    color: "#333",
+                                }}
+                            />
                         </Link>
                     </ListItem>
                 ))}
@@ -90,14 +128,17 @@ const Navbar: React.FC = () => {
     return (
         <nav style={navStyles.navbar}>
             {isMobile ? (
-                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', p: 1 }}>
                     <IconButton
                         edge="start"
                         color="inherit"
                         aria-label="menu"
                         onClick={toggleDrawer(true)}
-                        sx={{ mr: 2 }}
+                        sx={{ p: 1, '&:hover': { background: 'rgba(0, 0, 0, 0.1)' } }}
                     >
+                        <Box sx={{ width: 24, height: 24 }}> {/* Placeholder for menu icon styling */}
+                            {/* Replace with actual MenuIcon or custom SVG */}
+                        </Box>
                     </IconButton>
                     
                     <Box
@@ -106,7 +147,7 @@ const Navbar: React.FC = () => {
                             width: "100px",
                             backgroundImage: `url(${LOGO})`,
                             backgroundSize: "cover",
-                            backgroundPosition: "left",
+                            backgroundPosition: "center",
                             backgroundRepeat: "no-repeat",
                         }}
                     />
@@ -117,6 +158,7 @@ const Navbar: React.FC = () => {
                         anchor="left"
                         open={drawerOpen}
                         onClose={toggleDrawer(false)}
+                        PaperProps={{ sx: { background: 'transparent' } }} // Transparent paper to show custom background
                     >
                         {drawerContent}
                     </Drawer>
@@ -149,7 +191,7 @@ const Navbar: React.FC = () => {
                             width: "100px",
                             backgroundImage: `url(${LOGO})`,
                             backgroundSize: "cover",
-                            backgroundPosition: "left",
+                            backgroundPosition: "center",
                             backgroundRepeat: "no-repeat",
                         }}
                     />

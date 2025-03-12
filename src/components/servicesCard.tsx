@@ -1,98 +1,111 @@
-import React from 'react';
-import styled from 'styled-components';
+import React from "react";
+import {
+  Box,
+  Typography,
+  Card as MuiCard,
+  styled,
+} from "@mui/material";
 
-const ServicesContainer = styled.div`
-    width: 100%;
-    padding: 2rem;
-    background-color: #FFDCCF;
-    box-shadow: 0 0px 15px rgba(0, 0, 0, 0.1), inset 0 0px 25px rgba(255, 255, 255, 1);'
-`;
+const StyledCard = styled(MuiCard)<{ backgroundimage: string }>(
+  ({ backgroundimage }) => ({
+    width: "100%",
+    maxWidth: 260, // Slightly increased for better balance
+    height: 400,
+    backgroundImage: `url(${backgroundimage})`,
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    position: "relative",
+    cursor: "pointer",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)", // Subtle shadow for depth
+    transition: "transform 0.3s ease, box-shadow 0.3s ease", // Smoother transition
+    "&:hover": {
+      transform: "scale(1.05)",
+      boxShadow: "0 8px 20px rgba(0, 0, 0, 0.15)", // Enhanced hover shadow
+    },
+  })
+);
 
-const Title = styled.h2`
-    text-align: center;
-    margin-bottom: 2rem;
-    font-size: 2.5rem;
-    color: #333;
-`;
-
-const CardContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    flex-wrap: wrap;
-`;
-
-const Card = styled.div<{ backgroundImage: string }>`
-    width: 300px;
-    height: 400px;
-    background-image: url(${props => props.backgroundImage});
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    &:hover {
-        transform: scale(1.05);
-    }
-`;
-
-const CardTitle = styled.h3`
-    position: absolute;
-    bottom: 20px;
-    left: 20px;
-    color: white;
-    font-size: 1.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-`;
-
-const BackgroundText1 = styled.div`
-    position: relative;
-    font-size: 9rem;
-    font-weight: bold;
-    opacity: 0.05;
-    top: 1%;
-    color: #000;
-    z-index: 0;
-    pointer-events: none;
-    white-space: nowrap;
-    overflow: visible;
-`;
-
-const BackgroundText2 = styled.div`
-    position: relative;
-    font-size: 9rem;    font-weight: bold;
-    opacity: 0.05;
-    bottom: 5%;
-    color: #000;
-    z-index: 0;
-    pointer-events: none;
-    white-space: nowrap;
-    overflow: visible;
-`;
+const BackgroundText = styled(Typography)({
+  fontSize: "8rem", // Slightly reduced for better fit
+  fontWeight: 1000,
+  opacity: 0.03, // Reduced opacity for subtlety
+  color: "#333", // Darker for better contrast
+  zIndex: 0,
+  pointerEvents: "none",
+  whiteSpace: "nowrap",
+  overflow: "visible",
+  fontFamily: "Montserrat, sans-serif", // Consistent font
+});
 
 interface ServiceCardProps {
-    services: {
-        title: string;
-        backgroundImage: string;
-    }[];
+  services: {
+    title: string;
+    backgroundImage: string;
+  }[];
 }
 
 const ServicesCard: React.FC<ServiceCardProps> = ({ services }) => {
-    return (
-        <ServicesContainer>
-            <Title>Szolgáltatások</Title>
-                <BackgroundText1>NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS</BackgroundText1>
-                
-            <CardContainer>
-                {services.map((service, index) => (
-                    <Card key={index} backgroundImage={service.backgroundImage}>
-                        <CardTitle>{service.title}</CardTitle>
-                    </Card>
-                ))}
-            </CardContainer>
-            <BackgroundText2>NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS</BackgroundText2>
-        </ServicesContainer>
-    );
+  return (
+    <Box
+      sx={{
+        padding: { xs: 3, sm: 4 }, // Adjusted for mobile
+        backgroundColor: "#fff5f5", // Aligned with app palette
+        boxShadow:
+          "0 0px 15px rgba(0, 0, 0, 0.1), inset 0 0px 25px rgba(255, 255, 255, 1)",
+      }}
+    >
+      <Box position="relative">
+        <BackgroundText position="absolute" top={0}>
+          NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF
+          WELLNESS
+        </BackgroundText>
+        <Typography
+          variant="h2"
+          textAlign="center"
+          mb={{ xs: 3, sm: 4 }} // Adjusted margin for mobile
+          color="#333"
+          position="relative"
+          zIndex={1}
+          fontWeight={700}
+          fontFamily="Montserrat, sans-serif"
+          fontSize={{ xs: "2rem", sm: "2.5rem" }} // Responsive font size
+        >
+          Szolgáltatások
+        </Typography>
+      </Box>
+      <Box
+        display="flex"
+        justifyContent="center"
+        gap={{ xs: 2, sm: 4 }} // Adjusted gap for mobile
+        flexWrap="wrap"
+      >
+        {services.map((service, index) => (
+          <StyledCard key={index} backgroundimage={service.backgroundImage}>
+            <Box position="absolute" bottom={20} left={20}>
+              <Typography
+                variant="h3"
+                color="white"
+                sx={{
+                  textShadow: "2px 2px 6px rgba(0, 0, 0, 0.6)", // Enhanced shadow for contrast
+                  fontSize: { xs: "1.8rem", sm: "2rem" }, // Adjusted for readability
+                  fontFamily: "Montserrat, sans-serif",
+                  fontWeight: 600, // Slightly lighter for elegance
+                }}
+              >
+                {service.title}
+              </Typography>
+            </Box>
+          </StyledCard>
+        ))}
+      </Box>
+      <Box position="relative">
+        <BackgroundText>
+          NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF
+          WELLNESS
+        </BackgroundText>
+      </Box>
+    </Box>
+  );
 };
 
 export default ServicesCard;
