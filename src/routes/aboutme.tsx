@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container, Typography, Box } from "@mui/material";
 import Footer from "../components/footer";
 import IMG_5296 from "../assets/IMG_5296.jpg";
