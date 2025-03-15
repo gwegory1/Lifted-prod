@@ -1,7 +1,11 @@
-import { Box, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography, useMediaQuery } from "@mui/material";
 import ctaCoverImage from "../assets/cta-cover.jpg";
+import theme from "../theme/theme";
 
 const CtaCover = () => {
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+
   return (
     <Stack>
       <Box
@@ -28,26 +32,25 @@ const CtaCover = () => {
               </Typography>
               </Box>
           <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-            <button
-              style={{
+            <Button
+              variant="contained"
+              sx={{
+              backgroundColor: "#ffffff",
+              color: "#FFC056",
+              padding: "10px 22px",
+              fontSize: "1.1rem",
+              fontWeight: "bold",
+              borderRadius: "4px",
+              boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+              transition: "all 0.3s ease",
+              "&:hover": {
                 backgroundColor: "#ffffff",
-                color: "#FFC056",
-                padding: "12px 24px",
-                fontSize: "1.2rem",
-                fontWeight: "bold",
-                border: "none",
-                borderRadius: "4px",
-                cursor: "pointer",
-                boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
-                transition: "all 0.3s ease",
+                transform: "scale(1.05)",
+              },
               }}
-              onMouseOver={(e) =>
-                (e.currentTarget.style.transform = "scale(1.05)")
-              }
-              onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
             >
               IDŐPONTFOGLALÁS
-            </button>
+            </Button>
           </Box>
         </Box>
       </Box>
@@ -66,8 +69,8 @@ const CtaCover = () => {
             color: "#333",
             textAlign: "center",
             fontStyle: "italic",
-            fontWeight: 'ExtraLight',
-            fontSize: "2.8rem",
+            fontWeight: '100',
+            fontSize: { xs: "1.8rem", sm: "2.8rem" },
             fontFamily: "'Montserrat', sans-serif"
           }}
         >

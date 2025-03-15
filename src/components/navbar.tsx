@@ -2,6 +2,7 @@ import { Stack, Box, IconButton, Drawer, List, ListItem, ListItemText, useMediaQ
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import LOGO from "../assets/LOGO.svg";
+import { Menu as MenuIcon } from '@mui/icons-material';
 
 const Navbar: React.FC = () => {
     const [hoveredItem, setHoveredItem] = useState<number | null>(null);
@@ -24,7 +25,7 @@ const Navbar: React.FC = () => {
             left: 0,
             right: 0,
             fontFamily: 'Montserrat, sans-serif',
-            fontSize: "1.2rem",
+            fontSize: "1.5rem",
             width: "100%",
             position: "sticky" as "sticky",
             zIndex: 1000,
@@ -40,20 +41,21 @@ const Navbar: React.FC = () => {
         },
         navItem: (isHovered: boolean) => ({
             padding: "0.5rem",
-            background: isHovered ? "#333" : "transparent",
             borderRadius: "0.25rem",
-            transition: "background 0.3s ease",
+            transition: "all 0.2s ease",
             fontFamily: 'Montserrat, sans-serif',
+            transform: isHovered ? "translateY(-2px)" : "translateY(0)",
         }),
         navLink: (isHovered: boolean) => ({
             textDecoration: "none",
-            color: isHovered ? "#fff" : "#333",
+            color: "#333",
             fontWeight: 500,
             transition: "color 0.3s ease",
             fontFamily: 'Montserrat, sans-serif',
+            textShadow: isHovered ? "0 0 5px rgba(0, 0, 0, 0.1)" : "none",
         }),
         drawer: {
-            background: "linear-gradient(to right, #F8E5DE, #ffffff, #F8E5DE)",
+            backgroundColor: "#fff",
             fontFamily: 'Montserrat, sans-serif',
             fontSize: "1.2rem",
             width: 250,
@@ -61,7 +63,7 @@ const Navbar: React.FC = () => {
         },
         drawerItem: {
             padding: "0.5rem 1rem", // Increased padding for touch targets
-            borderRadius: "0.25rem",
+            
             transition: "background 0.3s ease, color 0.3s ease",
             "&:hover": {
                 background: "#333",
@@ -136,9 +138,7 @@ const Navbar: React.FC = () => {
                         onClick={toggleDrawer(true)}
                         sx={{ p: 1, '&:hover': { background: 'rgba(0, 0, 0, 0.1)' } }}
                     >
-                        <Box sx={{ width: 24, height: 24 }}> {/* Placeholder for menu icon styling */}
-                            {/* Replace with actual MenuIcon or custom SVG */}
-                        </Box>
+                        <MenuIcon />
                     </IconButton>
                     
                     <Box

@@ -63,7 +63,7 @@ const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
         <Typography
           variant="h2"
           sx={{
-            fontSize: { xs: '2rem', md: '3.5rem' },
+            fontSize: { xs: '2.5rem', md: '3.5rem' },
             fontWeight: 'bold',
             color: '#333',
             fontFamily: 'Chloe, sans-serif',
@@ -74,7 +74,7 @@ const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
         </Typography>
         <Typography
           sx={{
-            fontSize: { xs: '1rem', md: '1.3rem' },
+            fontSize: { xs: '1.2rem', md: '1.3rem' },
             lineHeight: 1.6,
             color: 'primary',
             px: { xs: 0, md: 5 }
@@ -86,26 +86,24 @@ const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
         </Typography>
         <Box sx={{ display: 'flex', justifyContent: 'center', padding: 2 }}>   
         <Button
-          sx={{
-            py: 0.8,
-            px: 2,
-            bgcolor: 'white',
-            color: 'black',
-            fontSize: '1.1rem',
-            fontWeight: 'bold',
-            alignSelf: 'center',
-            border: '2px solid black',
-            borderRadius: '15px',
-            fontFamily: 'Montserrat, sans-serif',
-            transition: 'transform 0.3s ease-in-out',
-            '&:hover': {
-              transform: 'scale(1.1)',
-              bgcolor: 'white'
-            }
-          }}
-        >
-          Tarts Velem!
-        </Button>
+              variant="contained"
+              sx={{
+              backgroundColor: "#ffffff",
+              color: "#FFC056",
+              padding: "10px 22px",
+              fontSize: "1.1rem",
+              fontWeight: "bold",
+              borderRadius: "4px",
+              boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+              transition: "all 0.3s ease",
+              "&:hover": {
+                backgroundColor: "#ffffff",
+                transform: "scale(1.05)",
+              },
+              }}
+            >
+              IDŐPONTFOGLALÁS
+            </Button>
         </Box>
       </Stack>
     </Stack>
