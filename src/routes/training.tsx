@@ -1,15 +1,15 @@
 import Navbar from "../components/navbar";
-import React, { useState } from "react";
+import React from "react";
 import { Typography, Box, Stack, useMediaQuery, useTheme } from "@mui/material";
 import Image1 from "../assets/neked.jpg";
 import Image2 from "../assets/row.jpg";
 import Image3 from "../assets/ROL04708.jpg";
 import Footer from "../components/footer";
+import TrainingSection from "../components/trainingSection";
 
 const Training: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  const [activeTab, setActiveTab] = useState(0);
 
   return (
     <Stack
@@ -24,9 +24,11 @@ const Training: React.FC = () => {
       <Navbar />
       <Stack
         width="100%"
-        paddingTop={isMobile ? 2 : 10} // Reduced paddingTop for mobile
+        paddingTop={isMobile ? 0 : 10} // Reduced paddingTop for mobile
         gap={isMobile ? 1 : 0}
         alignItems="center"
+        paddingLeft={isMobile ? 0 : 4} // Reduced padding for mobile
+        paddingRight={isMobile ? 0 : 4} // Reduced padding for mobile
       >
         {/* First Section */}
         <Stack
@@ -35,8 +37,8 @@ const Training: React.FC = () => {
             width: "100%",
             justifyContent: "center",
             alignItems: "center",
-            padding: isMobile ? theme.spacing(1) : 0, // Reduced padding for mobile
-            gap: isMobile ? 1 : 5,
+            padding: isMobile ? 0 : 0, // Reduced padding for mobile
+            gap: isMobile ? 1 : 0,
           }}
         >
           <Box
@@ -46,6 +48,7 @@ const Training: React.FC = () => {
               height: "auto",
             }}
           >
+            {!isMobile && (
             <Box
               sx={{
                 position: "absolute",
@@ -57,22 +60,22 @@ const Training: React.FC = () => {
                 zIndex: 0,
               }}
             />
+            )}
             <Box sx={{ position: "relative", zIndex: 1 }}>
               <img
                 src={Image1}
                 alt="Training Focus"
                 style={{
                   width: "100%",
-                  height: isMobile ? "200px" : "auto", // Fixed height for mobile
+                  height: isMobile ? "100%" : "auto", // Fixed height for mobile
                   objectFit: "cover",
-                  borderRadius: isMobile ? theme.spacing(1) : 0, // Added border radius for mobile
                 }}
                 loading="lazy"
               />
             </Box>
           </Box>
           <Stack
-            gap={isMobile ? 0.5 : 2}
+            gap={isMobile ? 0 : 2}
             sx={{
               width: isMobile ? "100%" : "600px",
               zIndex: 2,
@@ -85,14 +88,15 @@ const Training: React.FC = () => {
               sx={{
                 justifyContent: "start",
                 borderColor: "#AAB4A6",
-                borderStyle: "solid",
+                borderStyle: isMobile ? "none" : "solid",
+
                 padding: isMobile ? theme.spacing(1) : theme.spacing(2),
                 width: "fit-content",
-                alignSelf: "start", // Center on mobile
+                alignSelf: isMobile ? "center" : "start", // Center on mobile
               }}
             >
               <Typography
-                variant={isMobile ? "h5" : "h2"} // Smaller heading on mobile
+                variant={isMobile ? "h4" : "h2"} // Smaller heading on mobile
                 color="#FFC056"
                 fontWeight="bold"
                 sx={{
@@ -105,7 +109,7 @@ const Training: React.FC = () => {
               </Typography>
               <Stack direction="row" gap={isMobile ? 0.5 : 2}>
                 <Typography
-                  variant={isMobile ? "h5" : "h2"}
+                  variant={isMobile ? "h4" : "h2"}
                   color="#FFC056"
                   fontWeight="bold"
                   noWrap
@@ -118,7 +122,7 @@ const Training: React.FC = () => {
                   Rajtad
                 </Typography>
                 <Typography
-                  variant={isMobile ? "h5" : "h2"}
+                  variant={isMobile ? "h4" : "h2"}
                   noWrap
                   sx={{
                     textShadow: "2px 2px 4px rgba(0, 0, 0, 0.3)",
@@ -133,15 +137,14 @@ const Training: React.FC = () => {
             <Typography
               variant={isMobile ? "body1" : "h5"}
               sx={{
-                width: "80%",
-                padding: isMobile ? theme.spacing(4) : theme.spacing(0, 5, 0, 5),
+                maxWidth: "100%",
+                padding: isMobile ? theme.spacing(2) : theme.spacing(0, 5, 0, 5),
                 fontStyle: "italic",
-                fontSize: isMobile ? "0.9rem" : "1.4rem", // Smaller text on mobile
-                textAlign: isMobile ? "center" : "left", // Centered on mobile
+                fontSize: isMobile ? "1.2rem" : "1.3rem",
+                textAlign: isMobile ? "justify" : "left",
                 fontFamily: "Montserrat, sans-serif",
                 color: "#333",
                 lineHeight: 1.6,
-                
               }}
             >
               Mivel minden ember más, az edzéseim is azok. Az egyéni igényekhez
@@ -155,9 +158,10 @@ const Training: React.FC = () => {
         </Stack>
 
         {/* Second Section */}
+        
         <Stack
-          direction={isMobile ? "column-reverse" : "row"}
-          marginTop={isMobile ? 2 : 10}
+          direction={isMobile ? "row" : "row"}
+          marginTop={isMobile ? 0 : 5}
           sx={{
             width: "100%",
             justifyContent: "center",
@@ -173,7 +177,7 @@ const Training: React.FC = () => {
               top: 0,
               left: 0,
               width: "100%",
-              height: isMobile ? "40%" : "70%", // Reduced height for mobile
+              height: isMobile ? "30%" : "70%", // Reduced height for mobile
               backgroundColor: "#AAB4A6",
               zIndex: 0,
             }}
@@ -196,7 +200,7 @@ const Training: React.FC = () => {
               }}
             >
               <Typography
-                variant={isMobile ? "h5" : "h2"}
+                variant={isMobile ? "h4" : "h2"}
                 sx={{
                   color: "#475569",
                   textShadow: "2px 2px 4px rgba(0, 0, 0, 0.2)",
@@ -207,7 +211,7 @@ const Training: React.FC = () => {
               </Typography>
               <Stack>
                 <Typography
-                  variant={isMobile ? "h5" : "h2"}
+                  variant={isMobile ? "h4" : "h2"}
                   noWrap
                   sx={{
                     textDecoration: "underline",
@@ -219,7 +223,7 @@ const Training: React.FC = () => {
                   Sikerek,
                 </Typography>
                 <Typography
-                  variant={isMobile ? "h5" : "h2"}
+                  variant={isMobile ? "h4" : "h2"}
                   noWrap
                   sx={{
                     fontStyle: "italic",
@@ -237,7 +241,7 @@ const Training: React.FC = () => {
                 maxWidth: "100%",
                 padding: isMobile ? theme.spacing(2) : theme.spacing(0, 5, 0, 5),
                 fontStyle: "italic",
-                fontSize: isMobile ? "0.9rem" : "1.4rem",
+                fontSize: isMobile ? "1.2rem" : "1.4rem",
                 textAlign: isMobile ? "center" : "left",
                 fontFamily: "Montserrat, sans-serif",
                 color: "#333",
@@ -300,7 +304,6 @@ const Training: React.FC = () => {
                 width: "100%",
                 height: isMobile ? "200px" : "auto",
                 objectFit: "cover",
-                borderRadius: isMobile ? theme.spacing(1) : 0,
               }}
               loading="lazy"
             />
@@ -320,7 +323,7 @@ const Training: React.FC = () => {
               }}
             >
               <Typography
-                variant={isMobile ? "h5" : "h2"}
+                variant={isMobile ? "h4" : "h2"}
                 color="#475569"
                 fontWeight="bold"
                 sx={{
@@ -333,7 +336,7 @@ const Training: React.FC = () => {
               </Typography>
               <Stack direction="row" gap={isMobile ? 0.5 : 2}>
                 <Typography
-                  variant={isMobile ? "h5" : "h2"}
+                  variant={isMobile ? "h4" : "h2"}
                   color="#475569"
                   fontWeight="bold"
                   noWrap
@@ -348,13 +351,13 @@ const Training: React.FC = () => {
               </Stack>
             </Stack>
             <Typography
-              variant={isMobile ? "body1" : "h5"}
+              variant={isMobile ? "body1" : "h4"}
               sx={{
                 maxWidth: "100%",
                 padding: isMobile ? theme.spacing(2) : theme.spacing(0, 5, 0, 5),
                 fontStyle: "italic",
-                fontSize: isMobile ? "0.9rem" : "1.3rem",
-                textAlign: isMobile ? "center" : "left",
+                fontSize: isMobile ? "1.2rem" : "1.3rem",
+                textAlign: isMobile ? "justify" : "left",
                 fontFamily: "Montserrat, sans-serif",
                 color: "#333",
                 lineHeight: 1.6,
@@ -369,112 +372,11 @@ const Training: React.FC = () => {
         </Stack>
 
         {/* Fourth Section */}
-        <Stack
-          direction={isMobile ? "column-reverse" : "row"}
-          sx={{
-            width: "100%",
-            backgroundColor: "black",
-            marginTop: isMobile ? 2 : 6,
-            padding: isMobile ? theme.spacing(2) : theme.spacing(4),
-            maxWidth: "1200px",
-            justifyContent: "space-between",
-            alignItems: isMobile ? "center" : "flex-start",
-          }}
-        >
-          <Stack gap={isMobile ? 1 : 3}>
-            <Typography
-              variant={isMobile ? "h5" : "h2"} // Smaller heading on mobile
-              color="white"
-              noWrap
-              fontWeight="bold"
-              fontFamily="Montserrat"
-              sx={{ textAlign: "center" }} // Always centered on mobile
-            >
-              EDZÉS LEHETŐSÉGEK
-            </Typography>
-            <Stack
-              direction={isMobile ? "column" : "row"}
-              gap={isMobile ? 1 : 5}
-              sx={{ width: isMobile ? "100%" : "auto" }}
-            >
-              <Stack width={isMobile ? "100%" : 300} gap={1.5}>
-                {["Egy alkalmas", "Bérlet", "Páros edzés", "Edzésterv"].map(
-                  (option, index) => (
-                    <Typography
-                      key={index}
-                      color={activeTab === index ? "#FFC056" : "white"}
-                      onClick={() => setActiveTab(index)}
-                      sx={{
-                        cursor: "pointer",
-                        textDecoration:
-                          activeTab === index ? "underline" : "none",
-                        "&:hover": {
-                          color: "#FFC056",
-                        },
-                        fontSize: isMobile ? "1.1rem" : "1.2rem", // Slightly larger on mobile
-                        textAlign: "center",
-                        fontFamily: "Montserrat, sans-serif",
-                      }}
-                    >
-                      <a
-                        href="#"
-                        style={{ color: "inherit", textDecoration: "none" }}
-                      >
-                        {option}
-                      </a>
-                    </Typography>
-                  )
-                )}
-              </Stack>
-              <Stack width={isMobile ? "100%" : 500}>
-                <Typography
-                  color="white"
-                  sx={{
-                    fontSize: isMobile ? "0.9rem" : "1rem",
-                    textAlign: "center",
-                    fontFamily: "Montserrat, sans-serif",
-                    lineHeight: 1.6,
-                    mt: isMobile ? 1 : 0, // Added margin for mobile
-                  }}
-                >
-                  {activeTab === 0 &&
-                    "60 perces személyi edzés, alkalmanként vásárolt jegy"}
-                  {activeTab === 1 &&
-                    "8 személyi edzést tartalmazó bérlet, mely 2 hónapon belül bármikor felhasználható"}
-                  {activeTab === 2 &&
-                    "2 főre szóló edzés, ami ideális ha az illető baráttal/barátnővel szeretne edzeni"}
-                  {activeTab === 3 &&
-                    "Edzésterv: 1 hónapos személyre szabott edzésterv, amely a 75 perces konzultáció + felmérés alapján készül és az illető egyedül végzi"}
-                </Typography>
-              </Stack>
-            </Stack>
-          </Stack>
-          <Box
-            sx={{
-              position: "relative",
-              width: isMobile ? "100%" : "50%",
-              height: "auto",
-              zIndex: 1,
-              mb: isMobile ? 2 : 0, // Added margin-bottom for mobile
-            }}
-          >
-            <img
-              src={Image3}
-              alt="Training Options"
-              style={{
-                width: "100%",
-                height: isMobile ? "200px" : "auto",
-                objectFit: "cover",
-                borderRadius: isMobile ? theme.spacing(1) : 0,
-              }}
-              loading="lazy"
-            />
-          </Box>
-        </Stack>
-      </Stack>
+        <TrainingSection isMobile={isMobile} theme={theme} Image3={Image3} />
 
-      <Footer />
     </Stack>
+      <Footer />
+  </Stack>
   );
 };
 

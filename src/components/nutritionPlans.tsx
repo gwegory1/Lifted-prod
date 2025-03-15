@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import { styled } from "@mui/system";
 import nutri1 from "../assets/servicesnutrition.jpg";
+import ContactFormDialog from "./contactDialog";
 
 const NutritionPlansContainer = styled(Box)(({ theme }) => ({
   backgroundColor: "#fff5f5",
@@ -18,6 +19,8 @@ const NutritionPlansContainer = styled(Box)(({ theme }) => ({
   transition: "all 0.3s ease-in-out",
   maxWidth: "1200px",
   margin: "0 auto",
+  borderRadius: theme.spacing(2),
+  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
 }));
 
 const OptionsColumn = styled(Box)`
@@ -37,12 +40,8 @@ const DetailsColumn = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2),
   backgroundColor: "#ffffff",
   borderRadius: theme.spacing(1),
-  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.05)",
+  boxShadow: "0 2px 15px rgba(0, 0, 0, 0.1)",
   transition: "all 0.3s ease-in-out",
-  border: "1px solid #e0e0e0",
-  "&:hover": {
-    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-  },
 }));
 
 const ImageColumn = styled(Box)(({ theme }) => ({
@@ -101,6 +100,11 @@ const OptionButton = styled(Button)(({ theme }) => ({
 const NutritionPlans = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [open, setOpen] = useState(false);
+
+  const openDialog = () => {
+    setOpen(true);
+  }
 
   // State to track the selected plan
   type PlanType = "Alap" | "Premium";
@@ -138,7 +142,7 @@ const NutritionPlans = () => {
         sx={{
           color: "#ff9800",
           textAlign: isMobile ? "center" : "left",
-          fontWeight: "bold",
+          fontWeight: "900", // Increased font weight for bolder text
           fontFamily: "Montserrat, sans-serif",
           fontSize: { xs: "1.8rem", sm: "2.5rem" },
           marginBottom: theme.spacing(3),
@@ -185,7 +189,7 @@ const NutritionPlans = () => {
               sx={{
                 fontWeight: "bold",
                 fontFamily: "Montserrat, sans-serif",
-                fontSize: { xs: "1.4rem", sm: "1.8rem" },
+                fontSize: { xs: "1.6rem", sm: "1.8rem" },
                 color: "#333",
               }}
               align="left"
@@ -198,7 +202,7 @@ const NutritionPlans = () => {
                 variant="body1"
                 paragraph
                 sx={{
-                  fontSize: { xs: "0.9rem", sm: "1rem" },
+                  fontSize: { xs: "1rem", sm: "1.2rem" },
                   margin: 0,
                   color: "#555",
                   fontFamily: "Montserrat, sans-serif",
@@ -210,7 +214,7 @@ const NutritionPlans = () => {
               </Typography>
             ))}
             <Box sx={{ textAlign: "center", mt: 2 }}>
-              <StyledButton variant="contained">IDŐPONT FOGLALÁS</StyledButton>
+              <StyledButton variant="contained" onClick={() => setOpen(true)}>IDŐPONT FOGLALÁS</StyledButton>
             </Box>
           </DetailsColumn>
         ) : (
@@ -225,7 +229,7 @@ const NutritionPlans = () => {
                     sx={{
                       fontWeight: "bold",
                       fontFamily: "Montserrat, sans-serif",
-                      fontSize: { xs: "1.4rem", sm: "1.8rem" },
+                      fontSize: { xs: "1.4rem", sm: "2rem" },
                       color: "#333",
                     }}
                     align="left"
@@ -238,7 +242,7 @@ const NutritionPlans = () => {
                       variant="body1"
                       paragraph
                       sx={{
-                        fontSize: { xs: "0.9rem", sm: "1rem" },
+                        fontSize: { xs: "0.9rem", sm: "1.2rem" },
                         margin: 0,
                         color: "#555",
                         fontFamily: "Montserrat, sans-serif",
@@ -278,10 +282,12 @@ const NutritionPlans = () => {
       </Box>
       {!isMobile && (
         <Box sx={{ textAlign: "center", mt: 4 }}>
-          <StyledButton variant="contained">IDŐPONT FOGLALÁS</StyledButton>
+          <StyledButton variant="contained" onClick={openDialog}>IDŐPONT FOGLALÁS</StyledButton>
         </Box>
       )}
+    <ContactFormDialog open={open} setOpen={setOpen} />
     </NutritionPlansContainer>
+    
   );
 };
 

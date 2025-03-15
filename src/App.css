@@ -39,6 +39,15 @@ html, body, #root {
   src: url('./assets/fonts/OoohBaby-Regular.ttf') format('truetype');
 }
 
+@font-face {
+  @font-face {
+    font-family: 'Montserrat';
+    src: url('./assets/fonts/Montserrat-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+  }
+}
+
 .font-montserrat {
   font-family: 'Montserrat', sans-serif;
 }

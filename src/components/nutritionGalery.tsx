@@ -10,9 +10,10 @@ const ImageCard = styled(Box)(({ theme }) => ({
   textAlign: "center",
   padding: theme.spacing(2),
   transition: "all 0.3s ease-in-out",
+  boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
   "&:hover": {
     transform: "translateY(-5px)",
-    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.2)",
   },
 }));
 
@@ -37,6 +38,7 @@ const TextWrapper = styled(Box)(({ theme }) => ({
 
 const NutritionGallery = () => {
   const theme = useTheme();
+
 
   const imageData = [
     {
@@ -63,6 +65,20 @@ const NutritionGallery = () => {
   ];
 
   return (
+    <Box sx={{ padding: theme.spacing(3) }}>
+    <Typography
+      variant="h4"
+      sx={{
+        textAlign: "left",
+        marginBottom: theme.spacing(4),
+        fontWeight: 600,
+        color: "#333",
+        fontFamily: "Montserrat, sans-serif",
+        padding: theme.spacing(3), // Increased padding
+      }}
+    >
+      Mire számíthatsz?
+    </Typography>
     <Box
       sx={{
         display: "flex",
@@ -95,8 +111,8 @@ const NutritionGallery = () => {
             <Typography
               variant="body2"
               sx={{
-                fontSize: item.fontSize,
-                fontWeight: 600, // Increased weight for better emphasis
+                fontSize: '1.2rem',
+                fontWeight: 500, // Increased weight for better emphasis
                 color: "#222", // Darker color for higher contrast
                 fontFamily: "Montserrat, sans-serif",
                 lineHeight: 1.6,
@@ -109,6 +125,7 @@ const NutritionGallery = () => {
         </ImageCard>
       ))}
     </Box>
+  </Box>
   );
 };
 

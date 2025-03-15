@@ -1,4 +1,3 @@
-
 import { Typography, Link, Box, Container, IconButton, Stack } from '@mui/material';
 import { Phone, Email, Facebook, Instagram, LinkedIn } from '@mui/icons-material';
 
@@ -8,7 +7,7 @@ const Footer = () => {
             <Container maxWidth="lg">
                 <Stack direction={{ xs: 'column', md: 'row' }} spacing={3} justifyContent="space-between" alignItems="center">
                     <Box>
-                        <Typography variant="h3" gutterBottom>
+                        <Typography variant="h5" gutterBottom>
                             Keress bizalommal!
                         </Typography>
                         <Box>
@@ -22,13 +21,13 @@ const Footer = () => {
                             </Link>
                         </Box>
                         <Box mt={2}>
-                            <IconButton color="inherit" aria-label="facebook" href="#">
+                            <IconButton color="inherit" aria-label="facebook" href="https://www.facebook.com">
                                 <Facebook />
                             </IconButton>
-                            <IconButton color="inherit" aria-label="instagram" href="#">
+                            <IconButton color="inherit" aria-label="instagram" href="https://www.instagram.com">
                                 <Instagram />
                             </IconButton>
-                            <IconButton color="inherit" aria-label="tiktok" href="#">
+                            <IconButton color="inherit" aria-label="linkedin" href="https://www.linkedin.com">
                                 <LinkedIn />
                             </IconButton>
                         </Box>

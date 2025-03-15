@@ -12,7 +12,7 @@ import AddIcon from "@mui/icons-material/Add";
 
 const MyMission: React.FC = () => {
   const onReadMore = () => {
-    console.log("Read more clicked!");
+    window.location.href = "/about";
   };
 
   return (
@@ -41,7 +41,7 @@ const MyMission: React.FC = () => {
             variant="h5"
             component="h2"
             gutterBottom
-            sx={{ fontSize: { xs: "1.25rem", sm: "3rem" } }}
+            sx={{ fontSize: { xs: "2rem", sm: "3rem" } }}
             fontWeight={"1000"}
           >
             RÓLAM
@@ -51,7 +51,7 @@ const MyMission: React.FC = () => {
               variant="body1"
               color="text.primary"
               sx={{
-                fontSize: { xs: "0.875rem", sm: "1.5rem" },
+                fontSize: { xs: "1.2rem", sm: "1.5rem" },
                 mb: 2,
               }}
             >
@@ -74,7 +74,8 @@ const MyMission: React.FC = () => {
                   width: { xs: "100%", sm: "auto" },
                   mt: { xs: 1, sm: 0 },
                   color: "black",
-                  fontSize: { xs: "0.875rem", sm: "1.5rem" },
+                  fontWeight: "800",
+                  fontSize: { xs: "1rem", sm: "1.8rem" },
                   }}
                   endIcon={<AddIcon />}
                 >

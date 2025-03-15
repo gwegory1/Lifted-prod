@@ -1,11 +1,16 @@
-import { Box, Container, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Container,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { styled } from "@mui/system";
 import Navbar from "../components/navbar";
 import NutritionPlans from "../components/nutritionPlans";
 import nutri2 from "../assets/nutri2.jpg";
 import Footer from "../components/footer";
 import NutritionGallery from "../components/nutritionGalery";
-
+import frame from "../assets/frame.svg";
 
 const HeroSection = styled(Box)(({ theme }) => ({
   backgroundColor: "#ffffff",
@@ -16,6 +21,7 @@ const HeroSection = styled(Box)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
   justifyContent: "center",
+  marginBottom: theme.spacing(4),
 }));
 
 const LandingPage = () => {
@@ -27,36 +33,22 @@ const LandingPage = () => {
         backgroundColor: "#ffffff",
         minHeight: "100vh",
         color: "#333333",
-        overflowX: "hidden",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
+        
       }}
     >
-        {/* Flower Image 
-    <Box
-        component="img"
-        src={flower}
-        alt="Flower"
-        sx={{
-            position: "absolute",
-            top: { xs: "10%", sm: "15%" },
-            left: { xs: "0%", sm: "0%" },
-            width: { xs: "200px", sm: "280px" },
-            height: "auto",
-            opacity: 0.5,
-            zIndex: 0,
-            transform: "rotate(90deg)",
-        }}
-    />
-    */}
-    <Navbar />
+      <Navbar />
       <HeroSection>
         <Container maxWidth="lg" sx={{ textAlign: "center" }}>
           <Typography
             align="center"
             gutterBottom
-            sx={{ fontFamily: 'OoohBaby', fontSize: { xs: "2rem", sm: "2.3rem" } }}
+            sx={{
+              fontFamily: "OoohBaby",
+              fontSize: { xs: "2rem", sm: "2.3rem" },
+            }}
           >
             „Nincs tiltott táplálék, csak kerülendő mennyiség”
           </Typography>
@@ -65,11 +57,11 @@ const LandingPage = () => {
               display: "flex",
               flexDirection: { xs: "column", sm: "row" },
               alignItems: "flex-start",
-              gap: 3,
+              gap: 4,
               mt: 2,
             }}
           >
-            <Box sx={{ flex: 2, minWidth: 0, p: 1 }}>
+            <Box sx={{ flex: 1 }}>
               <Typography
                 variant="h3"
                 align="left"
@@ -113,21 +105,47 @@ const LandingPage = () => {
             </Box>
             <Box
               sx={{
-                flex: 1,
-                minWidth: 0,
-                p: 1,
-                width: { xs: "40%", sm: "100%" },
+              flex: 1,
+              p: 1,
+              width: { xs: "40%", sm: "90%" },
+              maxWidth: { xs: "90%", sm: "400px" },
+              position: "relative",
+              overflow: "visible",
               }}
             >
               <img
-                src={nutri2}
-                alt="Nutrition"
-                style={{
-                  width: "100%",
-                  height: "auto",
-                  borderRadius: theme.spacing(1),
-                }}
+              src={nutri2}
+              alt="Nutrition"
+              style={{
+                width: "80%",
+                height: "auto",
+                borderRadius: theme.spacing(1),
+                position: "relative",
+                zIndex: 1,
+              }}
               />
+              <Box
+              sx={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                zIndex: 0,
+                overflow: 'visible',
+              }}
+              >
+              <img
+                src={frame}
+                alt="Training Focus"
+                style={{
+                width: "95%",
+                height: "100%",
+                objectFit: "cover",
+                }}
+                loading="lazy"
+              />
+              </Box>
             </Box>
           </Box>
           <NutritionPlans />
