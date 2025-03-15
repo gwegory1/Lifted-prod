@@ -19,6 +19,7 @@ const Training: React.FC = () => {
         width: "100%",
         minHeight: "100vh",
         overflowX: "hidden",
+        alignItems: "center",
       }}
     >
       <Navbar />
@@ -160,7 +161,7 @@ const Training: React.FC = () => {
         {/* Second Section */}
         
         <Stack
-          direction={isMobile ? "row" : "row"}
+          direction="row"
           marginTop={isMobile ? 0 : 5}
           sx={{
             width: "100%",
@@ -177,9 +178,10 @@ const Training: React.FC = () => {
               top: 0,
               left: 0,
               width: "100%",
-              height: isMobile ? "30%" : "70%", // Reduced height for mobile
+              height: isMobile ? "10%" : "70%", // Reduced height for mobile
               backgroundColor: "#AAB4A6",
               zIndex: 0,
+              padding: isMobile ? theme.spacing(1) : theme.spacing(2),
             }}
           />
           <Stack
@@ -192,8 +194,7 @@ const Training: React.FC = () => {
               gap={isMobile ? 0.5 : 2}
               sx={{
                 justifyContent: "start",
-                borderColor: "#AAB4A6",
-                borderStyle: "solid",
+
                 padding: isMobile ? theme.spacing(1) : theme.spacing(2),
                 width: "fit-content",
                 alignSelf: "start",
@@ -209,7 +210,7 @@ const Training: React.FC = () => {
               >
                 2.
               </Typography>
-              <Stack>
+              <Stack direction={isMobile ? "row" : "column"} gap={isMobile ? 0.5 : 2}>
                 <Typography
                   variant={isMobile ? "h4" : "h2"}
                   noWrap
@@ -238,16 +239,37 @@ const Training: React.FC = () => {
             <Typography
               variant={isMobile ? "body1" : "h5"}
               sx={{
-                maxWidth: "100%",
-                padding: isMobile ? theme.spacing(2) : theme.spacing(0, 5, 0, 5),
-                fontStyle: "italic",
-                fontSize: isMobile ? "1.2rem" : "1.4rem",
-                textAlign: isMobile ? "center" : "left",
-                fontFamily: "Montserrat, sans-serif",
-                color: "#333",
-                lineHeight: 1.6,
+              maxWidth: "100%",
+              padding: isMobile ? theme.spacing(2) : theme.spacing(0, 5, 0, 5),
+              fontStyle: "italic",
+              fontSize: isMobile ? "1.2rem" : "1.4rem",
+              textAlign: isMobile ? "justify" : "left",
+              fontFamily: "Montserrat, sans-serif",
+              color: "#333",
+              lineHeight: 1.6,
               }}
             >
+              {isMobile && (
+              <Box
+                sx={{
+                float: "right",
+                width: "50%",
+                marginLeft: 2,
+                marginBottom: 1,
+                }}
+              >
+                <img
+                src={Image2}
+                alt="Training Progress"
+                style={{
+                  width: "100%",
+                  height: "auto",
+                  objectFit: "cover",
+                }}
+                loading="lazy"
+                />
+              </Box>
+              )}
               A legfőbb célom nem a gyors eredmények elérése, hanem a hosszú
               távú, fenntartható fejlődés. Az edzések során mindig figyelek
               arra, hogy a legjobb megoldást találjuk meg a számodra, ami
@@ -256,26 +278,30 @@ const Training: React.FC = () => {
               beépítésén van. A fejlődés az apró, napi szintű döntésekről szól,
               amelyek hosszú távon komoly eredményeket hoznak.
             </Typography>
-          </Stack>
-          <Box
-            sx={{
+            </Stack>
+            
+            {/* Only show this standalone image in desktop mode */}
+            {!isMobile && (
+            <Box
+              sx={{
               position: "relative",
-              width: isMobile ? "100%" : "500px",
+              width: "500px",
               height: "auto",
               zIndex: 2,
-            }}
-          >
-            <img
+              }}
+            >
+              <img
               src={Image2}
               alt="Training Progress"
               style={{
                 width: "100%",
-                height: isMobile ? "200px" : "650px",
+                height: "650px",
                 objectFit: "contain",
               }}
               loading="lazy"
-            />
-          </Box>
+              />
+            </Box>
+            )}
         </Stack>
 
         {/* Third Section */}

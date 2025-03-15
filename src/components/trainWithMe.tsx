@@ -53,17 +53,18 @@ const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
         }}
       />
     </Box>
-
       <Stack
         spacing={1.5}
         sx={{
-          width: { xs: '90%', md: '50%' }
+          width: { xs: '90%', md: '50%' },
+          alignItems: 'center',
+          gap: 1,
         }}
       >
         <Typography
           variant="h2"
           sx={{
-            fontSize: { xs: '2.5rem', md: '3.5rem' },
+            fontSize: { xs: '3.5rem', md: '4.5rem' },
             fontWeight: 'bold',
             color: '#333',
             fontFamily: 'Chloe, sans-serif',
@@ -74,10 +75,13 @@ const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
         </Typography>
         <Typography
           sx={{
-            fontSize: { xs: '1.2rem', md: '1.3rem' },
+            fontSize: { xs: '1.2rem', md: '1.5rem' },
             lineHeight: 1.6,
             color: 'primary',
-            px: { xs: 0, md: 5 }
+            px: { xs: 0, md: 5 },
+            maxWidth: { xs: '100%', md: '80%' },
+            fontStyle: 'italic',
+            textAlign: 'center'
           }}
         >
           Építsük együtt a céljaidhoz vezető utat! Személyre szabott tervekkel

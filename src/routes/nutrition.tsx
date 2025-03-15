@@ -1,9 +1,4 @@
-import {
-  Box,
-  Container,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Container, Typography, useTheme } from "@mui/material";
 import { styled } from "@mui/system";
 import Navbar from "../components/navbar";
 import NutritionPlans from "../components/nutritionPlans";
@@ -36,39 +31,44 @@ const LandingPage = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
-        
       }}
     >
       <Navbar />
       <HeroSection>
-        <Container maxWidth="lg" sx={{ textAlign: "center" }}>
+        <Container
+          maxWidth="lg"
+          sx={{ textAlign: "center", px: { xs: 2, sm: 3 } }}
+        >
           <Typography
             align="center"
             gutterBottom
             sx={{
               fontFamily: "OoohBaby",
-              fontSize: { xs: "2rem", sm: "2.3rem" },
+              fontSize: { xs: "1.8rem", sm: "2.3rem" },
+              mb: { xs: 2, sm: 3 },
             }}
           >
-            „Nincs tiltott táplálék, csak kerülendő mennyiség”
+            „Nincs tiltott táplálék, csak kerülendő mennyiség"
           </Typography>
           <Box
             sx={{
               display: "flex",
-              flexDirection: { xs: "column", sm: "row" },
-              alignItems: "flex-start",
-              gap: 4,
+              flexDirection: { xs: "column", md: "row" },
+              alignItems: { xs: "center", md: "flex-start" },
+              gap: { xs: 3, sm: 4 },
               mt: 2,
+              py: { xs: 3, sm: 5 },
             }}
           >
-            <Box sx={{ flex: 1 }}>
+            <Box sx={{ flex: 1, width: "100%" }}>
               <Typography
                 variant="h3"
-                align="left"
+                align="center"
                 gutterBottom
                 sx={{
                   fontWeight: "bold",
-                  fontSize: { xs: "2rem", sm: "3rem" },
+                  fontSize: { xs: "1.8rem", sm: "2.5rem", md: "3rem" },
+                  textAlign: { xs: "center", md: "left" },
                 }}
               >
                 A táplálkozás{" "}
@@ -76,17 +76,19 @@ const LandingPage = () => {
               </Typography>
               <Typography
                 variant="h6"
-                align="left"
+                align="center"
                 gutterBottom
-                sx={{ fontSize: { xs: "1.2rem", sm: "1.5rem" } }}
+                sx={{ fontSize: { xs: "1.1rem", sm: "1.5rem" }, textAlign: {xs: 'center', md: 'left'} }}
               >
                 Tudatos étkezés a fenntartható egészségért
               </Typography>
               <Typography
                 variant="body1"
-                sx={{ fontSize: { xs: "1.1rem", sm: "1.3rem" } }}
-                textAlign={"left"}
-                marginTop={2}
+                sx={{
+                  fontSize: { xs: "1rem", sm: "1.3rem" },
+                  textAlign: { xs: "justify", md: "left" },
+                  mt: 2,
+                }}
               >
                 Táplálkozási tanácsadásom nem gyors diétákra vagy tiltólistás
                 ételekre épít, hanem olyan alapelvekre, amelyek segítenek elérni
@@ -105,51 +107,52 @@ const LandingPage = () => {
             </Box>
             <Box
               sx={{
-              flex: 1,
-              p: 1,
-              width: { xs: "40%", sm: "90%" },
-              maxWidth: { xs: "90%", sm: "400px" },
-              position: "relative",
-              overflow: "visible",
+                flex: { xs: "none", md: 1 },
+                maxWidth: { xs: "280px", sm: "350px", md: "400px" },
+                width: { xs: "90%", md: "auto" },
+                position: "relative",
+                overflow: "visible",
+                my: { xs: 3, md: 0 },
+                alignSelf: { xs: "center", md: "flex-start" },
               }}
             >
-              <img
-              src={nutri2}
-              alt="Nutrition"
-              style={{
-                width: "80%",
-                height: "auto",
-                borderRadius: theme.spacing(1),
-                position: "relative",
-                zIndex: 1,
-              }}
-              />
               <Box
-              sx={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                zIndex: 0,
-                overflow: 'visible',
-              }}
-              >
-              <img
-                src={frame}
-                alt="Training Focus"
-                style={{
-                width: "95%",
-                height: "100%",
-                objectFit: "cover",
+                sx={{
+                  position: "relative",
+                  width: "100%", // Keep it simple and contained
+                  // Let height adapt to content
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
-                loading="lazy"
-              />
+              >
+                <img
+                  src={frame}
+                  alt="Frame"
+                  style={{
+                    width: "78%", // Match or slightly exceed the nutri2 width
+                    height: "auto", // Maintain aspect ratio
+                    position: "absolute",
+                    zIndex: 1,
+                    transform: "scaleY(0.9)", // Makes the frame vertically smaller
+                  }}
+                  loading="lazy"
+                />
+                <img
+                  src={nutri2}
+                  alt="Nutrition"
+                  style={{
+                    width: "65%", // Content image size
+                    height: "auto",
+                    borderRadius: theme.spacing(1),
+                    position: "relative",
+                    zIndex: 2,
+                  }}
+                />
               </Box>
             </Box>
           </Box>
           <NutritionPlans />
-          {/* Bottom Row with Three Images */}
           <NutritionGallery />
         </Container>
       </HeroSection>

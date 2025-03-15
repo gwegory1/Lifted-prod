@@ -94,36 +94,96 @@ const Navbar: React.FC = () => {
 
     const drawerContent = (
         <Box
-            sx={navStyles.drawer}
+            sx={{
+                ...navStyles.drawer,
+                boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+                background: 'linear-gradient(to bottom, #FFFFFF, #F9F9F9)',
+            }}
             role="presentation"
             onClick={toggleDrawer(false)}
             onKeyDown={toggleDrawer(false)}
         >
-            <List>
+            <Box sx={{ 
+                padding: '20px 16px',
+                borderBottom: '1px solid rgba(0, 0, 0, 0.06)',
+                display: 'flex',
+                justifyContent: 'center',
+                mb: 2
+            }}>
+                <Box
+                    sx={{
+                        height: "40px",
+                        width: "100px",
+                        backgroundImage: `url(${LOGO})`,
+                        backgroundSize: "contain",
+                        backgroundPosition: "center",
+                        backgroundRepeat: "no-repeat",
+                        animation: 'fadeIn 0.6s ease-in-out',
+                        '@keyframes fadeIn': {
+                            '0%': { opacity: 0, transform: 'translateY(-10px)' },
+                            '100%': { opacity: 1, transform: 'translateY(0)' },
+                        },
+                    }}
+                />
+            </Box>
+            
+            <List sx={{ p: 0 }}>
                 {[
-                    { text: 'Home', path: '/' },
-                    { text: 'About', path: '/about' },
-                    { text: 'Training', path: '/training' },
-                    { text: 'Nutrition', path: '/nutrition' },
-                ].map((item) => (
+                    { text: 'Home', path: '/', icon: '🏠' },
+                    { text: 'About', path: '/about', icon: '👋' },
+                    { text: 'Training', path: '/training', icon: '💪' },
+                    { text: 'Nutrition', path: '/nutrition', icon: '🥗' },
+                ].map((item, index) => (
                     <ListItem
                         key={item.text}
-                        sx={navStyles.drawerItem}
                         disablePadding
+                        sx={{ 
+                            borderBottom: index < 3 ? '1px solid rgba(0, 0, 0, 0.06)' : 'none',
+                            '&:hover': {
+                                backgroundColor: 'rgba(248, 229, 222, 0.3)',
+                                transform: 'translateX(5px)',
+                            },
+                            transition: 'all 0.3s ease',
+                            animation: `fadeSlideIn 0.${index + 4}s ease-out`,
+                            '@keyframes fadeSlideIn': {
+                                '0%': { opacity: 0, transform: 'translateX(-20px)' },
+                                '100%': { opacity: 1, transform: 'translateX(0)' },
+                            },
+                        }}
                     >
-                        <Link to={item.path} style={navStyles.drawerLink}>
+                        <Link to={item.path} style={{
+                            ...navStyles.drawerLink,
+                            padding: '12px 24px',
+                            width: '100%',
+                            display: 'flex',
+                            alignItems: 'center',
+                        }}>
+                            <Box sx={{ mr: 1.5, fontSize: '1.1rem' }}>{item.icon}</Box>
                             <ListItemText
                                 primary={item.text}
                                 primaryTypographyProps={{
-                                    fontSize: "1.2rem",
+                                    fontSize: "1rem",
                                     fontFamily: 'Montserrat, sans-serif',
-                                    color: "#333",
+                                    fontWeight: 500,
+                                    letterSpacing: '0.3px',
                                 }}
                             />
                         </Link>
                     </ListItem>
                 ))}
             </List>
+            
+            <Box sx={{ 
+                p: 2, 
+                mt: 4, 
+                textAlign: 'center',
+                borderTop: '1px solid rgba(0, 0, 0, 0.06)',
+                opacity: 0.7,
+                fontSize: '0.85rem',
+                fontFamily: 'Montserrat, sans-serif'
+            }}>
+                LIFTED © {new Date().getFullYear()}
+            </Box>
         </Box>
     );
 

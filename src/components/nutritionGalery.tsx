@@ -45,27 +45,27 @@ const NutritionGallery = () => {
       src: nutri6,
       alt: "Nutrition Plan Image",
       text: "Újragondolt, egészséges reggelik, amik gyorsak, finomak és táplálóak!",
-      maxHeight: { xs: 200, sm: 300 },
+      maxHeight: { xs: 250, sm: 300 },
       fontSize: { xs: "0.9rem", sm: "1rem" }, // Increased for better visibility
     },
     {
       src: nutri4,
       alt: "Nutrition Plan Image",
       text: "Teljes értékű, színes ételek, tele vitaminokkal és ásványi anyagokkal.",
-      height: { xs: 200, sm: 300 },
+      height: { xs: 250, sm: 300 },
       fontSize: { xs: "0.9rem", sm: "1rem" }, // Increased for better visibility
     },
     {
       src: nutri5,
       alt: "Nutrition Plan Image",
       text: "Fehérjében gazdag, egészséges édességek, mindennapi fogyasztásra.",
-      height: { xs: 200, sm: 300 },
+      height: { xs: 250, sm: 300 },
       fontSize: { xs: "1rem", sm: "1.2rem" }, // Slightly increased
     },
   ];
 
   return (
-    <Box sx={{ padding: theme.spacing(3) }}>
+    <Box sx={{ padding: { xs: theme.spacing(1), sm: theme.spacing(3) } }}>
     <Typography
       variant="h4"
       sx={{
@@ -88,7 +88,7 @@ const NutritionGallery = () => {
         alignItems: "stretch",
         maxWidth: "1200px",
         margin: "0 auto",
-        padding: theme.spacing(3), // Increased padding
+        padding: { xs: theme.spacing(0), sm: theme.spacing(3) } // Increased padding
       }}
     >
       {imageData.map((item, index) => (
