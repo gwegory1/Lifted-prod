@@ -1,78 +1,135 @@
-import { Box, Button, Stack, Typography } from "@mui/material";
+import { Box, Button, Stack, Typography} from "@mui/material";
 import ctaCoverImage from "../assets/cta-cover.jpg";
+import ctaCoverImage2 from "../assets/cta-cover-phone.jpg";
+import { motion } from "framer-motion";
+import { useMediaQuery } from '@mui/material';
+
+const MotionBox = motion(Box);
+const MotionTypography = motion(Typography);
+const MotionButton = motion(Button);
 
 const CtaCover = () => {
+  const isMobile = useMediaQuery('(max-width:600px)');
+  
   return (
     <Stack>
       <Box
         sx={{
-          height: "50vh", // Adjust the height as needed
-          width: "100%", // Adjust the width as needed
-          backgroundImage: `url(${ctaCoverImage})`,
-          backgroundSize: "cover", // You can use 'contain', 'auto', etc.
-          backgroundPosition: "left", // Try 'top', 'bottom', 'left', 'right'
+          height: { xs: "60vh", md: "70vh" },
+          width: "100%",
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.35)), url(${isMobile ? ctaCoverImage2 : ctaCoverImage})`,
+          backgroundSize: "cover",
+          backgroundPosition: { xs: "center", md: "left" },
           backgroundRepeat: "no-repeat",
           padding: 0,
           margin: 0,
+          overflow: "hidden",
         }}
       >
-        <Box sx={{ padding: "10vh 20px 0", alignItems: "center" }}>
-            <Typography variant="h2" sx={{ color: "white", textAlign: "center", fontFamily: "'Chloe', sans-serif", fontSize: "6rem", lineHeight: "1" }}>
-            ÁBRAHÁM <br/> VIVIEN
-            </Typography>
-            
-              <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
-              <Typography variant="h5" sx={{ color: "white", textAlign: "center", fontFamily: "'Montserrat', sans-serif", maxWidth: "600px", fontSize: { xs: '1.2rem', sm: '1.5rem' } }}>
-              Mindenki egyedi, így a megoldásaink is azok.
-              Én segítek megtalálni a Te utadat!
-              </Typography>
-              </Box>
-          <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
-            <Button
-              variant="contained"
-              sx={{
-              backgroundColor: "#ffffff",
-              color: "#FFC056",
-              padding: "10px 22px",
-              fontSize: "1.1rem",
-              fontWeight: "bold",
-              borderRadius: "4px",
-              boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                backgroundColor: "#ffffff",
-                transform: "scale(1.05)",
-              },
-              }}
-            >
-              IDŐPONTFOGLALÁS
-            </Button>
-          </Box>
-        </Box>
+        <MotionBox 
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          sx={{ 
+        padding: { xs: "8vh 16px 0", md: "12vh 20px 0" }, 
+        alignItems: "center" 
+          }}
+        >
+          <MotionTypography 
+        variant="h2"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.2, duration: 0.8 }}
+        sx={{ 
+          color: "white", 
+          textAlign: "center", 
+          fontFamily: "'Chloe', sans-serif", 
+          fontSize: { xs: "4rem", sm: "5rem", md: "6rem" }, 
+          lineHeight: "1",
+          textShadow: "2px 2px 4px rgba(0,0,0,0.3)"
+        }}
+          >
+        ÁBRAHÁM <br/> VIVIEN
+          </MotionTypography>
+        
+          <MotionBox 
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.5, duration: 0.8 }}
+          >
+        <Typography 
+          variant="h5" 
+          sx={{ 
+            color: "white", 
+            textAlign: "center", 
+            fontFamily: "'Montserrat', sans-serif", 
+            maxWidth: "600px", 
+            fontSize: { xs: '1rem', sm: '1.2rem', md: '1.5rem' },
+            mt: { xs: 2, md: 3 },
+            textShadow: "1px 1px 3px rgba(0,0,0,0.3)"
+          }}
+        >
+          Mindenki egyedi, így a megoldásaink is azok.
+          Én segítek megtalálni a Te utadat!
+        </Typography>
+          </MotionBox>
+          
+          <MotionBox 
+        sx={{ display: "flex", justifyContent: "center", mt: { xs: 3, md: 4 } }}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.7, duration: 0.5 }}
+          >
+        <MotionButton
+          variant="contained"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.98 }}
+          sx={{
+            backgroundColor: "#ffffff",
+            color: "#FFC056",
+            padding: { xs: "8px 18px", md: "10px 22px" },
+            fontSize: { xs: "0.9rem", md: "1.1rem" },
+            fontWeight: "bold",
+            borderRadius: "4px",
+            boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
+          }}
+        >
+          IDŐPONTFOGLALÁS
+        </MotionButton>
+          </MotionBox>
+        </MotionBox>
       </Box>
-      <Box
+      
+      <MotionBox
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 0.9, duration: 0.8 }}
         sx={{
-          height: "10vh",
+          height: { xs: "8vh", md: "10vh" },
           backgroundColor: "#FFF5DA",
           alignItems: "center",
           display: "flex",
           justifyContent: "center",
         }}
       >
-        <Typography
+        <MotionTypography
           variant="h6"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 1.1, duration: 0.6 }}
           sx={{
             color: "#333",
             textAlign: "center",
             fontStyle: "italic",
             fontWeight: '100',
-            fontSize: { xs: "1.8rem", sm: "2.8rem" },
+            fontSize: { xs: "1.4rem", sm: "1.8rem", md: "2.8rem" },
             fontFamily: "'Montserrat', sans-serif"
           }}
         >
-          "A Jólét Új Szintjei"
-        </Typography>
-      </Box>
+          "A Jóllét Új Szintjei"
+        </MotionTypography>
+      </MotionBox>
     </Stack>
   );
 };

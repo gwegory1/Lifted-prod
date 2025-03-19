@@ -1,5 +1,5 @@
 import { Typography, Link, Box, Container, IconButton, Stack, Divider, useMediaQuery, useTheme } from '@mui/material';
-import { Phone, Email, Facebook, Instagram, LinkedIn } from '@mui/icons-material';
+import { Email, Facebook, Instagram, LinkedIn } from '@mui/icons-material';
 
 const Footer = () => {
     const theme = useTheme();
@@ -31,20 +31,6 @@ const Footer = () => {
                             Keress bizalommal!
                         </Typography>
                         <Box>
-                            <Link 
-                                href="tel:+36301234567" 
-                                color="inherit" 
-                                display="flex" 
-                                alignItems="center" 
-                                mb={1}
-                                sx={{ 
-                                    transition: 'all 0.2s',
-                                    '&:hover': { color: theme.palette.primary.main, transform: 'translateX(3px)' } 
-                                }}
-                            >
-                                <Phone sx={{ mr: 1 }} />
-                                +36 30 123 4567
-                            </Link>
                             <Link 
                                 href="mailto:abrahamvivien@lifted.hu" 
                                 color="inherit" 

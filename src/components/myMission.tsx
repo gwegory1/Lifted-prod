@@ -7,7 +7,7 @@ import {
   Stack,
   Divider,
 } from "@mui/material";
-import myMissionImage from "../assets/aboutme.jpg";
+import myMissionImage from "../assets/compressed/ROL04866.jpg";
 import AddIcon from "@mui/icons-material/Add";
 
 const MyMission: React.FC = () => {
@@ -89,15 +89,19 @@ const MyMission: React.FC = () => {
       </Box>
       <Box
         sx={{
-          flex: { md: "0 0 41.67%" },
           order: { xs: 1, md: 2 },
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <CardMedia
           component="img"
           sx={{
-            height: { xs: 200, sm: 250, md: "100%" },
-            objectFit: "cover",
+        width: "auto",
+        height: "100%",
+        maxHeight: { xs: 500, sm: 300, md: 600 },
+        objectFit: "cover",
           }}
           image={myMissionImage}
           alt={"Kép"}

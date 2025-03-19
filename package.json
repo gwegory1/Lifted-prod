@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://gwegory1.github.io/Lifted-prod/",
+  "homepage": "https://lifted.hu",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
@@ -18,9 +18,14 @@
     "@mui/icons-material": "^6.4.6",
     "@mui/material": "^6.4.6",
     "@mui/styled-engine": "^6.4.6",
+    "@types/react-google-recaptcha": "^2.1.9",
+    "axios": "^1.8.3",
+    "express": "^4.21.2",
+    "framer-motion": "^12.5.0",
     "gh-pages": "^6.3.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-google-recaptcha": "^3.1.0",
     "react-router-dom": "^7.2.0",
     "styled-components": "^6.1.15"
   },
@@ -35,6 +40,8 @@
     "globals": "^15.15.0",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.24.1",
-    "vite": "^6.2.2"
-  }
+    "vite": "^6.2.2",
+    "@types/bun": "latest"
+  },
+  "module": "index.ts"
 }

@@ -1,257 +1,490 @@
 import { useState } from "react";
-import { Box, Stack, Typography } from "@mui/material";
+import {
+  Box,
+  Typography,
+  Button,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import { styled } from "@mui/system";
+import { motion } from "framer-motion";
+import trainingImage from "../assets/compressed/IMG_5260.jpg"; // Updated image path
+import ContactFormDialog from "./contactDialog";
 
-const trainingOptions = [
-  {
-    title: "EGY ALKALMAS",
-    description: "60 perces személyi edzés, alkalmanként vásárolt jegy",
-  },
-  {
-    title: "BÉRLET",
-    description: "8 személyi edzést tartalmazó bérlet, mely 2 hónapon belül bármikor felhasználható",
-  },
-  {
-    title: "PÁROS EDZÉS",
-    description: "2 főre szóló edzés, ami ideális ha az illető baráttal/barátnővel szeretne edzeni",
-  },
-  {
-    title: "EDZÉSTERV",
-    description: "1 hónapos személyre szabott edzésterv, amely a 75 perces konzultáció + felmérés alapján készül és az illető egyedül végzi",
-  },
-];
+// Motion components
+const MotionBox = motion(Box);
+const MotionTypography = motion(Typography);
+const MotionButton = motion(Button);
+const StyledImg = styled("img")(({ theme }) => ({
+  width: "100%",
+  height: "100%", // Fill the container height
+  borderRadius: theme.spacing(1),
+  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+  objectFit: "cover", // Ensure square-ish image fits without distortion
+}));
+const MotionStyledImg = motion(StyledImg);
 
-interface TrainingSectionProps {
-  isMobile: boolean;
-  theme: any;
-  Image3: string;
-}
+const TrainingPlansContainer = styled(MotionBox)(({ theme }) => ({
+  background: "linear-gradient(145deg, #1A1A1A 0%, #2D2D2D 100%)",
+  padding: theme.spacing(2, 1),
+  [theme.breakpoints.up("sm")]: {
+    padding: theme.spacing(4, 2),
+  },
+  transition: "all 0.3s ease-in-out",
+  width: "100%",
+  boxSizing: "border-box",
+  margin: "0 auto",
+  borderRadius: theme.spacing(2),
+  boxShadow: "0 8px 24px rgba(0, 0, 0, 0.3)",
+}));
 
-export default function TrainingSection({ isMobile, theme, Image3 }: TrainingSectionProps) {
-  const [activeTab, setActiveTab] = useState(0);
-  
+const OptionsColumn = styled(MotionBox)`
+  flex: 1;
+  min-width: 0;
+  padding: ${({ theme }) => theme.spacing(1)};
+  display: block;
+  ${({ theme }) => theme.breakpoints.up("sm")} {
+    display: none;
+  }
+`;
+
+const DetailsColumn = styled(MotionBox)(({ theme }) => ({
+  flex: "1 1 auto", // Allow it to grow and fill available space
+  minWidth: 0,
+  padding: theme.spacing(2),
+  backgroundColor: "rgba(30, 30, 30, 0.8)",
+  borderRadius: theme.spacing(1),
+  boxShadow: "0 4px 15px rgba(0, 0, 0, 0.3)",
+  transition: "all 0.3s ease-in-out",
+}));
+
+const ImageColumn = styled(MotionBox)(({ theme }) => ({
+  flex: "1 1 30%", // Reduced allocation to scale down image
+  minWidth: 0,
+  maxWidth: 450, // Reduced from 600px to scale down the image
+  padding: theme.spacing(1),
+  display: "flex",
+  alignItems: "center", // Vertically center the image
+  justifyContent: "center", // Horizontally center the image
+  height: "100%", // Match the height of the options
+  [theme.breakpoints.down("sm")]: {
+    marginTop: theme.spacing(2),
+    height: "auto", // Reset height on mobile
+  },
+}));
+
+const StyledButton = styled(MotionButton)(({ theme }) => ({
+  backgroundColor: "#FFC056",
+  color: "#000000",
+  padding: theme.spacing(1.5, 4),
+  borderRadius: 20,
+  fontWeight: "bold",
+  minWidth: 200,
+  width: "100%",
+  textTransform: "none",
+  fontFamily: "Montserrat, sans-serif",
+  fontSize: "1rem",
+  boxShadow: "0 2px 8px rgba(0, 0, 0, 0.2)",
+  transition: "all 0.3s ease-in-out",
+  "&:hover": {
+    backgroundColor: "#ffb74d",
+    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.3)",
+  },
+}));
+
+const OptionButton = styled(MotionButton)(({ theme }) => ({
+  textTransform: "none",
+  fontWeight: "bold",
+  color: "#ccc",
+  backgroundColor: "rgba(255, 192, 86, 0.1)",
+  width: "50%",
+  padding: theme.spacing(1.5),
+  borderRadius: 12,
+  fontFamily: "Montserrat, sans-serif",
+  fontSize: "0.9rem",
+  boxShadow: "0 1px 3px rgba(0, 0, 0, 0.2)",
+  transition: "all 0.3s ease-in-out",
+  "&.Mui-selected": {
+    backgroundColor: "#FFC056",
+    color: "#000",
+    boxShadow: "0 2px 6px rgba(0, 0, 0, 0.3)",
+  },
+  "&:hover": {
+    backgroundColor: "#FFC056",
+    color: "#000",
+    boxShadow: "0 2px 6px rgba(0, 0, 0, 0.3)",
+  },
+}));
+
+const TrainingSection = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [open, setOpen] = useState(false);
+
+  const openDialog = () => {
+    setOpen(true);
+  };
+
+  // State to track the selected plan
+  type PlanType = "Single" | "Package" | "Pair" | "Plan";
+  const [selectedPlan, setSelectedPlan] = useState<PlanType>("Single");
+
+  // Plan data with prices
+  const plans: Record<PlanType, { title: string; price: string; details: string[] }> = {
+    Single: {
+      title: "EGY ALKALMAS",
+      price: "10 000 Ft",
+      details: [
+        "60 perces személyi edzés",
+        "Alkalmanként vásárolt jegy",
+      ],
+    },
+    Package: {
+      title: "BÉRLET",
+      price: "70 000 Ft",
+      details: [
+        "8 személyi edzést tartalmaz",
+        "2 hónapon belül bármikor felhasználható",
+      ],
+    },
+    Pair: {
+      title: "PÁROS EDZÉS",
+      price: "15 000 Ft",
+      details: [
+        "2 főre szóló edzés",
+        "Ideális, ha baráttal/barátnővel szeretnél edzeni",
+      ],
+    },
+    Plan: {
+      title: "EDZÉSTERV",
+      price: "20 000 Ft",
+      details: [
+        "1 hónapos személyre szabott edzésterv",
+        "75 perces konzultáció + felmérés alapján készül",
+        "Egyedül végezhető",
+      ],
+    },
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { duration: 0.6 } },
+  };
+
+  const titleVariants = {
+    hidden: { opacity: 0, y: -20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.2 } },
+  };
+
+  const detailsVariants = {
+    hidden: { opacity: 0, x: 0 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: {
+        duration: 0.5,
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, x: -10 },
+    visible: { opacity: 1, x: 0 },
+  };
+
+  const buttonVariants = {
+    hover: { scale: 1.05, transition: { duration: 0.2 } },
+    tap: { scale: 0.98 },
+  };
+
+  const imageVariants = {
+    hover: {
+      scale: 1.1,
+      boxShadow: "0 8px 20px rgba(0, 0, 0, 0.4)",
+      transition: { duration: 0.3 },
+    },
+  };
+
   return (
-    <Stack
-      direction="column"
-      sx={{
-        width: "100%",
-        maxWidth: "1200px",
-        margin: "0 auto",
-        mt: isMobile ? 3 : 8,
-        backgroundColor: "#1A1A1A",
-        borderRadius: isMobile ? 0 : 2,
-        borderBottomRightRadius: 0,
-        borderBottomLeftRadius: 0,
-        overflow: "hidden",
-        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.3)",
-      }}
+    <TrainingPlansContainer
+      initial="hidden"
+      animate="visible"
+      variants={containerVariants}
     >
-      <Stack
-        direction={isMobile ? "column" : "row"}
+      <MotionTypography
+        variant="h4"
+        gutterBottom
+        variants={titleVariants}
         sx={{
-          width: "100%",
-          padding: isMobile ? theme.spacing(2) : theme.spacing(4),
-          justifyContent: "space-between",
-          alignItems: isMobile ? "center" : "stretch",
-          gap: isMobile ? 2 : 4,
+          color: "#FFC056",
+          textAlign: isMobile ? "center" : "left",
+          fontWeight: "900",
+          fontFamily: "Montserrat, sans-serif",
+          fontSize: { xs: "1.8rem", sm: "2.5rem" },
+          marginBottom: theme.spacing(0),
+          textShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
         }}
       >
-        {/* Mobile Header Image */}
+        EDZÉS LEHETŐSÉGEK
+      </MotionTypography>
+      <MotionTypography
+        variant="body1"
+        gutterBottom
+        variants={titleVariants}
+        sx={{
+          color: "#ddd",
+          textAlign: isMobile ? "center" : "left",
+          fontWeight: "500",
+          fontFamily: "Montserrat, sans-serif",
+          paddingTop: theme.spacing(1),
+          marginBottom: theme.spacing(3),
+          paddingLeft: theme.spacing(1),
+          fontStyle: 'italic',
+          textShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
+          fontSize: { xs: "1rem", sm: "1.2rem" },
+          maxWidth: { xs: "100%", sm: "600px" },
+        }}
+      >
+        Minden esetben az első alkalom egy 75 perces konzultáció & felmérés, ami a célok
+        megbeszélését és állapotfelmérést foglal magába.
+      </MotionTypography>
+
+      <MotionBox
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", sm: "row" },
+          gap: { xs: 2, sm: 4 },
+          alignItems: { sm: "stretch" }, // Stretch to match heights
+          justifyContent: "space-between",
+        }}
+      >
+        {/* Left Column - Options (Mobile Only) */}
         {isMobile && (
-          <Box
-            sx={{
-              width: "100%",
-              height: 180,
-              overflow: "hidden",
-              borderRadius: 1,
-              mb: 2,
-            }}
-          >
-            <img
-              src={Image3}
-              alt="Training Options"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-              }}
-              loading="lazy"
-            />
-          </Box>
+          <OptionsColumn initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+            <Box sx={{ 
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              gap: 2,
+            }}>
+              {Object.keys(plans).map((planKey) => {
+                const typedPlanKey = planKey as PlanType;
+                return (
+                  <OptionButton
+                    key={typedPlanKey}
+                    variant="contained"
+                    onClick={() => setSelectedPlan(typedPlanKey)}
+                    className={selectedPlan === typedPlanKey ? "Mui-selected" : ""}
+                    whileHover="hover"
+                    whileTap="tap"
+                    variants={buttonVariants}
+                    sx={{ width: "100%" }}
+                  >
+                    {plans[typedPlanKey].title}
+                  </OptionButton>
+                );
+              })}
+            </Box>
+          </OptionsColumn>
         )}
 
-        {/* Content Side */}
-        <Stack
-          gap={isMobile ? 1.5 : 3}
-          sx={{
-            width: isMobile ? "100%" : "50%",
-            color: "white",
-            textAlign: isMobile ? "left" : "center",
-          }}
-        >
-          <Typography
-            variant={isMobile ? "h5" : "h2"}
-            fontWeight={700}
-            fontFamily="Montserrat, sans-serif"
-            sx={{
-              color: "#FFC056",
-              letterSpacing: "0.05em",
-              mb: isMobile ? 1 : 2,
-              textAlign: "center",
-            }}
+        {/* Middle Column - Details (Desktop: Single Column) */}
+        {isMobile ? (
+          <DetailsColumn
+            variants={detailsVariants}
+            key={selectedPlan}
+            initial="hidden"
+            animate="visible"
           >
-            EDZÉS LEHETŐSÉGEK
-          </Typography>
-
-          {isMobile ? (
-            // Mobile Layout
-            <Stack gap={2}>
-              {/* Mobile Options Horizontal Scroll */}
-              <Box
-                sx={{
-                  display: "flex",
-                  overflowX: "auto",
-                  pb: 1,
-                  "&::-webkit-scrollbar": {
-                    height: 4,
-                  },
-                  "&::-webkit-scrollbar-thumb": {
-                    backgroundColor: "rgba(255,192,86,0.3)",
-                    borderRadius: 2,
-                  },
-                }}
-              >
-                {trainingOptions.map((option, index) => (
-                  <Box
-                    key={index}
-                    onClick={() => setActiveTab(index)}
-                    sx={{
-                      px: 2,
-                      py: 1,
-                      mr: 1,
-                      whiteSpace: "nowrap",
-                      color: activeTab === index ? "#FFC056" : "#D9D9D9",
-                      fontWeight: activeTab === index ? 600 : 400,
-                      borderBottom: activeTab === index ? "2px solid #FFC056" : "none",
-                      cursor: "pointer",
-                    }}
-                  >
-                    {option.title}
-                  </Box>
-                ))}
-              </Box>
-              {/* Description */}
-              <Typography
-                variant="body2"
-                sx={{
-                  color: "#E0E0E0",
-                  fontFamily: "Montserrat, sans-serif",
-                  fontSize: "1.2rem",
-                  lineHeight: 1.5,
-                  px: 1,
-                  py: 2,
-                }}
-              >
-                {trainingOptions[activeTab].description}
-              </Typography>
-            </Stack>
-          ) : (
-            // Desktop Layout (unchanged)
-            <Stack
-              direction="row"
-              gap={4}
-              sx={{ width: "100%", justifyContent: "center" }}
+            <MotionBox
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                mb: 1,
+              }}
             >
-              <Stack
-                gap={1.5}
-                sx={{ width: "auto", minWidth: 250 }}
+              <MotionTypography
+                variant="h5"
+                variants={itemVariants}
+                sx={{
+                  fontWeight: "bold",
+                  fontFamily: "Montserrat, sans-serif",
+                  fontSize: { xs: "1.6rem", sm: "1.8rem" },
+                  color: "#FFC056",
+                }}
               >
-                {trainingOptions.map((option, index) => (
-                  <Typography
-                    key={index}
-                    component="a"
-                    href="#"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      setActiveTab(index);
-                    }}
+                {plans[selectedPlan].title}
+              </MotionTypography>
+              <MotionTypography
+                variant="h6"
+                variants={itemVariants}
+                sx={{
+                  fontWeight: "bold",
+                  fontFamily: "Montserrat, sans-serif",
+                  fontSize: { xs: "1.2rem", sm: "1.4rem" },
+                  color: "#fff",
+                }}
+              >
+                {plans[selectedPlan].price}
+              </MotionTypography>
+            </MotionBox>
+
+            {plans[selectedPlan].details.map((detail, index) => (
+              <MotionTypography
+                key={index}
+                variant="body1"
+                paragraph
+                variants={itemVariants}
+                sx={{
+                  fontSize: { xs: "1rem", sm: "1.2rem" },
+                  margin: 0,
+                  color: "#eee",
+                  fontFamily: "Montserrat, sans-serif",
+                  lineHeight: 1.6,
+                }}
+                align="left"
+              >
+                - {detail}
+              </MotionTypography>
+            ))}
+
+            <MotionBox sx={{ textAlign: "center", mt: 2 }}>
+              <StyledButton
+                variant="contained"
+                onClick={() => setOpen(true)}
+                whileHover="hover"
+                whileTap="tap"
+                variants={buttonVariants}
+              >
+                KAPCSOLATFELVÉTEL
+              </StyledButton>
+            </MotionBox>
+          </DetailsColumn>
+        ) : (
+          <MotionBox
+            sx={{
+              flex: 2,
+              display: "flex",
+              flexDirection: "column", // Single column layout
+              gap: 2, // Tighter stacking
+              alignItems: "stretch", // Stretch items to fill width
+            }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ staggerChildren: 0.2 }}
+          >
+            {Object.keys(plans).map((planKey) => {
+              const typedPlanKey = planKey as PlanType;
+              return (
+                <DetailsColumn
+                  key={typedPlanKey}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5 }}
+                >
+                  <MotionBox
                     sx={{
-                      color: activeTab === index ? "#FFC056" : "#D9D9D9",
-                      fontFamily: "Montserrat, sans-serif",
-                      fontSize: "1.2rem",
-                      fontWeight: activeTab === index ? 600 : 400,
-                      textDecoration: "none",
-                      padding: theme.spacing(0.5, 1),
-                      textAlign: 'left',
-                      borderRadius: 1,
-                      transition: "color 0.3s ease, transform 0.2s ease",
-                      "&:hover": {
-                        color: "#FFC056",
-                        transform: "translateX(4px)",
-                      },
-                      cursor: "pointer",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      mb: 1,
                     }}
                   >
-                    {option.title}
-                  </Typography>
-                ))}
-              </Stack>
+                    <MotionTypography
+                      variant="h5"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.2 }}
+                      sx={{
+                        fontWeight: "bold",
+                        fontFamily: "Montserrat, sans-serif",
+                        fontSize: { xs: "1.4rem", sm: "1.8rem" },
+                        color: "#FFC056",
+                      }}
+                    >
+                      {plans[typedPlanKey].title}
+                    </MotionTypography>
+                    <MotionTypography
+                      variant="h6"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.2 }}
+                      sx={{
+                        fontWeight: "bold",
+                        fontFamily: "Montserrat, sans-serif",
+                        fontSize: { xs: "1.2rem", sm: "1.4rem" },
+                        color: "#fff",
+                      }}
+                    >
+                      {plans[typedPlanKey].price}
+                    </MotionTypography>
+                  </MotionBox>
 
-              <Box>
-                <Typography textAlign={'left'} fontSize={'1.2rem'} paddingBottom={2}>{trainingOptions[activeTab].title}</Typography>
-                <Typography
-                  variant="body2"
-                  sx={{
-                    color: "#E0E0E0",
-                    fontFamily: "Montserrat, sans-serif",
-                    fontSize: "1.2rem",
-                    lineHeight: 1.7,
-                    textAlign: "left",
-                    maxWidth: 450,
-                  }}
-                >
-                  {trainingOptions[activeTab].description}
-                </Typography>
-              </Box>
-            </Stack>
-          )}
-        </Stack>
-
-        {/* Desktop Image Side */}
-        {!isMobile && (
-          <Box
-            sx={{
-              position: "relative",
-              width: "50%",
-              maxWidth: 600,
-              height: '100%',
-              overflow: "hidden",
-              "&:before": {
-                content: '""',
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-                background: "linear-gradient(to bottom, rgba(0,0,0,0.2), transparent)",
-                zIndex: 1,
-              },
-            }}
-          >
-            <img
-              src={Image3}
-              alt="Training Options"
-              style={{
-                width: "100%",
-                height: "100%",
-                objectFit: "cover",
-                display: "block",
-                transition: "transform 0.5s ease",
-              }}
-              loading="lazy"
-            />
-          </Box>
+                  {plans[typedPlanKey].details.map((detail, index) => (
+                    <MotionTypography
+                      key={index}
+                      variant="body1"
+                      paragraph
+                      initial={{ opacity: 0, x: -10 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 + index * 0.1 }}
+                      sx={{
+                        fontSize: { xs: "0.9rem", sm: "1.1rem" },
+                        margin: 0,
+                        color: "#eee",
+                        fontFamily: "Montserrat, sans-serif",
+                        lineHeight: 1.6,
+                      }}
+                      align="left"
+                    >
+                      - {detail}
+                    </MotionTypography>
+                  ))}
+                </DetailsColumn>
+              );
+            })}
+          </MotionBox>
         )}
-      </Stack>
-    </Stack>
+
+        {/* Right Column - Image (Desktop Only) */}
+        {!isMobile && (
+          <ImageColumn>
+            <MotionStyledImg
+              src={trainingImage}
+              alt="Training Plan Image"
+              whileHover="hover"
+              variants={imageVariants}
+            />
+          </ImageColumn>
+        )}
+      </MotionBox>
+
+      {/* Button for Desktop */}
+      {!isMobile && (
+        <MotionBox
+          sx={{ textAlign: "center", mt: 4 }}
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+        >
+          <StyledButton
+            variant="contained"
+            onClick={openDialog}
+            whileHover="hover"
+            whileTap="tap"
+            variants={buttonVariants}
+          >
+            KAPCSOLATFELVÉTEL
+          </StyledButton>
+        </MotionBox>
+      )}
+
+      <ContactFormDialog open={open} setOpen={setOpen} />
+    </TrainingPlansContainer>
   );
-}
+};
+
+
+
+export default TrainingSection;

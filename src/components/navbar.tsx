@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
             left: 0,
             right: 0,
             fontFamily: 'Montserrat, sans-serif',
-            fontSize: "1.5rem",
+            fontSize: "1.3rem",
             width: "100%",
             position: "sticky" as "sticky",
             zIndex: 1000,
@@ -129,10 +129,10 @@ const Navbar: React.FC = () => {
             
             <List sx={{ p: 0 }}>
                 {[
-                    { text: 'Home', path: '/', icon: '🏠' },
-                    { text: 'About', path: '/about', icon: '👋' },
-                    { text: 'Training', path: '/training', icon: '💪' },
-                    { text: 'Nutrition', path: '/nutrition', icon: '🥗' },
+                    { text: 'Kezdőlap', path: '/' },
+                    { text: 'Rólam', path: '/about' },
+                    { text: 'Edzés', path: '/training' },
+                    { text: 'Táplálkozás', path: '/nutrition' },
                 ].map((item, index) => (
                     <ListItem
                         key={item.text}
@@ -158,7 +158,6 @@ const Navbar: React.FC = () => {
                             display: 'flex',
                             alignItems: 'center',
                         }}>
-                            <Box sx={{ mr: 1.5, fontSize: '1.1rem' }}>{item.icon}</Box>
                             <ListItemText
                                 primary={item.text}
                                 primaryTypographyProps={{
@@ -232,7 +231,7 @@ const Navbar: React.FC = () => {
                             onMouseLeave={() => setHoveredItem(null)}
                         >
                             <Link style={navStyles.navLink(hoveredItem === 0)} to="/">
-                                Home
+                                Kezdőlap
                             </Link>
                         </li>
                         <li
@@ -241,7 +240,7 @@ const Navbar: React.FC = () => {
                             onMouseLeave={() => setHoveredItem(null)}
                         >
                             <Link style={navStyles.navLink(hoveredItem === 1)} to="/about">
-                                About
+                                Rólam
                             </Link>
                         </li>
                     </Stack>
@@ -262,7 +261,7 @@ const Navbar: React.FC = () => {
                             onMouseLeave={() => setHoveredItem(null)}
                         >
                             <Link style={navStyles.navLink(hoveredItem === 2)} to="/training">
-                                Training
+                                Edzés
                             </Link>
                         </li>
                         <li
@@ -271,7 +270,7 @@ const Navbar: React.FC = () => {
                             onMouseLeave={() => setHoveredItem(null)}
                         >
                             <Link style={navStyles.navLink(hoveredItem === 3)} to="/nutrition">
-                                Nutrition
+                                Táplálkozás
                             </Link>
                         </li>
                     </Stack>

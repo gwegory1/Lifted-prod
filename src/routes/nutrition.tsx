@@ -2,10 +2,9 @@ import { Box, Container, Typography, useTheme } from "@mui/material";
 import { styled } from "@mui/system";
 import Navbar from "../components/navbar";
 import NutritionPlans from "../components/nutritionPlans";
-import nutri2 from "../assets/nutri2.jpg";
+import nutri2 from "../assets/compressed/ROL04266.jpg";
 import Footer from "../components/footer";
 import NutritionGallery from "../components/nutritionGalery";
-import frame from "../assets/frame.svg";
 
 const HeroSection = styled(Box)(({ theme }) => ({
   backgroundColor: "#ffffff",
@@ -107,48 +106,35 @@ const LandingPage = () => {
             </Box>
             <Box
               sx={{
-                flex: { xs: "none", md: 1 },
-                maxWidth: { xs: "280px", sm: "350px", md: "400px" },
-                width: { xs: "90%", md: "auto" },
-                position: "relative",
-                overflow: "visible",
-                my: { xs: 3, md: 0 },
-                alignSelf: { xs: "center", md: "flex-start" },
+              flex: { xs: "none", md: 1 },
+              maxWidth: { xs: "280px", sm: "370px", md: "500px" },
+              width: { xs: "90%", md: "auto" },
+              position: "relative",
+              overflow: "visible",
+              my: { xs: 3, md: 0 },
+              alignSelf: { xs: "center", md: "flex-start" },
               }}
             >
               <Box
-                sx={{
-                  position: "relative",
-                  width: "100%", // Keep it simple and contained
-                  // Let height adapt to content
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
+              sx={{
+                position: "relative",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
               >
-                <img
-                  src={frame}
-                  alt="Frame"
-                  style={{
-                    width: "78%", // Match or slightly exceed the nutri2 width
-                    height: "auto", // Maintain aspect ratio
-                    position: "absolute",
-                    zIndex: 1,
-                    transform: "scaleY(0.9)", // Makes the frame vertically smaller
-                  }}
-                  loading="lazy"
-                />
-                <img
-                  src={nutri2}
-                  alt="Nutrition"
-                  style={{
-                    width: "65%", // Content image size
-                    height: "auto",
-                    borderRadius: theme.spacing(1),
-                    position: "relative",
-                    zIndex: 2,
-                  }}
-                />
+              <img
+                src={nutri2}
+                alt="Nutrition"
+                style={{
+                width: "100%",
+                height: "auto",
+                borderRadius: theme.spacing(1),
+                position: "relative",
+                zIndex: 2,
+                }}
+              />
               </Box>
             </Box>
           </Box>
