@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
 import { Box, Typography, Card as MuiCard, styled } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const StyledCard = styled(MuiCard)<{ backgroundimage: string }>(
   ({ backgroundimage, theme }) => ({
@@ -61,11 +62,13 @@ interface ServiceCardProps {
   services: {
     title: string;
     backgroundImage: string;
+    link: string;
   }[];
 }
 
 const ServicesCard: React.FC<ServiceCardProps> = ({ services }) => {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -95,11 +98,10 @@ const ServicesCard: React.FC<ServiceCardProps> = ({ services }) => {
   return (
     <Box
       sx={{
-        maxHeight: "500px",
         padding: { xs: 2, sm: 4 },
         backgroundColor: "#fff5f5",
         boxShadow:
-          "0 0px 15px rgba(0, 0, 0, 0.1), inset 0 0px 25px rgba(255, 255, 255, 1)",
+          "0 5px 15px rgba(0, 0, 0, 0.1)",
       }}
     >
       <Box position="relative" overflow="hidden">
@@ -156,10 +158,10 @@ const ServicesCard: React.FC<ServiceCardProps> = ({ services }) => {
             sx={{
               animationDelay: `${index * 0.1}s`,
               animationPlayState: "paused",
-
             }}
+            onClick={() => navigate(service.link)}
           >
-            <Box position="absolute" bottom={20} left={20}>
+            <Box position="absolute" bottom={20} left={20} >
               <Typography
                 variant="h3"
                 color="white"

@@ -74,33 +74,33 @@ const AboutMe = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
-          <Typography
-            variant="h2"
-            component="h1"
-            sx={{
-              textAlign: "center",
-              fontWeight: "900",
-              color: "#4A2C2A",
-              fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4rem" },
-              mt: { xs: 4, md: 6 },
-              textShadow: "2px 2px 8px rgba(0, 0, 0, 0.1)",
-              fontFamily: "Montserrat, sans-serif",
-            }}
-          >
-            Rólam
-          </Typography>
-          <Typography
-            variant="subtitle1"
-            sx={{
-              textAlign: "center",
-              color: "#BF360C",
-              fontSize: { xs: "1rem", md: "1.5rem" },
-              mt: 1,
-              fontStyle: "italic",
-            }}
-          >
-            Egy út az egészség és egyensúly felé
-          </Typography>
+            <Typography
+              variant="h2"
+              component="h1"
+              sx={{
+                textAlign: "center",
+                fontWeight: "900",
+                color: "#4A2C2A",
+                fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4rem" },
+                mt: { xs: 4, md: 6 },
+                textShadow: "2px 2px 8px rgba(0, 0, 0, 0.1)",
+                fontFamily: "Montserrat, sans-serif",
+              }}
+            >
+              Rólam
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              sx={{
+                textAlign: "center",
+                color: "#BF360C",
+                fontSize: { xs: "1rem", md: "1.5rem" },
+                mt: 1,
+                fontStyle: "italic",
+              }}
+            >
+              Egy út az egészség és egyensúly felé
+            </Typography>
           </motion.div>
         </Box>
 
@@ -135,9 +135,10 @@ const AboutMe = () => {
                 sx={{
                   lineHeight: 1.8,
                   color: "#5D4037",
-                  fontSize: { xs: "1rem", md: "1.25rem" },
+                  fontSize: { xs: "1.2rem", md: "1.25rem" },
                   background: "rgba(255, 255, 255, 0.9)",
                   p: 3,
+                  textAlign: isMoblie ? "justify" : "left",
                   borderRadius: 2,
                   boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
                   position: "relative",
@@ -193,7 +194,7 @@ const AboutMe = () => {
               position: "relative",
               display: "flex",
               flexDirection: { xs: "column-reverse", md: "row" },
-              gap: {xs: 2, md: 4},
+              gap: { xs: 2, md: 4 },
               alignItems: "start",
               justifyContent: "space-between",
             }}
@@ -202,7 +203,7 @@ const AboutMe = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.5 }}
-              style={{ flex: 1, maxWidth: isMoblie ? '100%' : '30%' }}
+              style={{ flex: 1, maxWidth: isMoblie ? "100%" : "30%" }}
             >
               <Box
                 component="img"
@@ -229,8 +230,9 @@ const AboutMe = () => {
                 sx={{
                   lineHeight: 1.8,
                   color: "#5D4037",
-                  fontSize: { xs: "1rem", md: "1.25rem" },
+                  fontSize: { xs: "1.2rem", md: "1.25rem" },
                   background: "rgba(255, 255, 255, 0.9)",
+                  textAlign: isMoblie ? "justify" : "left",
                   p: 3,
                   borderRadius: 2,
                   boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
@@ -241,35 +243,36 @@ const AboutMe = () => {
                 sportösztöndíjjal az Egyesült Államokba mentem, ahol Média és
                 Stratégiai Kommunikáció szakon szereztem alap-, és
                 mesterdiplomát, miközben mélyítettem tudásomat az edzés, és a
-                teljesítmény területén. Közben a fitness instruktori képzést is
-                elvégeztem majd, megszereztem a személyi edzői és táplálkozási
-                tanácsadói képesítéseket is. A hátterem azonban nem csak a
-                képesítésekről szól - hanem a több mint egy évtizedes
+                teljesítmény területén. Közben a Fitness Akadémián elvégeztem a
+                fitness instruktori képzést, majd megszereztem a személyi edzői
+                és táplálkozási tanácsadói képesítéseket is. A hátterem azonban
+                nem csak a képesítésekről szól - hanem a több mint egy évtizedes
                 versenysportban szerzett tapasztalatomról, nehézségekről,
                 amelyek megtanítottak újraépíteni és megerősíteni a testemet és
                 az elmémet, valamint az elkötelezettségről, hogy másoknak
                 segítsek megtalálni az egyensúlyt a saját útjukon.
               </Typography>
               <Typography
-              variant="body1"
-              sx={{
-                lineHeight: 1.8,
-                color: "#5D4037",
-                fontSize: { xs: "1rem", md: "1.25rem" },
-                background: "rgba(255, 255, 255, 0.9)",
-                p: 3,
-                borderRadius: 2,
-                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
-              }}
-            >
-              1:1 személyre szabott edzés- és táplálkozási útmutatókat tervezek,
-              mert a valódi fejlődés egy olyan tervből ered, amely neked
-              készült, nem pedig a tömegek számára. Akár az általános
-              egészségeden szeretnél javítani, akár erősebbnek és
-              magabiztosabbnak érezni magad, én itt vagyok, hogy vezesselek,
-              eloszlassam a tévhiteket, és segítsek kialakítani azokat a
-              szokásokat, amelyek egy életen át elkísérnek.
-            </Typography>
+                variant="body1"
+                sx={{
+                  lineHeight: 1.8,
+                  color: "#5D4037",
+                  fontSize: { xs: "1.2rem", md: "1.25rem" },
+                  background: "rgba(255, 255, 255, 0.9)",
+                  textAlign: isMoblie ? "justify" : "left",
+                  p: 3,
+                  borderRadius: 2,
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
+                }}
+              >
+                1:1 személyre szabott edzés- és táplálkozási útmutatókat
+                tervezek, mert a valódi fejlődés egy olyan tervből ered, amely
+                neked készült, nem pedig a tömegek számára. Akár az általános
+                egészségeden szeretnél javítani, akár erősebbnek és
+                magabiztosabbnak érezni magad, én itt vagyok, hogy vezesselek,
+                eloszlassam a tévhiteket, és segítsek kialakítani azokat a
+                szokásokat, amelyek egy életen át elkísérnek.
+              </Typography>
             </motion.div>
             <Box
               sx={{
@@ -337,7 +340,7 @@ const AboutMe = () => {
               maxWidth: "100%",
             }}
           >
-            {images.slice(1).map((src, index) => (
+            {images.slice(4).map((src, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}

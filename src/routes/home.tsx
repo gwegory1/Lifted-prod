@@ -18,8 +18,8 @@ const Home: React.FC = () => {
       <TrainWithMe />
       <ServicesCard
         services={[
-          { title: "Személyi Edzés", backgroundImage: TrainImage },
-          { title: "Táplálkozási Tanácsadás", backgroundImage: NutriImage },
+          { title: "Személyi Edzés", backgroundImage: TrainImage, link: "/training" },
+          { title: "Táplálkozási Tanácsadás", backgroundImage: NutriImage, link: "/nutrition" },
         ]}
       />
       <MyMission />

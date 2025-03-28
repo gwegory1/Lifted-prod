@@ -1,4 +1,4 @@
-import { Box, Button, Stack, Typography} from "@mui/material";
+import { Box, Stack, Typography} from "@mui/material";
 import ctaCoverImage from "../assets/cta-cover.jpg";
 import ctaCoverImage2 from "../assets/cta-cover-phone.jpg";
 import { motion } from "framer-motion";
@@ -6,7 +6,6 @@ import { useMediaQuery } from '@mui/material';
 
 const MotionBox = motion(Box);
 const MotionTypography = motion(Typography);
-const MotionButton = motion(Button);
 
 const CtaCover = () => {
   const isMobile = useMediaQuery('(max-width:600px)');
@@ -73,30 +72,6 @@ const CtaCover = () => {
           Mindenki egyedi, így a megoldásaink is azok.
           Én segítek megtalálni a Te utadat!
         </Typography>
-          </MotionBox>
-          
-          <MotionBox 
-        sx={{ display: "flex", justifyContent: "center", mt: { xs: 3, md: 4 } }}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.7, duration: 0.5 }}
-          >
-        <MotionButton
-          variant="contained"
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.98 }}
-          sx={{
-            backgroundColor: "#ffffff",
-            color: "#FFC056",
-            padding: { xs: "8px 18px", md: "10px 22px" },
-            fontSize: { xs: "0.9rem", md: "1.1rem" },
-            fontWeight: "bold",
-            borderRadius: "4px",
-            boxShadow: "0 4px 8px rgba(0,0,0,0.2)",
-          }}
-        >
-          IDŐPONTFOGLALÁS
-        </MotionButton>
           </MotionBox>
         </MotionBox>
       </Box>

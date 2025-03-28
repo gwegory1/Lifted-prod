@@ -6,11 +6,13 @@ import Training from './routes/training'
 import Nutrition from './routes/nutrition' 
 import theme from './theme/theme'
 import { ThemeProvider } from '@mui/material'
+import ScrollToTop from './components/ScrollToTop'
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path='*' element={<Home />} />

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import {
   Box,
   Button,
@@ -10,6 +10,7 @@ import {
   DialogActions,
 } from '@mui/material';
 import { motion } from 'framer-motion';
+import emailjs from  '@emailjs/browser'
 
 interface ContactFormDialogProps {
   open: boolean;
@@ -35,10 +36,29 @@ const ContactFormDialog = ({ open, setOpen }: ContactFormDialogProps) => {
     setError(null);
   };
 
-  const handleChange = (e: { target: { name: any; value: any } }) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
+  const dialogVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
+    exit: { opacity: 0, y: 20, transition: { duration: 0.3, ease: 'easeIn' } },
+  };
+
+  const fieldVariants = {
+    hidden: { opacity: 0, y: 10 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
+  };
+
+  const buttonVariants = {
+    hover: { scale: 1.03, boxShadow: '0 8px 20px rgba(255, 193, 7, 0.3)' },
+    tap: { scale: 0.97 },
+  };
+
+  const formRef = useRef<HTMLFormElement>(null);
+  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -46,47 +66,27 @@ const ContactFormDialog = ({ open, setOpen }: ContactFormDialogProps) => {
     setError(null);
 
     try {
-      const response = await fetch('https://formsubmit.co/ajax/abrahamvivien@lifted.hu', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          phone: formData.phone,
-          message: formData.message,
-          _subject: 'Új Üzenet - Kapcsolatfelvétel',
-          _captcha: 'false', // Disable FormSubmit CAPTCHA (see note below)
-          _template: 'table',
-        }),
-      });
+      // Replace these with your actual EmailJS service, template and public key
+      const serviceId = 'service_ck1xfpd';
+      const templateId = 'template_zwfqnn4';
+      const publicKey = 'FgEUG9Bwf0goqiuAV';
 
-      const data = await response.json();
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || 'Hiba történt az üzenet küldésekor');
+      if (formRef.current) {
+        await emailjs.sendForm(serviceId, templateId, formRef.current, publicKey);
+        
+        setFormData({ name: '', email: '', phone: '', message: '' });
+        setSuccess(true);
+        setTimeout(() => {
+          setSuccess(false);
+          handleClose();
+        }, 2000);
       }
-
-      setFormData({ name: '', email: '', phone: '', message: '' });
-      setIsSending(false);
-      handleClose();
     } catch (err) {
       setError('Nem sikerült elküldeni az üzenetet. Próbálja újra később.');
-      setIsSending(false);
       console.error(err);
+    } finally {
+      setIsSending(false);
     }
-  };
-
-  const dialogVariants = {
-    hidden: { opacity: 0, scale: 0.95 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
-    exit: { opacity: 0, scale: 0.95, transition: { duration: 0.2 } },
-  };
-
-  const buttonVariants = {
-    hover: { scale: 1.05, boxShadow: '0 6px 12px rgba(0, 0, 0, 0.2)' },
-    tap: { scale: 0.98 },
   };
 
   return (
@@ -97,155 +97,187 @@ const ContactFormDialog = ({ open, setOpen }: ContactFormDialogProps) => {
       fullWidth
       PaperProps={{
         sx: {
-          background: 'linear-gradient(135deg, #1A1A1A 0%, #2D2D2D 100%)',
-          borderRadius: '16px',
-          boxShadow: '0 10px 30px rgba(0, 0, 0, 0.5)',
+          background: 'linear-gradient(145deg, #2A2A2A 0%, #1F1F1F 100%)',
+          borderRadius: '20px',
+          boxShadow: '0 12px 40px rgba(0, 0, 0, 0.6)',
+          border: '1px solid rgba(255, 193, 7, 0.1)',
           overflow: 'hidden',
         },
       }}
     >
       <MotionBox variants={dialogVariants} initial="hidden" animate="visible" exit="exit">
-        <DialogTitle>
+        <DialogTitle sx={{ bgcolor: 'rgba(255, 255, 255, 0.05)', py: 3 }}>
           <MotionTypography
             variant="h5"
             align="center"
             sx={{
               color: '#FFC107',
-              fontWeight: 'bold',
+              fontWeight: 700,
               fontFamily: 'Montserrat, sans-serif',
-              textTransform: 'uppercase',
-              letterSpacing: '1px',
-              textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
+              letterSpacing: '0.5px',
+              background: 'linear-gradient(90deg, #FFC107, #FFECB3)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
             }}
-            initial={{ y: -20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.5 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
           >
             Kapcsolatfelvétel
           </MotionTypography>
         </DialogTitle>
 
-        <DialogContent>
-          <MotionBox
-            id="contact-form" // Add ID to link with submit button
-            sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, mt: 1, px: 1 }}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ staggerChildren: 0.1 }}
+        <DialogContent sx={{ px: 4, py: 3 }}>
+          <Box
+            component="form"
+            id="contact-form"
+            ref={formRef}
+            onSubmit={handleSubmit}
+            sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}
           >
-            <form id="contact-form" onSubmit={handleSubmit}>
-            <TextField
-              label="Teljes Név"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              fullWidth
-              variant="outlined"
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  borderRadius: '8px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  color: '#fff',
-                  '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.3)' },
-                  '&:hover fieldset': { borderColor: '#FFC107' },
-                  '&.Mui-focused fieldset': { borderColor: '#FFC107' },
-                },
-                '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
-                '& .MuiInputLabel-root.Mui-focused': { color: '#FFC107' },
-              }}
-            />
-            <TextField
-              label="Email"
-              name="email"
-              type="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              fullWidth
-              variant="outlined"
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  borderRadius: '8px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  color: '#fff',
-                  '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.3)' },
-                  '&:hover fieldset': { borderColor: '#FFC107' },
-                  '&.Mui-focused fieldset': { borderColor: '#FFC107' },
-                },
-                '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
-                '& .MuiInputLabel-root.Mui-focused': { color: '#FFC107' },
-              }}
-            />
-            <TextField
-              label="Telefonszám"
-              name="phone"
-              type="tel"
-              value={formData.phone}
-              onChange={handleChange}
-              fullWidth
-              variant="outlined"
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  borderRadius: '8px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  color: '#fff',
-                  '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.3)' },
-                  '&:hover fieldset': { borderColor: '#FFC107' },
-                  '&.Mui-focused fieldset': { borderColor: '#FFC107' },
-                },
-                '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
-                '& .MuiInputLabel-root.Mui-focused': { color: '#FFC107' },
-              }}
-            />
-            <TextField
-              label="Üzenet"
-              name="message"
-              value={formData.message}
-              onChange={handleChange}
-              required
-              fullWidth
-              multiline
-              rows={4}
-              variant="outlined"
-              placeholder="Meséljen a céljairól vagy kérdéseiről"
-              sx={{
-                '& .MuiOutlinedInput-root': {
-                  borderRadius: '8px',
-                  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-                  color: '#fff',
-                  '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.3)' },
-                  '&:hover fieldset': { borderColor: '#FFC107' },
-                  '&.Mui-focused fieldset': { borderColor: '#FFC107' },
-                },
-                '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.7)' },
-                '& .MuiInputLabel-root.Mui-focused': { color: '#FFC107' },
-              }}
-            />
+            <MotionBox variants={fieldVariants} sx={{ mt: 2 }}>
+              <TextField
+                label="Teljes Név"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+                fullWidth
+                variant="outlined"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '12px',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    color: '#E0E0E0',
+                    fontFamily: 'Montserrat, sans-serif',
+                    '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
+                    '&:hover fieldset': { borderColor: '#FFC107' },
+                    '&.Mui-focused fieldset': { borderColor: '#FFC107', borderWidth: 2 },
+                  },
+                  '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Montserrat, sans-serif' },
+                  '& .MuiInputLabel-root.Mui-focused': { color: '#FFC107' },
+                }}
+              />
+            </MotionBox>
+            <MotionBox variants={fieldVariants}>
+              <TextField
+                label="Email"
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                required
+                fullWidth
+                variant="outlined"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '12px',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    color: '#E0E0E0',
+                    fontFamily: 'Montserrat, sans-serif',
+                    '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
+                    '&:hover fieldset': { borderColor: '#FFC107' },
+                    '&.Mui-focused fieldset': { borderColor: '#FFC107', borderWidth: 2 },
+                  },
+                  '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Montserrat, sans-serif' },
+                  '& .MuiInputLabel-root.Mui-focused': { color: '#FFC107' },
+                }}
+              />
+            </MotionBox>
+            <MotionBox variants={fieldVariants}>
+              <TextField
+                label="Telefonszám"
+                name="phone"
+                type="tel"
+                value={formData.phone}
+                onChange={handleChange}
+                fullWidth
+                variant="outlined"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '12px',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    color: '#E0E0E0',
+                    fontFamily: 'Montserrat, sans-serif',
+                    '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
+                    '&:hover fieldset': { borderColor: '#FFC107' },
+                    '&.Mui-focused fieldset': { borderColor: '#FFC107', borderWidth: 2 },
+                  },
+                  '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Montserrat, sans-serif' },
+                  '& .MuiInputLabel-root.Mui-focused': { color: '#FFC107' },
+                }}
+              />
+            </MotionBox>
+            <MotionBox variants={fieldVariants}>
+              <TextField
+                label="Üzenet"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                required
+                fullWidth
+                multiline
+                rows={4}
+                variant="outlined"
+                placeholder="Meséljen a céljairól vagy kérdéseiről"
+                sx={{
+                  '& .MuiOutlinedInput-root': {
+                    borderRadius: '12px',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    color: '#E0E0E0',
+                    fontFamily: 'Montserrat, sans-serif',
+                    '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
+                    '&:hover fieldset': { borderColor: '#FFC107' },
+                    '&.Mui-focused fieldset': { borderColor: '#FFC107', borderWidth: 2 },
+                  },
+                  '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Montserrat, sans-serif' },
+                  '& .MuiInputLabel-root.Mui-focused': { color: '#FFC107' },
+                }}
+              />
+            </MotionBox>
             {error && (
-              <Typography sx={{ color: '#FF5722', textAlign: 'center' }}>
+              <MotionTypography
+                sx={{ color: '#FF6E40', textAlign: 'center', fontFamily: 'Montserrat, sans-serif' }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
                 {error}
-              </Typography>
+              </MotionTypography>
             )}
-          </form>
-          </MotionBox>
+            {success && (
+              <MotionTypography
+                sx={{ color: '#4CAF50', textAlign: 'center', fontFamily: 'Montserrat, sans-serif' }}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.3 }}
+              >
+                Üzenetét sikeresen elküldtük!
+              </MotionTypography>
+            )}
+          </Box>
         </DialogContent>
 
-        <DialogActions sx={{ justifyContent: 'space-between', px: 3, pb: 2 }}>
+        <DialogActions sx={{ justifyContent: 'space-between', px: 4, py: 3 }}>
           <MotionButton
             onClick={handleClose}
-            color="inherit"
             disabled={isSending}
             sx={{
-              color: '#fff',
-              fontWeight: 'bold',
+              color: '#E0E0E0',
+              fontWeight: 600,
               fontFamily: 'Montserrat, sans-serif',
-              borderRadius: '20px',
+              borderRadius: '12px',
               px: 3,
-              py: 1,
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              py: 1.5,
+              background: 'rgba(255, 255, 255, 0.08)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
               '&:hover': {
-                backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                background: 'rgba(255, 255, 255, 0.15)',
+                borderColor: '#FFC107',
+              },
+              '&:disabled': {
+                background: 'rgba(255, 255, 255, 0.05)',
+                color: '#757575',
               },
             }}
             variants={buttonVariants}
@@ -256,25 +288,26 @@ const ContactFormDialog = ({ open, setOpen }: ContactFormDialogProps) => {
           </MotionButton>
           <MotionButton
             type="submit"
-            form="contact-form" // Match the form's ID
+            form="contact-form"
             variant="contained"
             disabled={isSending}
             sx={{
-              backgroundColor: '#FFC107',
-              color: '#1A1A1A',
-              fontWeight: 'bold',
+              background: 'linear-gradient(45deg, #FFC107, #FFCA28)',
+              color: '#1F1F1F',
+              fontWeight: 700,
               fontFamily: 'Montserrat, sans-serif',
-              borderRadius: '20px',
+              borderRadius: '12px',
               px: 4,
-              py: 1,
-              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.2)',
+              py: 1.5,
+              boxShadow: '0 4px 15px rgba(255, 193, 7, 0.4)',
               '&:hover': {
-                backgroundColor: '#FFCA28',
-                boxShadow: '0 6px 14px rgba(0, 0, 0, 0.25)',
+                background: 'linear-gradient(45deg, #FFCA28, #FFD54F)',
+                boxShadow: '0 6px 20px rgba(255, 193, 7, 0.6)',
               },
               '&:disabled': {
-                backgroundColor: '#757575',
+                background: '#757575',
                 color: '#B0B0B0',
+                boxShadow: 'none',
               },
             }}
             variants={buttonVariants}

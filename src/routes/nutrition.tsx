@@ -77,14 +77,17 @@ const LandingPage = () => {
                 variant="h6"
                 align="center"
                 gutterBottom
-                sx={{ fontSize: { xs: "1.1rem", sm: "1.5rem" }, textAlign: {xs: 'center', md: 'left'} }}
+                sx={{
+                  fontSize: { xs: "1.1rem", sm: "1.5rem" },
+                  textAlign: { xs: "center", md: "left" },
+                }}
               >
                 Tudatos étkezés a fenntartható egészségért
               </Typography>
               <Typography
                 variant="body1"
                 sx={{
-                  fontSize: { xs: "1rem", sm: "1.3rem" },
+                  fontSize: { xs: "1.3rem", sm: "1.3rem" },
                   textAlign: { xs: "justify", md: "left" },
                   mt: 2,
                 }}
@@ -106,38 +109,79 @@ const LandingPage = () => {
             </Box>
             <Box
               sx={{
-              flex: { xs: "none", md: 1 },
-              maxWidth: { xs: "280px", sm: "370px", md: "500px" },
-              width: { xs: "90%", md: "auto" },
-              position: "relative",
-              overflow: "visible",
-              my: { xs: 3, md: 0 },
-              alignSelf: { xs: "center", md: "flex-start" },
+                flex: { xs: "none", md: 1 },
+                maxWidth: { xs: "340px", sm: "370px", md: "500px" },
+                width: { xs: "90%", md: "auto" },
+                position: "relative",
+                overflow: "visible",
+                my: { xs: 3, md: 0 },
+                alignSelf: { xs: "center", md: "flex-start" },
               }}
             >
               <Box
-              sx={{
-                position: "relative",
-                width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              >
-              <img
-                src={nutri2}
-                alt="Nutrition"
-                style={{
-                width: "100%",
-                height: "auto",
-                borderRadius: theme.spacing(1),
-                position: "relative",
-                zIndex: 2,
+                sx={{
+                  position: "relative",
+                  width: "100%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
                 }}
-              />
+              >
+                <img
+                  src={nutri2}
+                  alt="Nutrition"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    borderRadius: theme.spacing(1),
+                    position: "relative",
+                    zIndex: 2,
+                  }}
+                />
               </Box>
             </Box>
           </Box>
+
+            {/* New "Who Can I Help?" Section */}
+            <Box
+            sx={{
+              mt: 4,
+              mb: 6, // Adds spacing before NutritionPlans
+              textAlign: { xs: "center", md: "left" },
+              maxWidth: "800px",
+              mx: "auto",
+            }}
+            >
+            <Typography
+              variant="h5"
+              sx={{
+              fontWeight: "bold",
+              fontFamily: "Montserrat, sans-serif",
+              color: "#ff9800", // Matches your accent color
+              mb: 2,
+              textAlign: { xs: "center", md: "left" },
+              }}
+            >
+              Kinek tudok segíteni?
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+              fontSize: { xs: "1.2rem", sm: "1.3rem" },
+              color: "#333333",
+              lineHeight: 1.6,
+              textAlign: { xs: "center", md: "left" },
+              }}
+            >
+              Főként egészséges emberek számára tudok segítséget nyújtani,
+              akiknek nincsenek komolyabb ételallergiáik vagy hormonális
+              problémáik. Glutén- és laktózérzékenység azonban nem jelent
+              problémát, valamint figyelembe veszem a vegetáriánus és vegán
+              étkezési szokásokat az étrendek kialakításakor, ha ilyen irányú
+              preferencia felmerül.
+            </Typography>
+            </Box>
+
           <NutritionPlans />
           <NutritionGallery />
         </Container>

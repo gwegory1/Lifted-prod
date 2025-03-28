@@ -3,12 +3,13 @@ import TWM1 from "../assets/compressed/ROL04494.jpg";
 import TWM2 from "../assets/compressed/ROL04660.jpg";
 import { Box, Button, Stack, Theme, Typography, useMediaQuery, Fade } from "@mui/material";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 const MotionBox = motion(Box);
 
 const TrainWithMe: React.FC = () => {
   const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'));
-  
+  const navigate = useNavigate();
   return (
     <Fade in={true} timeout={1000}>
       <Stack 
@@ -134,6 +135,7 @@ const TrainWithMe: React.FC = () => {
               component={motion.button}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.98 }}
+              onClick={() => navigate('/training')}
               sx={{
                 backgroundColor: "#ffffff",
                 color: "#FFC056",

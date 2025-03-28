@@ -10,6 +10,7 @@ import { styled } from "@mui/system";
 import { motion } from "framer-motion";
 import trainingImage from "../assets/compressed/IMG_5260.jpg"; // Updated image path
 import ContactFormDialog from "./contactDialog";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 
 // Motion components
 const MotionBox = motion(Box);
@@ -29,6 +30,10 @@ const TrainingPlansContainer = styled(MotionBox)(({ theme }) => ({
   padding: theme.spacing(2, 1),
   [theme.breakpoints.up("sm")]: {
     padding: theme.spacing(4, 2),
+    width: "100%",
+  },
+  [theme.breakpoints.down("sm")]: {
+    width: "90%",
   },
   transition: "all 0.3s ease-in-out",
   width: "100%",
@@ -130,18 +135,18 @@ const TrainingSection = () => {
   const [selectedPlan, setSelectedPlan] = useState<PlanType>("Single");
 
   // Plan data with prices
-  const plans: Record<PlanType, { title: string; price: string; details: string[] }> = {
+  const plans: Record<
+    PlanType,
+    { title: string; price: string; details: string[] }
+  > = {
     Single: {
       title: "EGY ALKALMAS",
       price: "10 000 Ft",
-      details: [
-        "60 perces személyi edzés",
-        "Alkalmanként vásárolt jegy",
-      ],
+      details: ["60 perces személyi edzés", "Alkalmanként vásárolt jegy"],
     },
     Package: {
       title: "BÉRLET",
-      price: "70 000 Ft",
+      price: "75 000 Ft",
       details: [
         "8 személyi edzést tartalmaz",
         "2 hónapon belül bármikor felhasználható",
@@ -149,7 +154,7 @@ const TrainingSection = () => {
     },
     Pair: {
       title: "PÁROS EDZÉS",
-      price: "15 000 Ft",
+      price: "8 500 Ft/Fő",
       details: [
         "2 főre szóló edzés",
         "Ideális, ha baráttal/barátnővel szeretnél edzeni",
@@ -157,7 +162,7 @@ const TrainingSection = () => {
     },
     Plan: {
       title: "EDZÉSTERV",
-      price: "20 000 Ft",
+      price: "15 000 Ft",
       details: [
         "1 hónapos személyre szabott edzésterv",
         "75 perces konzultáció + felmérés alapján készül",
@@ -212,43 +217,76 @@ const TrainingSection = () => {
       animate="visible"
       variants={containerVariants}
     >
-      <MotionTypography
-        variant="h4"
-        gutterBottom
-        variants={titleVariants}
-        sx={{
-          color: "#FFC056",
-          textAlign: isMobile ? "center" : "left",
-          fontWeight: "900",
+      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', justifyContent: isMobile ? 'center' : 'flex-start', mb: 3 }}>
+        <MotionBox 
+          sx={{ 
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: isMobile ? 'center' : 'start',
+            flexWrap: 'wrap',
+            gap: isMobile ? 1 : 2,
+            width: '100%'
+          }}
+          variants={itemVariants}
+        >
+           <MotionTypography
+            variant="h4"
+            gutterBottom
+            variants={titleVariants}
+            sx={{
+              color: "#FFC056",
+              textAlign: isMobile ? "center" : "left",
+              fontWeight: "900",
+              textWrap: "nowrap",
+              fontFamily: "Montserrat, sans-serif",
+              fontSize: { xs: "1.8rem", sm: "2.5rem" },
+              marginBottom: theme.spacing(0),
+              textShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
+            }}
+          >
+            EDZÉS LEHETŐSÉGEK
+          </MotionTypography>
+          <MotionBox 
+            sx={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              color: '#ddd',
+              mr: 2
+            }}
+          >
+            <LocationOnIcon sx={{ color: '#FFC056', mr: 0.5 }} />
+            <Typography 
+              variant="body1"
+              sx={{
           fontFamily: "Montserrat, sans-serif",
-          fontSize: { xs: "1.8rem", sm: "2.5rem" },
-          marginBottom: theme.spacing(0),
-          textShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
-        }}
-      >
-        EDZÉS LEHETŐSÉGEK
-      </MotionTypography>
-      <MotionTypography
-        variant="body1"
-        gutterBottom
-        variants={titleVariants}
-        sx={{
-          color: "#ddd",
-          textAlign: isMobile ? "center" : "left",
-          fontWeight: "500",
-          fontFamily: "Montserrat, sans-serif",
-          paddingTop: theme.spacing(1),
-          marginBottom: theme.spacing(3),
-          paddingLeft: theme.spacing(1),
-          fontStyle: 'italic',
-          textShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
-          fontSize: { xs: "1rem", sm: "1.2rem" },
-          maxWidth: { xs: "100%", sm: "600px" },
-        }}
-      >
-        Minden esetben az első alkalom egy 75 perces konzultáció & felmérés, ami a célok
-        megbeszélését és állapotfelmérést foglal magába.
-      </MotionTypography>
+              }}
+            >
+              Victory Fitness - Hűvösvölgy
+            </Typography>
+          </MotionBox>
+        </MotionBox>
+        
+        <MotionTypography
+          variant="body1"
+          gutterBottom
+          variants={titleVariants}
+          sx={{
+            color: "#ddd",
+            textAlign: isMobile ? "justify" : "left",
+            fontWeight: "500",
+            fontFamily: "Montserrat, sans-serif",
+            paddingTop: theme.spacing(2),
+            paddingLeft: theme.spacing(1),
+            fontStyle: "italic",
+            textShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
+            fontSize: { xs: "1rem", sm: "1.2rem" },
+            maxWidth: { xs: "95%", sm: "600px" },
+          }}
+        >
+          Minden esetben az első alkalom egy 75 perces konzultáció & felmérés, ami
+          a célok megbeszélését és állapotfelmérést foglal magába.
+        </MotionTypography>
+      </Box>
 
       <MotionBox
         sx={{
@@ -262,11 +300,13 @@ const TrainingSection = () => {
         {/* Left Column - Options (Mobile Only) */}
         {isMobile && (
           <OptionsColumn initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <Box sx={{ 
-              display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              gap: 2,
-            }}>
+            <Box
+              sx={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 1fr)",
+                gap: 2,
+              }}
+            >
               {Object.keys(plans).map((planKey) => {
                 const typedPlanKey = planKey as PlanType;
                 return (
@@ -274,7 +314,9 @@ const TrainingSection = () => {
                     key={typedPlanKey}
                     variant="contained"
                     onClick={() => setSelectedPlan(typedPlanKey)}
-                    className={selectedPlan === typedPlanKey ? "Mui-selected" : ""}
+                    className={
+                      selectedPlan === typedPlanKey ? "Mui-selected" : ""
+                    }
                     whileHover="hover"
                     whileTap="tap"
                     variants={buttonVariants}
@@ -484,7 +526,5 @@ const TrainingSection = () => {
     </TrainingPlansContainer>
   );
 };
-
-
 
 export default TrainingSection;

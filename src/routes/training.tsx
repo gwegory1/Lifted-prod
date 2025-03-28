@@ -1,12 +1,6 @@
 import Navbar from "../components/navbar";
 import React from "react";
-import {
-  Typography,
-  Box,
-  Stack,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Typography, Box, Stack, useMediaQuery, useTheme } from "@mui/material";
 import Image1 from "../assets/compressed/IMG_5257.jpg";
 import Image2 from "../assets/compressed/ROL04662.jpg";
 import Image3 from "../assets/compressed/ROL04772.jpg";
@@ -87,11 +81,11 @@ const Training: React.FC = () => {
             <img
               src={Image1}
               alt="Training Focus"
-              style={{ width: "100%", height: "auto", borderRadius: "8px" }}
+              style={{ width: "100%", height: "auto", borderRadius: isMobile ? "0" : "8px" }}
               loading="lazy"
             />
           </Box>
-          <Stack gap={2} sx={{ width: isMobile ? "100%" : "50%" }}>
+          <Stack gap={2} sx={{ width: isMobile ? "90%" : "50%" }}>
             <Typography
               variant={isMobile ? "h5" : "h3"}
               color="#FFC056"
@@ -189,11 +183,11 @@ const Training: React.FC = () => {
             <img
               src={Image3}
               alt="Training Challenge"
-              style={{ width: "100%", height: "auto", borderRadius: "8px" }}
+              style={{ width: "100%", height: "auto", borderRadius: isMobile ? "0" : "8px" }}
               loading="lazy"
             />
           </Box>
-          <Stack gap={2} sx={{ width: isMobile ? "100%" : "50%" }}>
+          <Stack gap={2} sx={{ width: isMobile ? "90%" : "50%" }}>
             <Typography
               variant={isMobile ? "h5" : "h3"}
               color="#475569"
@@ -219,8 +213,88 @@ const Training: React.FC = () => {
           </Stack>
         </Stack>
 
+        {/* Section 4 - Who is it for / What can I help with */}
+        <Stack
+          sx={{
+            width: isMobile ? "90%" : "100%",
+            bgcolor: "#FFF5E6",
+            borderRadius: "8px",
+            alignSelf: "center",
+            height: isMobile ? "400px" : "300px",
+            p: { xs: 2, sm: 3, md: 4 },
+            mt: { xs: 3, sm: 4, md: 6 },
+          }}
+        >
+          <Typography
+            variant={isMobile ? "h5" : "h3"}
+            color="#475569"
+            fontWeight="bold"
+            sx={{ 
+              fontFamily: "Montserrat, sans-serif", 
+              textAlign: "center", 
+              mb: { xs: 2, sm: 3, md: 4 } 
+            }}
+          >
+            Miben tudok segíteni?
+          </Typography>
+          <Box
+            sx={{
+              display: "grid",
+              gridTemplateColumns: {
+          xs: "1fr",
+          sm: "repeat(2, 1fr)",
+          md: "repeat(3, 1fr)"
+              },
+              gap: { xs: 2, sm: 2.5, md: 3 },
+              width: "100%"
+            }}
+          >
+            {[
+              "Izomtömeg növelés",
+              "Izomtömeg növelés",
+              "Súlycsökkentés & testkompozíció javítás",
+              "Gyorsaság, robbanékonyság, állóképesség fejlesztés",
+              "Mobilizáló & funkcionális edzések",
+              "Légzésgyakorlatok & koordináció fejlesztés",
+            ].map((item, index) => (
+              <Box
+                key={index}
+                sx={{
+                  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                  bgcolor: "rgba(255, 255, 255, 0.3)",
+                  borderRadius: "14px",
+                  mt: 1,
+                  p: { xs: 1, sm: 2, md: 1 },
+                  textAlign: "center",
+                  transition: "transform 0.2s, box-shadow 0.2s",
+                  height: "100%",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  "&:hover": {
+                    transform: "translateY(-5px)",
+                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
+                  },
+                }}
+              >
+                <Typography
+                  variant="body1"
+                  sx={{
+                    fontFamily: "Montserrat, sans-serif",
+                    color: "#333",
+                    lineHeight: 1.6,
+                    fontSize: { xs: "1rem", sm: "1.1rem", md: "1.2rem" },
+                  }}
+                >
+                  {item}
+                </Typography>
+              </Box>
+            ))}
+          </Box>
+        </Stack>
+
         {/* Training Section */}
-        <TrainingSection/>
+        <TrainingSection />
       </Stack>
 
       <Footer />

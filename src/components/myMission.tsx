@@ -9,10 +9,14 @@ import {
 } from "@mui/material";
 import myMissionImage from "../assets/compressed/ROL04866.jpg";
 import AddIcon from "@mui/icons-material/Add";
+import { useNavigate } from "react-router-dom";
 
 const MyMission: React.FC = () => {
+  const navigate = useNavigate();
+
+
   const onReadMore = () => {
-    window.location.href = "/about";
+    navigate("/about");
   };
 
   return (
@@ -68,19 +72,19 @@ const MyMission: React.FC = () => {
             <Stack gap={2}>
               <Divider sx={{ borderWidth: "1px", borderColor: "black" }} />
                 <Stack direction="row" spacing={2} alignItems={"center"}>
-                <Button
-                  onClick={onReadMore}
-                  sx={{
-                  width: { xs: "100%", sm: "auto" },
-                  mt: { xs: 1, sm: 0 },
-                  color: "black",
-                  fontWeight: "800",
-                  fontSize: { xs: "1rem", sm: "1.8rem" },
-                  }}
-                  endIcon={<AddIcon />}
-                >
-                  Tovább
-                </Button>
+                    <Button
+                      onClick={onReadMore}
+                      sx={{
+                        width: { xs: "100%", sm: "auto" },
+                        mt: { xs: 1, sm: 0 },
+                        color: "black",
+                        fontWeight: "800",
+                        fontSize: { xs: "1rem", sm: "1.6rem" },
+                      }}
+                      endIcon={<AddIcon />}
+                    >
+                      Tovább
+                    </Button>
                 </Stack>
               <Divider sx={{ borderWidth: "1px", borderColor: "black" }} />
             </Stack>
