@@ -6,7 +6,7 @@ import Training from './routes/training'
 import Nutrition from './routes/nutrition' 
 import theme from './theme/theme'
 import { ThemeProvider } from '@mui/material'
-import ScrollToTop from './components/ScrollToTop'
+import ScrollToTop from './components/scrollToTop'
 
 function App() {
   return (

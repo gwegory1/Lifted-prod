@@ -121,7 +121,7 @@ const TrainWithMe: React.FC = () => {
             >
               Építsük együtt a céljaidhoz vezető utat! Személyre szabott tervekkel
               és folyamatos támogatással segítek abban, hogy valóra váltsd, amire
-              mindig is vágytál. Kezd el most, és formáld a jövőd!
+              mindig is vágytál. Kezdd el most, és formáld a jövőd!
             </Typography>
           </MotionBox>
           <MotionBox 

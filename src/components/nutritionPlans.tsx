@@ -124,7 +124,7 @@ const NutritionPlans = () => {
   const [selectedPlan, setSelectedPlan] = useState<PlanType>("Alap");
 
   // Plan data
-  const plans: Record<PlanType, { title: string; details: string[] }> = {
+  const plans: Record<PlanType, { title: string; details: string[]; price: string }> = {
     Alap: {
       title: "Alap",
       details: [
@@ -133,6 +133,7 @@ const NutritionPlans = () => {
         "5 napos mintaétrend, összesen 20 recept (reggeli, ebéd, vacsora, nasi) - igényeid figyelembe vételével, kalória és makrók számolása nélkül",
         "Bevásárló lista",
       ],
+      price: '29000 Ft',
     },
     Premium: {
       title: "Prémium",
@@ -144,6 +145,7 @@ const NutritionPlans = () => {
         "PDF Mini Táplálkozási Kisokos",
         "1 hónapos utánkövetés: heti 1x30 perc kontroll konzultáció + e-mailes kérdés-válasz lehetőség",
       ],
+      price: '69000 Ft',
     },
   };
 
@@ -253,20 +255,42 @@ const NutritionPlans = () => {
             initial="hidden"
             animate="visible"
           >
-            <MotionTypography
-              variant="h5"
-              gutterBottom
-              variants={itemVariants}
+            <MotionBox
               sx={{
-                fontWeight: "bold",
-                fontFamily: "Montserrat, sans-serif",
-                fontSize: { xs: "1.6rem", sm: "1.8rem" },
-                color: "#333",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                mb: 1,
               }}
-              align="left"
             >
-              {plans[selectedPlan].title}
-            </MotionTypography>
+              <MotionTypography
+                variant="h5"
+                gutterBottom
+                variants={itemVariants}
+                sx={{
+                  fontWeight: "bold",
+                  fontFamily: "Montserrat, sans-serif",
+                  fontSize: { xs: "1.6rem", sm: "1.8rem" },
+                  color: "#333",
+                  mb: 0,
+                }}
+                align="left"
+              >
+                {plans[selectedPlan].title}
+              </MotionTypography>
+              <MotionTypography
+                variant="h6"
+                variants={itemVariants}
+                sx={{
+                  fontWeight: "bold",
+                  fontFamily: "Montserrat, sans-serif",
+                  fontSize: { xs: "1.2rem", sm: "1.4rem" },
+                  color: "#ff9800",
+                }}
+              >
+                {plans[selectedPlan].price}
+              </MotionTypography>
+            </MotionBox>
             
             {plans[selectedPlan].details.map((detail, index) => (
               <MotionTypography
@@ -315,22 +339,45 @@ const NutritionPlans = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5 }}
                 >
-                  <MotionTypography
-                    variant="h5"
-                    gutterBottom
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.2 }}
+                  <MotionBox
                     sx={{
-                      fontWeight: "bold",
-                      fontFamily: "Montserrat, sans-serif",
-                      fontSize: { xs: "1.4rem", sm: "2rem" },
-                      color: "#333",
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      mb: 1,
                     }}
-                    align="left"
                   >
-                    {plans[typedPlanKey].title}
-                  </MotionTypography>
+                    <MotionTypography
+                      variant="h5"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.2 }}
+                      sx={{
+                        fontWeight: "bold",
+                        fontFamily: "Montserrat, sans-serif",
+                        fontSize: { xs: "1.4rem", sm: "2rem" },
+                        color: "#333",
+                        mb: 0,
+                      }}
+                      align="left"
+                    >
+                      {plans[typedPlanKey].title}
+                    </MotionTypography>
+                    <MotionTypography
+                      variant="h6"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.2 }}
+                      sx={{
+                        fontWeight: "bold",
+                        fontFamily: "Montserrat, sans-serif",
+                        fontSize: { xs: "1.2rem", sm: "1.4rem" },
+                        color: "#ff9800",
+                      }}
+                    >
+                      {plans[typedPlanKey].price}
+                    </MotionTypography>
+                  </MotionBox>
                   
                   {plans[typedPlanKey].details.map((detail, index) => (
                     <MotionTypography
@@ -395,6 +442,36 @@ const NutritionPlans = () => {
       )}
       
       <ContactFormDialog open={open} setOpen={setOpen} />
+      <Typography
+              variant="h6"
+              sx={{
+              fontWeight: "bold",
+              fontFamily: "Montserrat, sans-serif",
+              color: "#ff9800", // Matches your accent color
+              mt: 2,
+              mx: 1,
+              textAlign: "left"
+              }}
+            >
+              Kinek tudok segíteni?
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+              fontSize: { xs: "1rem", sm: "1.1rem" },
+              color: "#333333",
+              lineHeight: 1.6,
+              textAlign: "left", 
+              p: 1
+              }}
+            >
+              Főként egészséges emberek számára tudok segítséget nyújtani,
+              akiknek nincsenek komolyabb ételallergiáik vagy hormonális
+              problémáik. Glutén- és laktózérzékenység azonban nem jelent
+              problémát, valamint figyelembe veszem a vegetáriánus és vegán
+              étkezési szokásokat az étrendek kialakításakor, ha ilyen irányú
+              preferencia felmerül.
+            </Typography>
     </NutritionPlansContainer>
   );
 };

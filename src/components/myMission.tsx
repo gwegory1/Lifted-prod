@@ -23,8 +23,9 @@ const MyMission: React.FC = () => {
     <Box
       sx={{
         display: "flex",
-        flexDirection: { xs: "column", md: "row" },
+        flexDirection: { xs: "column-reverse", md: "row" },
         backgroundColor: "background.paper",
+        paddingBottom: { xs: 5, md: 5 },
       }}
     >
       <Box
@@ -61,7 +62,7 @@ const MyMission: React.FC = () => {
             >
               Személyre szabott edzésekkel és táplálkozási tanácsokkal segítek
               abban, hogy a legjobb formádat hozd ki magadból, és új szintre
-              emeld a jólétedet. Több mint egy évtizedes versenysport hátterem,
+              emeld a jóllétedet. Több mint egy évtizedes versenysport hátterem,
               külföldi tapasztalataim, valamint edzői és táplálkozási
               képesítéseim alapján olyan holisztikus megközelítést kínálok,
               amely figyelembe veszi az egyedi céljaidat, igényeidet, és

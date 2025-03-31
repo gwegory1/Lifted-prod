@@ -14,13 +14,34 @@ import ROL4432 from "../assets/compressed/ROL04708.jpg";
 import ROL04266 from "../assets/compressed/ROL04266.jpg";
 
 import Navbar from "../components/navbar";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import theme from "../theme/theme";
+import ScrollToTopButton from "../components/ScrollToTopButton";
 
 const AboutMe = () => {
   const images = [IMG_5296, IMG_5298, ROL04775, ROL4432, ROL04708, ROL04266];
-  const isMoblie = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMoblie = useMediaQuery(theme.breakpoints.down("md"));
+
+  const [isVisible, setIsVisible] = useState(true);
+
+  const handleScroll = () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    //console.log("Scroll position:", scrollTop); // Debug log
+    setIsVisible(scrollTop > 50); // Show button after scrolling 50px
+  };
+
+  const scrollToTop = () => {
+    //console.log("Scroll to top triggered"); // Debug log
+    document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -43,20 +64,13 @@ const AboutMe = () => {
   return (
     <Box
       sx={{
-        minHeight: "100vh",
-        width: "100%",
         backgroundColor: "#fff",
-        display: "flex",
-        flexDirection: "column",
         m: 0,
         p: 0,
-        overflowX: "hidden",
       }}
     >
-      <Box sx={{ p: 0 }}>
-        <Navbar />
-      </Box>
-
+      <Navbar />
+      <ScrollToTopButton isVisible={isVisible} exec={scrollToTop} />
       <Container
         maxWidth={false}
         sx={{
@@ -64,7 +78,7 @@ const AboutMe = () => {
           p: { xs: 2, md: 4 },
           maxWidth: 1500,
           mx: "auto",
-          position: "relative",
+          
         }}
       >
         {/* Header Section */}
@@ -138,7 +152,7 @@ const AboutMe = () => {
                   fontSize: { xs: "1.2rem", md: "1.25rem" },
                   background: "rgba(255, 255, 255, 0.9)",
                   p: 3,
-                  textAlign: isMoblie ? "justify" : "left",
+                  textAlign: "left",
                   borderRadius: 2,
                   boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
                   position: "relative",
@@ -150,7 +164,7 @@ const AboutMe = () => {
                 embert láttam küzdeni a valóságtól elrugaszkodott fitnesz
                 elvárásokkal és fenntarthatatlan módszerekkel. Ezért a
                 holisztikus filozófiám három alappilléren alapul: a mozgáson, a
-                tápanyagokban gazdag ételeken és a mentális jóléten. A
+                tápanyagokban gazdag ételeken és a mentális jólléten. A
                 folyamatosan változó divatdiéták és túlbonyolított edzések
                 helyett az alapvető, funkcionális gyakorlatokra összpontosítok,
                 amelyek erőt és állóképességet építenek, a teljes értékű
@@ -161,14 +175,11 @@ const AboutMe = () => {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              whileHover={{ scale: 1.05, rotate: -2 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+
             >
               <Box
                 sx={{
-                  position: { md: "absolute" },
-                  top: { md: "-20%" },
-                  right: { md: "10%" },
                   zIndex: 1,
                 }}
               >
@@ -193,86 +204,78 @@ const AboutMe = () => {
             sx={{
               position: "relative",
               display: "flex",
-              flexDirection: { xs: "column-reverse", md: "row" },
-              gap: { xs: 2, md: 4 },
+              flexDirection: { xs: "column", md: "row" },
+              gap: { xs: 2, md: 0 },
               alignItems: "start",
-              justifyContent: "space-between",
+              justifyContent: "start",
             }}
           >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              style={{ flex: 1, maxWidth: isMoblie ? "100%" : "30%" }}
-            >
-              <Box
-                component="img"
-                src={images[1]}
-                alt="Sport journey"
-                sx={{
-                  width: "100%",
-                  height: "auto",
-                  borderRadius: 3,
-                  boxShadow: "0 8px 20px rgba(0, 0, 0, 0.15)",
-                  objectFit: "cover",
-                }}
-              />
-            </motion.div>
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
               className="animate-on-scroll"
-              style={{ flex: "1" }}
+              style={{
+                display: "flex",
+                flexDirection: isMoblie ? "column" : "row-reverse",
+                justifyContent: "start",
+                gap: isMoblie ? "1.5rem" : "2rem",
+                alignItems: "center",
+                width: "100%",
+              }}
             >
-              <Typography
-                variant="body1"
-                sx={{
-                  lineHeight: 1.8,
-                  color: "#5D4037",
-                  fontSize: { xs: "1.2rem", md: "1.25rem" },
-                  background: "rgba(255, 255, 255, 0.9)",
-                  textAlign: isMoblie ? "justify" : "left",
-                  p: 3,
-                  borderRadius: 2,
-                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
-                  maxWidth: "100%",
-                }}
-              >
-                A sport miatt sok helyre volt alkalmam utazni, végül
-                sportösztöndíjjal az Egyesült Államokba mentem, ahol Média és
-                Stratégiai Kommunikáció szakon szereztem alap-, és
-                mesterdiplomát, miközben mélyítettem tudásomat az edzés, és a
-                teljesítmény területén. Közben a Fitness Akadémián elvégeztem a
-                fitness instruktori képzést, majd megszereztem a személyi edzői
-                és táplálkozási tanácsadói képesítéseket is. A hátterem azonban
-                nem csak a képesítésekről szól - hanem a több mint egy évtizedes
-                versenysportban szerzett tapasztalatomról, nehézségekről,
-                amelyek megtanítottak újraépíteni és megerősíteni a testemet és
-                az elmémet, valamint az elkötelezettségről, hogy másoknak
-                segítsek megtalálni az egyensúlyt a saját útjukon.
-              </Typography>
-              <Typography
-                variant="body1"
-                sx={{
-                  lineHeight: 1.8,
-                  color: "#5D4037",
-                  fontSize: { xs: "1.2rem", md: "1.25rem" },
-                  background: "rgba(255, 255, 255, 0.9)",
-                  textAlign: isMoblie ? "justify" : "left",
-                  p: 3,
-                  borderRadius: 2,
-                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
-                }}
-              >
-                1:1 személyre szabott edzés- és táplálkozási útmutatókat
-                tervezek, mert a valódi fejlődés egy olyan tervből ered, amely
-                neked készült, nem pedig a tömegek számára. Akár az általános
-                egészségeden szeretnél javítani, akár erősebbnek és
-                magabiztosabbnak érezni magad, én itt vagyok, hogy vezesselek,
-                eloszlassam a tévhiteket, és segítsek kialakítani azokat a
-                szokásokat, amelyek egy életen át elkísérnek.
-              </Typography>
+              <Box sx={{ flex: isMoblie ? "1" : "5" }}>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    lineHeight: 1.8,
+                    color: "#5D4037",
+                    fontSize: isMoblie ? "1.2rem" : "1.25rem",
+                    background: "rgba(255, 255, 255, 0.9)",
+                    textAlign: "left",
+                    borderRadius: 2,
+                    px: 2,
+                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
+                  }}
+                >
+                  A sport miatt sok helyre volt alkalmam utazni, végül
+                  sportösztöndíjjal az Egyesült Államokba mentem, ahol Média és
+                  Stratégiai Kommunikáció szakon szereztem alap-, és
+                  mesterdiplomát, miközben mélyítettem tudásomat az edzés, és a
+                  teljesítmény területén. Közben a Fitness Akadémián elvégeztem
+                  a fitness instruktori képzést, majd megszereztem a személyi
+                  edzői és táplálkozási tanácsadói képesítéseket is. A hátterem
+                  azonban nem csak a képesítésekről szól - hanem a több mint egy
+                  évtizedes versenysportban szerzett tapasztalatomról,
+                  nehézségekről, amelyek megtanítottak újraépíteni és
+                  megerősíteni a testemet és az elmémet, valamint az
+                  elkötelezettségről, hogy másoknak segítsek megtalálni az
+                  egyensúlyt a saját útjukon.
+                </Typography>
+              </Box>
+
+              <Box sx={{ flex: isMoblie ? "1" : "2" }}>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.5 }}
+                >
+                  <Box
+                    component="img"
+                    src={images[1]}
+                    alt="Sport journey"
+                    sx={{
+                      width: "100%",
+                      maxWidth: isMoblie ? "100%" : "350px",
+                      height: "auto",
+                      borderRadius: 3,
+                      boxShadow: "0 8px 20px rgba(0, 0, 0, 0.15)",
+                      objectFit: "cover",
+                      display: "block",
+                    }}
+                  />
+                </motion.div>
+              </Box>
             </motion.div>
             <Box
               sx={{
@@ -280,11 +283,32 @@ const AboutMe = () => {
                 height: "2px",
                 background: "#BF360C",
                 opacity: 0.3,
-                my: 4,
+                my: 2,
                 display: { xs: "block", md: "none" },
               }}
             />
           </Box>
+          <Typography
+            variant="body1"
+            sx={{
+              lineHeight: 1.8,
+              color: "#5D4037",
+              fontSize: { xs: "1.2rem", md: "1.25rem" },
+              background: "rgba(255, 255, 255, 0.9)",
+              textAlign: "left",
+              p: 3,
+              borderRadius: 2,
+              boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
+            }}
+          >
+            1:1 személyre szabott edzés- és táplálkozási útmutatókat tervezek,
+            mert a valódi fejlődés egy olyan tervből ered, amely neked készült,
+            nem pedig a tömegek számára. Akár az általános egészségeden
+            szeretnél javítani, akár erősebbnek és magabiztosabbnak érezni
+            magad, én itt vagyok, hogy vezesselek, eloszlassam a tévhiteket, és
+            segítsek kialakítani azokat a szokásokat, amelyek egy életen át
+            elkísérnek.
+          </Typography>
         </Box>
 
         {/* Call to Action */}

@@ -5,6 +5,8 @@ import NutritionPlans from "../components/nutritionPlans";
 import nutri2 from "../assets/compressed/ROL04266.jpg";
 import Footer from "../components/footer";
 import NutritionGallery from "../components/nutritionGalery";
+import ScrollToTopButton from "../components/ScrollToTopButton";
+import { useEffect, useState } from "react";
 
 const HeroSection = styled(Box)(({ theme }) => ({
   backgroundColor: "#ffffff",
@@ -21,11 +23,31 @@ const HeroSection = styled(Box)(({ theme }) => ({
 const LandingPage = () => {
   const theme = useTheme();
 
+
+    const [isVisible, setIsVisible] = useState(true);
+  
+    const handleScroll = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      //console.log("Scroll position:", scrollTop); // Debug log
+      setIsVisible(scrollTop > 50); // Show button after scrolling 50px
+    };
+  
+    const scrollToTop = () => {
+      //console.log("Scroll to top triggered"); // Debug log
+      document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
+    };
+  
+    useEffect(() => {
+      window.addEventListener("scroll", handleScroll);
+      return () => {
+        window.removeEventListener("scroll", handleScroll);
+      };
+    }, []);
+
   return (
     <Box
       sx={{
         backgroundColor: "#ffffff",
-        minHeight: "100vh",
         color: "#333333",
         display: "flex",
         flexDirection: "column",
@@ -33,6 +55,8 @@ const LandingPage = () => {
       }}
     >
       <Navbar />
+      <ScrollToTopButton isVisible={isVisible} exec={scrollToTop} />
+
       <HeroSection>
         <Container
           maxWidth="lg"
@@ -87,7 +111,7 @@ const LandingPage = () => {
               <Typography
                 variant="body1"
                 sx={{
-                  fontSize: { xs: "1.3rem", sm: "1.3rem" },
+                  fontSize: { xs: "1.2rem", sm: "1.3rem" },
                   textAlign: { xs: "justify", md: "left" },
                   mt: 2,
                 }}
@@ -141,47 +165,6 @@ const LandingPage = () => {
               </Box>
             </Box>
           </Box>
-
-            {/* New "Who Can I Help?" Section */}
-            <Box
-            sx={{
-              mt: 4,
-              mb: 6, // Adds spacing before NutritionPlans
-              textAlign: { xs: "center", md: "left" },
-              maxWidth: "800px",
-              mx: "auto",
-            }}
-            >
-            <Typography
-              variant="h5"
-              sx={{
-              fontWeight: "bold",
-              fontFamily: "Montserrat, sans-serif",
-              color: "#ff9800", // Matches your accent color
-              mb: 2,
-              textAlign: { xs: "center", md: "left" },
-              }}
-            >
-              Kinek tudok segíteni?
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-              fontSize: { xs: "1.2rem", sm: "1.3rem" },
-              color: "#333333",
-              lineHeight: 1.6,
-              textAlign: { xs: "center", md: "left" },
-              }}
-            >
-              Főként egészséges emberek számára tudok segítséget nyújtani,
-              akiknek nincsenek komolyabb ételallergiáik vagy hormonális
-              problémáik. Glutén- és laktózérzékenység azonban nem jelent
-              problémát, valamint figyelembe veszem a vegetáriánus és vegán
-              étkezési szokásokat az étrendek kialakításakor, ha ilyen irányú
-              preferencia felmerül.
-            </Typography>
-            </Box>
-
           <NutritionPlans />
           <NutritionGallery />
         </Container>

@@ -217,15 +217,17 @@ const TrainingSection = () => {
       animate="visible"
       variants={containerVariants}
     >
-      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', justifyContent: isMobile ? 'center' : 'flex-start', mb: 3 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', flexWrap: 'wrap', justifyContent: isMobile ? 'center' : 'center', mb: 3 }}>
         <MotionBox 
           sx={{ 
             display: 'flex',
             alignItems: 'center',
+            flexDirection: 'column',
             justifyContent: isMobile ? 'center' : 'start',
             flexWrap: 'wrap',
             gap: isMobile ? 1 : 2,
             width: '100%'
+            
           }}
           variants={itemVariants}
         >
@@ -258,7 +260,8 @@ const TrainingSection = () => {
             <Typography 
               variant="body1"
               sx={{
-          fontFamily: "Montserrat, sans-serif",
+                fontFamily: "Montserrat, sans-serif",
+                fontSize: { xs: "1rem", sm: "1.2rem" },
               }}
             >
               Victory Fitness - Hűvösvölgy
@@ -272,7 +275,7 @@ const TrainingSection = () => {
           variants={titleVariants}
           sx={{
             color: "#ddd",
-            textAlign: isMobile ? "justify" : "left",
+            textAlign: isMobile ? "justify" : "justify",
             fontWeight: "500",
             fontFamily: "Montserrat, sans-serif",
             paddingTop: theme.spacing(2),
@@ -280,7 +283,7 @@ const TrainingSection = () => {
             fontStyle: "italic",
             textShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
             fontSize: { xs: "1rem", sm: "1.2rem" },
-            maxWidth: { xs: "95%", sm: "600px" },
+            
           }}
         >
           Minden esetben az első alkalom egy 75 perces konzultáció & felmérés, ami

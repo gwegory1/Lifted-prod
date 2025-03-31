@@ -17,7 +17,7 @@ const StyledCard = styled(MuiCard)<{ backgroundimage: string }>(
     opacity: 0,
     animation: "fadeIn 0.6s ease-out forwards",
     "&:hover": {
-      transform: "scale(1.05)",
+      transform: "scale(1.03)", // Reduced from 1.05 for subtler zoom effect
       boxShadow: "0 8px 20px rgba(0, 0, 0, 0.15)",
       "& .card-title": {
         transform: "translateY(-5px)",
@@ -25,19 +25,20 @@ const StyledCard = styled(MuiCard)<{ backgroundimage: string }>(
     },
     [theme.breakpoints.down("sm")]: {
       maxWidth: "100%",
-      height: 300,
+      height: 340,
+      backgroundRepeat: "no-repeat",
     },
     "@keyframes fadeIn": {
       "0%": {
         opacity: 0,
-        transform: "translateY(20px) scale(0.9)",
+        transform: "translateY(20px) scale(0.95)", // Increased from 0.9
       },
       "50%": {
         opacity: 0.8,
       },
       "100%": {
         opacity: 1,
-        transform: "translateY(0) scale(1)",
+        transform: "translateY(0) scale(0.98)", // Added slight zoom out in final state
       },
     },
   })
