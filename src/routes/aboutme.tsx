@@ -10,18 +10,21 @@ import IMG_5296 from "../assets/compressed/IMG_5296.jpg";
 import IMG_5298 from "../assets/compressed/IMG_5298.jpg";
 import ROL04708 from "../assets/compressed/ROL04708.jpg";
 import ROL04775 from "../assets/compressed/ROL04775.jpg";
-import ROL4432 from "../assets/compressed/ROL04708.jpg";
-import ROL04266 from "../assets/compressed/ROL04266.jpg";
+import ROL4432 from "../assets/compressed/ROL04432.jpg";
 
 import Navbar from "../components/navbar";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import theme from "../theme/theme";
 import ScrollToTopButton from "../components/ScrollToTopButton";
+import { useTranslation } from "react-i18next";
+
 
 const AboutMe = () => {
-  const images = [IMG_5296, IMG_5298, ROL04775, ROL4432, ROL04708, ROL04266];
+  const images = [IMG_5296, IMG_5298, ROL04775, ROL4432, ROL04708 ];
   const isMoblie = useMediaQuery(theme.breakpoints.down("md"));
+  const { t } = useTranslation();
+  
 
   const [isVisible, setIsVisible] = useState(true);
 
@@ -101,7 +104,7 @@ const AboutMe = () => {
                 fontFamily: "Montserrat, sans-serif",
               }}
             >
-              Rólam
+              {t("about")}
             </Typography>
             <Typography
               variant="subtitle1"
@@ -113,7 +116,7 @@ const AboutMe = () => {
                 fontStyle: "italic",
               }}
             >
-              Egy út az egészség és egyensúly felé
+              {t("healthJourney")}
             </Typography>
           </motion.div>
         </Box>
@@ -159,17 +162,7 @@ const AboutMe = () => {
                   zIndex: 2,
                 }}
               >
-                Az egészség nem gyors megoldásokról vagy sablonos programokról
-                szól—hanem a számodra megfelelő életmód kialakításáról. Sok
-                embert láttam küzdeni a valóságtól elrugaszkodott fitnesz
-                elvárásokkal és fenntarthatatlan módszerekkel. Ezért a
-                holisztikus filozófiám három alappilléren alapul: a mozgáson, a
-                tápanyagokban gazdag ételeken és a mentális jólléten. A
-                folyamatosan változó divatdiéták és túlbonyolított edzések
-                helyett az alapvető, funkcionális gyakorlatokra összpontosítok,
-                amelyek erőt és állóképességet építenek, a teljes értékű
-                ételekre, amelyek táplálnak és energiát adnak, valamint egy
-                olyan gondolkodásmódra, amely elősegíti a hosszútávú sikert.
+                {t("aboutmetext1")}
               </Typography>
             </motion.div>
             <motion.div
@@ -238,19 +231,7 @@ const AboutMe = () => {
                     boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
                   }}
                 >
-                  A sport miatt sok helyre volt alkalmam utazni, végül
-                  sportösztöndíjjal az Egyesült Államokba mentem, ahol Média és
-                  Stratégiai Kommunikáció szakon szereztem alap-, és
-                  mesterdiplomát, miközben mélyítettem tudásomat az edzés, és a
-                  teljesítmény területén. Közben a Fitness Akadémián elvégeztem
-                  a fitness instruktori képzést, majd megszereztem a személyi
-                  edzői és táplálkozási tanácsadói képesítéseket is. A hátterem
-                  azonban nem csak a képesítésekről szól - hanem a több mint egy
-                  évtizedes versenysportban szerzett tapasztalatomról,
-                  nehézségekről, amelyek megtanítottak újraépíteni és
-                  megerősíteni a testemet és az elmémet, valamint az
-                  elkötelezettségről, hogy másoknak segítsek megtalálni az
-                  egyensúlyt a saját útjukon.
+                  {t("aboutmetext2")}
                 </Typography>
               </Box>
 
@@ -301,13 +282,7 @@ const AboutMe = () => {
               boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
             }}
           >
-            1:1 személyre szabott edzés- és táplálkozási útmutatókat tervezek,
-            mert a valódi fejlődés egy olyan tervből ered, amely neked készült,
-            nem pedig a tömegek számára. Akár az általános egészségeden
-            szeretnél javítani, akár erősebbnek és magabiztosabbnak érezni
-            magad, én itt vagyok, hogy vezesselek, eloszlassam a tévhiteket, és
-            segítsek kialakítani azokat a szokásokat, amelyek egy életen át
-            elkísérnek.
+            {t("personalizedGuidance")}
           </Typography>
         </Box>
 
@@ -329,7 +304,7 @@ const AboutMe = () => {
                 textShadow: "1px 1px 4px rgba(0, 0, 0, 0.1)",
               }}
             >
-              Építsünk együtt egy egészségesebb életet!
+              {t("buildHealthyLife")}
             </Typography>
             <Box
               sx={{
@@ -364,29 +339,28 @@ const AboutMe = () => {
               maxWidth: "100%",
             }}
           >
-            {images.slice(4).map((src, index) => (
+            {images.slice(2).map((src, index) => (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 * index }}
-                whileHover={{ scale: 1.05, rotate: index % 2 === 0 ? 2 : -2 }}
-                style={{ breakInside: "avoid", marginBottom: "1rem" }}
+          key={index}
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 * index }}
+          whileHover={{ scale: 1.05 }}
+          style={{ breakInside: "avoid", marginBottom: "1rem" }}
               >
-                <Box
-                  component="img"
-                  src={src}
-                  alt={`Gallery ${index + 1}`}
-                  sx={{
-                    width: "100%",
-                    height: "auto",
-                    objectFit: "cover",
-                    borderRadius: 2,
-                    boxShadow: "0 6px 14px rgba(0, 0, 0, 0.1)",
-                    transition: "all 0.3s ease",
-                    maxHeight: index % 2 === 0 ? 350 : 250, // Varying heights
-                  }}
-                />
+          <Box
+            component="img"
+            src={src}
+            alt={`Gallery ${index + 1}`}
+            sx={{
+              width: "100%",
+              height: 350, // Uniform height
+              objectFit: "cover",
+              borderRadius: 2,
+              boxShadow: "0 6px 14px rgba(0, 0, 0, 0.1)",
+              transition: "all 0.3s ease",
+            }}
+          />
               </motion.div>
             ))}
           </Box>

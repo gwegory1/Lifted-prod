@@ -14,7 +14,6 @@ import { useNavigate } from "react-router-dom";
 const MyMission: React.FC = () => {
   const navigate = useNavigate();
 
-
   const onReadMore = () => {
     navigate("/about");
   };
@@ -25,7 +24,6 @@ const MyMission: React.FC = () => {
         display: "flex",
         flexDirection: { xs: "column-reverse", md: "row" },
         backgroundColor: "background.paper",
-        paddingBottom: { xs: 5, md: 5 },
       }}
     >
       <Box
@@ -72,21 +70,21 @@ const MyMission: React.FC = () => {
             </Typography>
             <Stack gap={2}>
               <Divider sx={{ borderWidth: "1px", borderColor: "black" }} />
-                <Stack direction="row" spacing={2} alignItems={"center"}>
-                    <Button
-                      onClick={onReadMore}
-                      sx={{
-                        width: { xs: "100%", sm: "auto" },
-                        mt: { xs: 1, sm: 0 },
-                        color: "black",
-                        fontWeight: "800",
-                        fontSize: { xs: "1rem", sm: "1.6rem" },
-                      }}
-                      endIcon={<AddIcon />}
-                    >
-                      Tovább
-                    </Button>
-                </Stack>
+              <Stack direction="row" spacing={2} alignItems={"center"}>
+                <Button
+                  onClick={onReadMore}
+                  sx={{
+                    width: { xs: "100%", sm: "auto" },
+                    mt: { xs: 1, sm: 0 },
+                    color: "black",
+                    fontWeight: "800",
+                    fontSize: { xs: "1rem", sm: "1.6rem" },
+                  }}
+                  endIcon={<AddIcon />}
+                >
+                  Tovább
+                </Button>
+              </Stack>
               <Divider sx={{ borderWidth: "1px", borderColor: "black" }} />
             </Stack>
           </Stack>
@@ -96,17 +94,19 @@ const MyMission: React.FC = () => {
         sx={{
           order: { xs: 1, md: 2 },
           display: "flex",
-          justifyContent: "center",
+          justifyContent: { xs: "center", md: "flex-end" }, // Center in phone mode
           alignItems: "center",
+          width: "100%", // Ensure it spans the full width
+          height: "70vh", // Optional: Make it span the full viewport height
+          overflow: "hidden", // Prevent overflow
         }}
       >
         <CardMedia
           component="img"
           sx={{
-        width: "auto",
-        height: "100%",
-        maxHeight: { xs: 500, sm: 300, md: 600 },
-        objectFit: "cover",
+            width: "auto", // Maintain aspect ratio
+            height: "100%", // Fill the height
+            objectFit: "cover",
           }}
           image={myMissionImage}
           alt={"Kép"}

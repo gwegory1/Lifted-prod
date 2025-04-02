@@ -7,10 +7,12 @@ import Image3 from "../assets/compressed/ROL04772.jpg";
 import Footer from "../components/footer";
 import TrainingSection from "../components/trainingSection";
 import ScrollToTopButton from "../components/ScrollToTopButton";
+import { useTranslation } from "react-i18next";
 
 const Training: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const {t} = useTranslation(); // Assuming you have a translation function
 
   const [isVisible, setIsVisible] = useState(true);
 
@@ -61,7 +63,7 @@ const Training: React.FC = () => {
         fontWeight="bold"
         sx={{ fontFamily: "Montserrat, sans-serif", mb: 2 }}
       >
-        Edzés, ami rólad szól
+        {t("heroTitle")}
       </Typography>
       <Typography
         variant={isMobile ? "body1" : "h6"}
@@ -72,8 +74,7 @@ const Training: React.FC = () => {
         fontFamily: "Montserrat, sans-serif",
         }}
       >
-        Személyre szabott programok, fenntartható fejlődés, és motiváló
-        kihívások.
+        {t("heroSubtitle")}
       </Typography>
       </Box>
 
@@ -125,7 +126,7 @@ const Training: React.FC = () => {
           variant={isMobile ? "h5" : "h3"}
           fontWeight="bold"
           >
-          Rajtad
+          {t("section1Title")}
           </Typography>
 
           <Typography
@@ -134,7 +135,7 @@ const Training: React.FC = () => {
           fontWeight="bold"
           sx={{ fontFamily: "Montserrat, sans-serif" }}
           >
-          a fókusz
+          {t("section1Title2")}
           </Typography>
         </Stack>
         <Typography
@@ -146,12 +147,7 @@ const Training: React.FC = () => {
           fontSize: "1.3rem",
           }}
         >
-          Mivel minden ember más, az edzéseim is azok. Az egyéni igényekhez
-          és célokhoz igazítom a programokat, figyelembe véve a jelenlegi
-          szintet és életstílust. Az alapgyakorlatokban és funkcionalitásban
-          hiszek, amelyek tartós fejlődést biztosítanak. Célom, hogy
-          megtaláljuk a számodra leghatékonyabb utat a kitűzött céljaid
-          eléréséhez.
+          {t("section1Text")}
         </Typography>
         </Stack>
       </Stack>
@@ -190,7 +186,7 @@ const Training: React.FC = () => {
           variant={isMobile ? "h5" : "h3"}
           fontWeight="bold"
           >
-          Sikerek
+          {t("section2Title")}
           </Typography>
           <Typography
           variant={isMobile ? "h5" : "h3"}
@@ -198,7 +194,7 @@ const Training: React.FC = () => {
           fontWeight="bold"
           sx={{ fontFamily: "Montserrat, sans-serif" }}
           >
-          lépésről lépésre
+          {t("section2Title2")}
           </Typography>
         </Stack>
         <Typography
@@ -210,13 +206,7 @@ const Training: React.FC = () => {
           fontSize: "1.3rem",
           }}
         >
-          A legfőbb célom nem a gyors eredmények elérése, hanem a hosszú
-          távú, fenntartható fejlődés. Az edzések során mindig figyelek
-          arra, hogy a legjobb megoldást találjuk meg a számodra, ami
-          valóban fenntartható és illeszkedik az életstílusodhoz. A hangsúly
-          az egészséges szokások kialakításán és az edzés fokozatos, stabil
-          beépítésén van. A fejlődés az apró, napi szintű döntésekről szól,
-          amelyek hosszú távon komoly eredményeket hoznak.
+          {t("section2Text")}
         </Typography>
         </Stack>
       </Stack>
@@ -258,7 +248,7 @@ const Training: React.FC = () => {
           variant={isMobile ? "h5" : "h3"}
           fontWeight="bold"
           >
-          Kihívás
+          {t("section3Title")}
           </Typography>
           <Typography
           variant={isMobile ? "h5" : "h3"}
@@ -266,7 +256,7 @@ const Training: React.FC = () => {
           fontWeight="bold"
           sx={{ fontFamily: "Montserrat, sans-serif" }}
           >
-          , ami motivál
+          {t("section3Title2")}
           </Typography>
         </Stack>
         <Typography
@@ -278,10 +268,7 @@ const Training: React.FC = () => {
           fontSize: "1.3rem",
           }}
         >
-          Minden egyes edzés egy új esély arra, hogy kilépj a
-          komfortzónádból és túllépj a saját határaidon. A célom az, hogy
-          ezeket a kihívásokat úgy éld meg, hogy közben az edzés örömmé
-          váljon és motivációt adjon.
+          {t("section3Text")}
         </Typography>
         </Stack>
       </Stack>
@@ -305,7 +292,7 @@ const Training: React.FC = () => {
           mb: { xs: 3, sm: 4 },
         }}
         >
-        Miben tudok segíteni?
+          {t("helpTitle")}
         </Typography>
         <Box
           sx={{
@@ -319,10 +306,10 @@ const Training: React.FC = () => {
           }}
         >
           {[
-            "Izomtömeg növelés",
-            "Súlycsökkentés & testkompozíció javítás",
-            "Gyorsaság, robbanékonyság, állóképesség fejlesztés",
-            "Mobilizáló & funkcionális edzések",
+            t("helpItem1"),
+            t("helpItem2"),
+            t("helpItem3"),
+            t("helpItem4"),
           ].map((item, index) => (
             <Box
               key={index}

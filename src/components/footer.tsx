@@ -1,9 +1,11 @@
 import { Typography, Link, Box, Container, IconButton, Stack, Divider, useMediaQuery, useTheme } from '@mui/material';
-import { Email, Facebook, Instagram, LinkedIn } from '@mui/icons-material';
+import { Email, Facebook, Instagram } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
     const theme = useTheme();
     const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+    const { t } = useTranslation(); // Assuming you have a translation function 
     
     return (
         <Box 
@@ -28,7 +30,7 @@ const Footer = () => {
                     {/* Contact Section */}
                     <Box>
                         <Typography variant="h5" gutterBottom fontWeight="medium" sx={{ mb: 1.5 }}>
-                            Keress bizalommal!
+                            {t('GetIntTouch')}
                         </Typography>
                         <Box>
                             <Link 
@@ -49,9 +51,8 @@ const Footer = () => {
                         {/* Social Media */}
                         <Box mt={2} display="flex" gap={1}>
                             {[
-                                { icon: <Facebook />, label: "facebook", url: "https://www.facebook.com" },
-                                { icon: <Instagram />, label: "instagram", url: "https://www.instagram.com" },
-                                { icon: <LinkedIn />, label: "linkedin", url: "https://www.linkedin.com" }
+                                { icon: <Facebook />, label: "facebook", url: "https://www.facebook.com/share/16GswaDzSP/?mibextid=wwXIfr" },
+                                { icon: <Instagram />, label: "instagram", url: "https://www.instagram.com/viviabraham?igsh=aGk5dnVpcHY5ZG5l&utm_source=qr" },
                             ].map((social, index) => (
                                 <IconButton 
                                     key={index} 
@@ -79,7 +80,8 @@ const Footer = () => {
                         </Typography>
                     </Box>
                     
-                    {/* Links Section */}
+                    {/* 
+                    Links Section 
                     <Box textAlign={{ xs: 'center', md: 'right' }} alignSelf="center">
                         <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1.5, sm: 2 }} justifyContent="center">
                             <Link 
@@ -104,6 +106,7 @@ const Footer = () => {
                             </Link>
                         </Stack>
                     </Box>
+                    */}
                 </Stack>
             </Container>
         </Box>

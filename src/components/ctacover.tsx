@@ -48,7 +48,7 @@ const CtaCover = () => {
               fontSize: { xs: "4rem", sm: "5rem", md: "10rem" },
               lineHeight: "1",
               textShadow: "2px 2px 4px rgba(0,0,0,0.3)",
-              paddingTop: isMobile ? 18 : "0",
+              paddingTop: isMobile ? 22 : "0",
             }}
           >
             ÁBRAHÁM <br /> VIVIEN

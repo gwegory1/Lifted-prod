@@ -24,7 +24,7 @@ const StyledCard = styled(MuiCard)<{ backgroundimage: string }>(
       },
     },
     [theme.breakpoints.down("sm")]: {
-      maxWidth: "100%",
+      maxWidth: "85%",
       height: 340,
       backgroundRepeat: "no-repeat",
     },
@@ -147,6 +147,7 @@ const ServicesCard: React.FC<ServiceCardProps> = ({ services }) => {
         display="flex"
         flexDirection={{ xs: "column", sm: "row" }}
         justifyContent="center"
+        alignItems={"center"}
         gap={{ xs: 2, sm: 4 }}
         flexWrap="wrap"
         sx={{ maxWidth: "1200px", margin: "0 auto" }}
