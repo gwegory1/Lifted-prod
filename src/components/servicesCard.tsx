@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Box, Typography, Card as MuiCard, styled } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const StyledCard = styled(MuiCard)<{ backgroundimage: string }>(
   ({ backgroundimage, theme }) => ({
@@ -70,6 +71,7 @@ interface ServiceCardProps {
 const ServicesCard: React.FC<ServiceCardProps> = ({ services }) => {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const navigate = useNavigate();
+  const { t } = useTranslation(); // Assuming you have a translation function
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -140,7 +142,7 @@ const ServicesCard: React.FC<ServiceCardProps> = ({ services }) => {
             },
           }}
         >
-          Szolgáltatások
+          {t("Services")}
         </Typography>
       </Box>
       <Box

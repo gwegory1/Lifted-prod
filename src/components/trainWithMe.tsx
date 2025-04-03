@@ -4,6 +4,7 @@ import TWM2 from "../assets/compressed/ROL04660.jpg";
 import { Box, Button, Stack, Typography, useMediaQuery, Fade } from "@mui/material";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const MotionBox = motion(Box);
 
@@ -44,6 +45,8 @@ const ImageSection: React.FC<{ isMobile: boolean; position: "left" | "right" }> 
 const TextSection: React.FC = () => {
   const navigate = useNavigate();
 
+  const { t } = useTranslation();
+
   return (
     <Stack
       spacing={2.5}
@@ -79,7 +82,7 @@ const TextSection: React.FC = () => {
             },
           }}
         >
-          Tarts Velem!
+          {t("TrainWithMe")}
         </Typography>
       </MotionBox>
       <MotionBox
@@ -98,9 +101,7 @@ const TextSection: React.FC = () => {
             textAlign: "center",
           }}
         >
-          Építsük együtt a céljaidhoz vezető utat! Személyre szabott tervekkel
-          és folyamatos támogatással segítek abban, hogy valóra váltsd, amire
-          mindig is vágytál. Kezdd el most, és formáld a jövőd!
+          {t("TrainWithMeText")}
         </Typography>
       </MotionBox>
       <MotionBox
@@ -130,7 +131,7 @@ const TextSection: React.FC = () => {
             },
           }}
         >
-          Időpontfoglalás
+          {t("BookNow")}
         </Button>
       </MotionBox>
     </Stack>

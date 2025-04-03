@@ -10,6 +10,7 @@ import { styled } from "@mui/system";
 import { motion } from "framer-motion";
 import nutri1 from "../assets/compressed/ROL04064.jpg";
 import ContactFormDialog from "./contactDialog";
+import { useTranslation } from "react-i18next";
 
 // Motion components
 const MotionBox = motion(Box);
@@ -114,6 +115,7 @@ const NutritionPlans = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [open, setOpen] = useState(false);
+  const {t} = useTranslation(); // Assuming you have a translation function
 
   const openDialog = () => {
     setOpen(true);
@@ -126,26 +128,26 @@ const NutritionPlans = () => {
   // Plan data
   const plans: Record<PlanType, { title: string; details: string[]; price: string }> = {
     Alap: {
-      title: "Alap",
+      title: t("Nutrition.NutritionSection.plans.Basic.title"),
       details: [
-        "1 órás konzultáció",
-        "Étkezési napló elemzése",
-        "5 napos mintaétrend, összesen 20 recept (reggeli, ebéd, vacsora, nasi) - igényeid figyelembe vételével, kalória és makrók számolása nélkül",
-        "Bevásárló lista",
+        t("Nutrition.NutritionSection.plans.Basic.details.0"),
+        t("Nutrition.NutritionSection.plans.Basic.details.1"),
+        t("Nutrition.NutritionSection.plans.Basic.details.2"),
+        t("Nutrition.NutritionSection.plans.Basic.details.3"),
       ],
-      price: '29000 Ft',
+      price: t("Nutrition.NutritionSection.plans.Basic.price"),
     },
     Premium: {
-      title: "Prémium",
+      title: t("Nutrition.NutritionSection.plans.Premium.title"),
       details: [
-        "1 órás konzultáció",
-        "Étkezési napló elemzése",
-        "7 napos mintaétrend, összesen 28 recept (reggeli, ebéd, vacsora, nasi) - igényeid figyelembe vételével, céljaidnak megfelelő, személyre szabott kalória és makrók számolásával",
-        "Bevásárló lista",
-        "PDF Mini Táplálkozási Kisokos",
-        "1 hónapos utánkövetés: heti 1x30 perc kontroll konzultáció + e-mailes kérdés-válasz lehetőség",
+        t("Nutrition.NutritionSection.plans.Premium.details.0"),
+        t("Nutrition.NutritionSection.plans.Premium.details.1"),
+        t("Nutrition.NutritionSection.plans.Premium.details.2"),
+        t("Nutrition.NutritionSection.plans.Premium.details.3"),
+        t("Nutrition.NutritionSection.plans.Premium.details.4"),
+        t("Nutrition.NutritionSection.plans.Premium.details.5"),
       ],
-      price: '69000 Ft',
+      price: t("Nutrition.NutritionSection.plans.Premium.price"),
     },
   };
 
@@ -208,7 +210,7 @@ const NutritionPlans = () => {
           marginBottom: theme.spacing(3),
         }}
       >
-        TANÁCSADÁSI LEHETŐSÉGEK
+        {t("Nutrition.NutritionSection.title")}
       </MotionTypography>
       
       <MotionBox
@@ -319,7 +321,7 @@ const NutritionPlans = () => {
                 whileTap="tap"
                 variants={buttonVariants}
               >
-                IDŐPONT FOGLALÁS
+                {t("Nutrition.contactButton")}
               </StyledButton>
             </MotionBox>
           </DetailsColumn>
@@ -436,7 +438,7 @@ const NutritionPlans = () => {
             whileTap="tap"
             variants={buttonVariants}
           >
-            IDŐPONT FOGLALÁS
+            {t("Nutrition.contactButton")}
           </StyledButton>
         </MotionBox>
       )}
@@ -453,7 +455,7 @@ const NutritionPlans = () => {
               textAlign: "left"
               }}
             >
-              Kinek tudok segíteni?
+              {t("Nutrition.WhoCanIHelp.title")}
             </Typography>
             <Typography
               variant="body1"
@@ -465,12 +467,7 @@ const NutritionPlans = () => {
               p: 1
               }}
             >
-              Főként egészséges emberek számára tudok segítséget nyújtani,
-              akiknek nincsenek komolyabb ételallergiáik vagy hormonális
-              problémáik. Glutén- és laktózérzékenység azonban nem jelent
-              problémát, valamint figyelembe veszem a vegetáriánus és vegán
-              étkezési szokásokat az étrendek kialakításakor, ha ilyen irányú
-              preferencia felmerül.
+              {t("Nutrition.WhoCanIHelp.text")}
             </Typography>
     </NutritionPlansContainer>
   );

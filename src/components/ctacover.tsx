@@ -3,12 +3,14 @@ import ctaCoverImage from "../assets/cta-cover.jpg";
 import ctaCoverImage2 from "../assets/cta-cover-phone.jpg";
 import { motion } from "framer-motion";
 import { useMediaQuery } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const MotionBox = motion(Box);
 const MotionTypography = motion(Typography);
 
 const CtaCover = () => {
   const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
+  const { t } = useTranslation();
 
   return (
     <Stack>
@@ -77,8 +79,7 @@ const CtaCover = () => {
                 textShadow: "1px 1px 3px rgba(0,0,0,0.3)",
               }}
             >
-              Mindenki egyedi, így a megoldásaink is azok. Én segítek megtalálni
-              a Te utadat!
+              {t("ctacoverText")}
             </Typography>
           </MotionBox>
         </MotionBox>
@@ -110,7 +111,7 @@ const CtaCover = () => {
             fontFamily: "'Montserrat', sans-serif",
           }}
         >
-          "A Jóllét Új Szintjei"
+          {t("newHeightsText")}
         </MotionTypography>
       </MotionBox>
     </Stack>

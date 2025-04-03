@@ -7,6 +7,7 @@ import Footer from "../components/footer";
 import NutritionGallery from "../components/nutritionGalery";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 const HeroSection = styled(Box)(({ theme }) => ({
   backgroundColor: "#ffffff",
@@ -25,6 +26,8 @@ const LandingPage = () => {
 
 
     const [isVisible, setIsVisible] = useState(true);
+
+    const { t } = useTranslation(); // Assuming you have a translation function
   
     const handleScroll = () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -71,7 +74,7 @@ const LandingPage = () => {
               mb: { xs: 2, sm: 3 },
             }}
           >
-            „Nincs tiltott táplálék, csak kerülendő mennyiség"
+            {t("Nutrition.quote")}
           </Typography>
           <Box
             sx={{
@@ -94,8 +97,8 @@ const LandingPage = () => {
                   textAlign: { xs: "center", md: "left" },
                 }}
               >
-                A táplálkozás{" "}
-                <span style={{ color: "#ff9800" }}>harmóniája</span>
+                {t("Nutrition.title")}
+                <span style={{ color: "#ff9800" }}>{t("Nutrition.title2")}</span>
               </Typography>
               <Typography
                 variant="h6"
@@ -106,7 +109,7 @@ const LandingPage = () => {
                   textAlign: { xs: "center", md: "left" },
                 }}
               >
-                Tudatos étkezés a fenntartható egészségért
+                {t("Nutrition.subtitle")}
               </Typography>
               <Typography
                 variant="body1"
@@ -116,19 +119,7 @@ const LandingPage = () => {
                   mt: 2,
                 }}
               >
-                Táplálkozási tanácsadásom nem gyors diétákra vagy tiltólistás
-                ételekre épít, hanem olyan alapelvekre, amelyek segítenek elérni
-                a céljaidat és hosszú távon is hozzájárul az egészségedhez. A
-                táplálkozásnak változatosnak és színesnek kell lennie, de nem
-                csupán arról szól, hogy mit eszel, hanem arról is, hogyan éled
-                meg az étkezéseidet. Mivel mindenki más, az étkezéseket
-                személyre szabottan alakítom, figyelembe véve az egyedi
-                igényeket. Nem kell lemondanod a kedvenc ételeidről vagy
-                kiiktatnod ételcsoportokat, azonban fontos megtanulnod, hogyan
-                illesztheted be őket a számodra ideális étkezésbe. Célom, hogy
-                megértsd a tápanyagok szerepét, és tudatos döntésekkel alakíts
-                ki egészséges szokásokat, amelyek beilleszthetők a mindennapi
-                életedbe.
+                {t("Nutrition.text")}
               </Typography>
             </Box>
             <Box

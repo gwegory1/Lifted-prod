@@ -4,11 +4,13 @@ import { motion } from "framer-motion";
 import nutri4 from "../assets/compressed/ROL04162.jpg";
 import nutri5 from "../assets/compressed/ROL04397.jpg";
 import nutri6 from "../assets/compressed/ROL04366.jpg";
+import { useTranslation } from "react-i18next";
 
 // Motion-enhanced components
 const MotionBox = motion(Box);
 const MotionTypography = motion(Typography);
 const MotionImage = motion.img;
+// Removed from here
 
 const ImageCard = styled(MotionBox)(({ theme }) => ({
   flex: 1,
@@ -36,26 +38,27 @@ const TextWrapper = styled(MotionBox)(({ theme }) => ({
 
 const NutritionGallery = () => {
   const theme = useTheme();
+  const { t } = useTranslation();
 
   const imageData = [
     {
       src: nutri6,
       alt: "Nutrition Plan Image",
-      text: "Újragondolt, egészséges reggelik, amik gyorsak, finomak és táplálóak!",
+      text: t("Nutrition.WhatToExpect.text1"),
       maxHeight: { xs: 250, sm: 300 },
       fontSize: { xs: "0.9rem", sm: "1rem" },
     },
     {
       src: nutri4,
       alt: "Nutrition Plan Image",
-      text: "Teljes értékű, színes ételek, tele vitaminokkal és ásványi anyagokkal.",
+      text: t("Nutrition.WhatToExpect.text2"),
       height: { xs: 250, sm: 300 },
       fontSize: { xs: "0.9rem", sm: "1rem" },
     },
     {
       src: nutri5,
       alt: "Nutrition Plan Image",
-      text: "Fehérjében gazdag, egészséges édességek, mindennapi fogyasztásra.",
+      text: t("Nutrition.WhatToExpect.text3"),
       height: { xs: 250, sm: 300 },
       fontSize: { xs: "1rem", sm: "1.2rem" },
     },
@@ -112,7 +115,7 @@ const NutritionGallery = () => {
           padding: theme.spacing(3),
         }}
       >
-        Mire számíthatsz?
+        {t("Nutrition.WhatToExpect.title")}
       </MotionTypography>
       
       <MotionBox

@@ -11,6 +11,7 @@ import { motion } from "framer-motion";
 import trainingImage from "../assets/compressed/IMG_5260.jpg"; // Updated image path
 import ContactFormDialog from "./contactDialog";
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { useTranslation } from "react-i18next";
 
 // Motion components
 const MotionBox = motion(Box);
@@ -125,6 +126,7 @@ const TrainingSection = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation(); // Assuming you have a translation function
 
   const openDialog = () => {
     setOpen(true);
@@ -140,34 +142,24 @@ const TrainingSection = () => {
     { title: string; price: string; details: string[] }
   > = {
     Single: {
-      title: "EGY ALKALMAS",
-      price: "10 000 Ft",
-      details: ["60 perces személyi edzés", "Alkalmanként vásárolt jegy"],
+      title: t("trainingSection.plans.Single.title"),
+      price: t("trainingSection.plans.Single.price"),
+      details: t("trainingSection.plans.Single.details", { returnObjects: true }) as string[],
     },
     Package: {
-      title: "BÉRLET",
-      price: "75 000 Ft",
-      details: [
-        "8 személyi edzést tartalmaz",
-        "2 hónapon belül bármikor felhasználható",
-      ],
+      title: t("trainingSection.plans.Package.title"),
+      price: t("trainingSection.plans.Package.price"),
+      details: t("trainingSection.plans.Package.details", { returnObjects: true }) as string[],
     },
     Pair: {
-      title: "PÁROS EDZÉS",
-      price: "8 500 Ft/Fő",
-      details: [
-        "2 főre szóló edzés",
-        "Ideális, ha baráttal/barátnővel szeretnél edzeni",
-      ],
-    },
+      title: t("trainingSection.plans.Pair.title"),
+      price: t("trainingSection.plans.Pair.price"),
+      details: t("trainingSection.plans.Pair.details", { returnObjects: true }) as string[],
+    }, 
     Plan: {
-      title: "EDZÉSTERV",
-      price: "15 000 Ft",
-      details: [
-        "1 hónapos személyre szabott edzésterv",
-        "75 perces konzultáció + felmérés alapján készül",
-        "Egyedül végezhető",
-      ],
+      title: t("trainingSection.plans.Plan.title"),
+      price: t("trainingSection.plans.Plan.price"),
+      details: t("trainingSection.plans.Plan.details", { returnObjects: true }) as string[],
     },
   };
 
@@ -246,7 +238,7 @@ const TrainingSection = () => {
               textShadow: "0 1px 2px rgba(0, 0, 0, 0.2)",
             }}
           >
-            EDZÉS LEHETŐSÉGEK
+            {t("trainingSection.title")}
           </MotionTypography>
           <MotionBox 
             sx={{ 
@@ -286,8 +278,7 @@ const TrainingSection = () => {
             
           }}
         >
-          Minden esetben az első alkalom egy 75 perces konzultáció & felmérés, ami
-          a célok megbeszélését és állapotfelmérést foglal magába.
+          {t("trainingSection.consultation")}
         </MotionTypography>
       </Box>
 
@@ -402,7 +393,7 @@ const TrainingSection = () => {
                 whileTap="tap"
                 variants={buttonVariants}
               >
-                KAPCSOLATFELVÉTEL
+                {t("trainingSection.contactButton")}
               </StyledButton>
             </MotionBox>
           </DetailsColumn>
@@ -520,7 +511,7 @@ const TrainingSection = () => {
             whileTap="tap"
             variants={buttonVariants}
           >
-            KAPCSOLATFELVÉTEL
+            {t("trainingSection.contactButton")}
           </StyledButton>
         </MotionBox>
       )}

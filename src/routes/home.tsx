@@ -9,11 +9,13 @@ import TrainImage from "../assets/compressed/IMG_5259.jpg";
 import MyMission from "../components/myMission";
 import Footer from "../components/footer";
 import ScrollToTopButton from "../components/ScrollToTopButton";
+import { useTranslation } from "react-i18next";
 
 
 const Home: React.FC = () => {
 
     const [isVisible, setIsVisible] = useState(true);
+    const { t } = useTranslation(); // Assuming you have a translation function
   
     const handleScroll = () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -41,8 +43,8 @@ const Home: React.FC = () => {
       <TrainWithMe />
       <ServicesCard
         services={[
-          { title: "Személyi Edzés", backgroundImage: TrainImage, link: "/training" },
-          { title: "Táplálkozási Tanácsadás", backgroundImage: NutriImage, link: "/nutrition" },
+          { title: t("PersonalizedTraining"), backgroundImage: TrainImage, link: "/training" },
+          { title: t("NutritionPlans"), backgroundImage: NutriImage, link: "/nutrition" },
         ]}
       />
       <MyMission />

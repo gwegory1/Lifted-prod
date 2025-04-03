@@ -10,6 +10,7 @@ import {
 import myMissionImage from "../assets/compressed/ROL04866.jpg";
 import AddIcon from "@mui/icons-material/Add";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const MyMission: React.FC = () => {
   const navigate = useNavigate();
@@ -17,6 +18,8 @@ const MyMission: React.FC = () => {
   const onReadMore = () => {
     navigate("/about");
   };
+
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -47,7 +50,7 @@ const MyMission: React.FC = () => {
             sx={{ fontSize: { xs: "2rem", sm: "3rem" } }}
             fontWeight={"1000"}
           >
-            RÓLAM
+            {t("myMission")}
           </Typography>
           <Stack justifyContent={"space-between"} sx={{ flex: 1 }}>
             <Typography
@@ -58,15 +61,7 @@ const MyMission: React.FC = () => {
                 mb: 2,
               }}
             >
-              Személyre szabott edzésekkel és táplálkozási tanácsokkal segítek
-              abban, hogy a legjobb formádat hozd ki magadból, és új szintre
-              emeld a jóllétedet. Több mint egy évtizedes versenysport hátterem,
-              külföldi tapasztalataim, valamint edzői és táplálkozási
-              képesítéseim alapján olyan holisztikus megközelítést kínálok,
-              amely figyelembe veszi az egyedi céljaidat, igényeidet, és
-              hozzásegít egy egészségesebb élethez. A változás nem csak
-              lehetséges, hanem fenntartható is. Nem kell tökéletesnek lenned,
-              de folyamatosan jobbá válhatsz. Kezdd el most!
+              {t("myMissionText")}
             </Typography>
             <Stack gap={2}>
               <Divider sx={{ borderWidth: "1px", borderColor: "black" }} />
@@ -82,7 +77,7 @@ const MyMission: React.FC = () => {
                   }}
                   endIcon={<AddIcon />}
                 >
-                  Tovább
+                  {t("ReadMore")}
                 </Button>
               </Stack>
               <Divider sx={{ borderWidth: "1px", borderColor: "black" }} />

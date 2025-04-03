@@ -325,7 +325,7 @@ const Navbar: React.FC = () => {
             onMouseLeave={() => setHoveredItem(null)}
               >
             <Link style={navStyles.navLink(hoveredItem === 0)} to="/">
-              Kezdőlap
+              {t("home")}
             </Link>
               </li>
               <li
@@ -334,7 +334,7 @@ const Navbar: React.FC = () => {
             onMouseLeave={() => setHoveredItem(null)}
               >
             <Link style={navStyles.navLink(hoveredItem === 1)} to="/about">
-              Rólam
+              {t("about")}
             </Link>
               </li>
             </Stack>
@@ -359,7 +359,7 @@ const Navbar: React.FC = () => {
             onMouseLeave={() => setHoveredItem(null)}
               >
             <Link style={navStyles.navLink(hoveredItem === 2)} to="/training">
-              Edzés
+              {t("training")}
             </Link>
               </li>
               <li
@@ -368,7 +368,7 @@ const Navbar: React.FC = () => {
             onMouseLeave={() => setHoveredItem(null)}
               >
             <Link style={navStyles.navLink(hoveredItem === 3)} to="/nutrition">
-              Táplálkozás
+              {t("nutrition")}
             </Link>
               </li>
             </Stack>
