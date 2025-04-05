@@ -4,45 +4,61 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      newheights: "NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS",
       home: "Home",
       about: "About Me",
       training: "Training",
       nutrition: "Nutrition",
       healthJourney: "A journey towards health and balance",
-      aboutmetext1: `"Health is not about quick fixes or cookie-cutter programs—it's about creating a lifestyle that works for you. I've seen many people struggle with unrealistic fitness expectations and unsustainable methods. That's why my holistic philosophy is built on three pillars: movement, nutrient-rich foods, and mental well-being. Instead of chasing ever-changing diets and overly complicated workouts, I focus on the fundamental, functional exercises that build strength and endurance, the whole foods that nourish and energize, and a mindset that fosters long-term success."`,
-      aboutmetext2: `"My journey in sports has taken me to many places, ultimately leading me to the United States on a sports scholarship, where I earned my Bachelor's and Master's degrees in Media and Strategic Communication while deepening my knowledge in training and performance. Along the way, I completed the fitness instructor training at the Fitness Academy and obtained certifications as a personal trainer and nutrition advisor. However, my background is not just about qualifications—it's about over a decade of competitive sports experience, challenges that taught me to rebuild and strengthen my body and mind, and a commitment to helping others find balance on their own journeys."`,
-      personalizedGuidance: `"I design personalized 1:1 training and nutrition guidance because real progress comes from a plan tailored to you, not the masses. Whether you want to improve your overall health or feel stronger and more confident, I'm here to guide you, dispel myths, and help you develop habits that will last a lifetime."`,
-      buildHealthyLife: `"Let's build a healthier life together!"`,
+      aboutmetext1: `Health isn’t about quick fixes or one-size-fits-all programs, it’s about creating a lifestyle that works for
+                      you. I saw many people struggle with unrealistic fitness expectations and unsustainable methods.
+                      That’s why my holistic philosophy is built on three key pillars: movement, nutrient-dense food, and
+                      mental well-being. Instead of ever-changing, trendy diets and complicated workouts, I focus on
+                      fundamental exercises that build strength and endurance, whole foods that nourish and energize, and
+                      a mindset that fosters lasting success.`,
+      aboutmetext2: `My journey took me across the world, where I secured an athletic scholarship to America, earning both
+                      my Bachelor's and Master's degrees in Media and Strategic Communication while deepening my
+                      knowledge of training, performance, and coaching. During my studies, I obtained my Fitness Instructor
+                      certification and later became a certified Personal Trainer and Nutritionist. But my background isn’t
+                      just about certifications—it’s built on over a decade of firsthand experience in competitive sports,
+                      setbacks that taught me to rebuild and strengthen both my body and mind, and a commitment to
+                      helping others find balance in their own journey.
+`,
+      personalizedGuidance: `With 1-on-1 coaching, I design personalized training and nutrition guides because real progress comes
+                              from a plan that’s built for you, not for the masses. Whether you're looking to improve your overall
+                              health, or simply wanting to feel stronger and more confident, I’m here to guide you, help you cut
+                              through the noise, and build habits that last a lifetime.`,
+      buildHealthyLife: `Let's build a healthier life together!`,
       galleryAlt: "Gallery image",
       footerText: "All rights reserved.",
       GetIntTouch: "Get in touch!",
-      heroTitle: `Training that is all about you`,
+      heroTitle: `Training that’s built around you`,
       heroSubtitle: `Personalized programs, sustainable progress, and motivating challenges.`,
-      section1Title: `You are`,
-      section1Title2: `the focus`,
-      section1Text: `Since every person is different, so are my workouts. I tailor the programs to individual needs and goals, considering the current level and lifestyle. I believe in basic exercises and functionality that provide lasting progress. My goal is to find the most effective path for you to achieve your set goals.`,
-      section2Title: `Successes`,
-      section2Title2: `step by step`,
-      section2Text: `My main goal is not to achieve quick results but to ensure long-term, sustainable progress. During the workouts, I always pay attention to finding the best solution for you that is truly sustainable and fits your lifestyle. The focus is on building healthy habits and gradually, steadily incorporating exercise into your routine. Progress is about small, daily decisions that lead to significant results over time.`,
+      section1Title: `You`,
+      section1Title2: `are in focus`,
+      section1Text: `Every person is different, and so are my workouts. I tailor each plan to your individual needs and goals, considering your current level and lifestyle. I believe in foundational movements and functional training that drive lasting progress. My goal is to help you find the most effective path to achieving your goals.`,
+      section2Title: `Success`,
+      section2Title2: `Step by step`,
+      section2Text: `My main goal isn’t quick fixes but fostering long-term, sustainable progress.. In every training session, I focus on finding the best approach for you—one that fits your lifestyle and is truly maintainable. The key is building healthy habits and gradually integrating training in a way that feels natural. Progress comes from small, daily choices that lead to significant results over time.`,
       section3Title: `Challenge`,
-      section3Title2: `, that motivates`,
-      section3Text: `Every workout is a new chance to step out of your comfort zone and push beyond your limits. My goal is for you to experience these challenges in a way that makes exercise enjoyable and motivating.`,
-      helpTitle: `How can I help you?`,
+      section3Title2: `that motivates`,
+      section3Text: `Every workout is a new opportunity to step out of your comfort zone and push past your limits. My goal is to help you embrace these challenges in a way that makes training enjoyable and keeps you motivated.`,
+      helpTitle: `How can I help?`,
       helpItem1: `Increase muscle mass`,
-      helpItem2: `Weight loss & body composition improvement`,
-      helpItem3: `Speed, explosiveness, endurance development`,
-      helpItem4: `Mobilizing & functional workouts`,
-      ctacoverText: `Everyone is unique, so our solutions are too. I help you find your path!`,
+      helpItem2: `Weight loss & body recomposition`,
+      helpItem3: `Speed, power, and endurance development`,
+      helpItem4: `Mobility & functional training`,
+      ctacoverText: `Everyone is unique, so are our solutions. I will help you find your path!`,
       newHeightsText: `"New Heights of Wellness"`,
       myMission: `MY MISSION`,
-      myMissionText: `With personalized training and nutrition advice, I help you bring out your best self and elevate your well-being to a new level. Based on over a decade of competitive sports background, international experiences, and my coaching and nutrition qualifications, I offer a holistic approach that considers your unique goals and needs, guiding you towards a healthier life. Change is not only possible but sustainable. You don't have to be perfect, but you can continuously improve. Start now!`,
+      myMissionText: `With personalized workouts and nutrition guidance, I help you bring out your best and take your well-being to the next level. Drawing on over a decade of competitive sports experience, international background, and certifications in training and nutrition, I offer a holistic approach tailored to your unique goals and needs, empowering you to live a healthier life. Change isn’t just possible, it’s sustainable. You don’t have to be perfect, but you can keep getting better. Start now!`,
       ReadMore: `Read more`,
       TrainWithMe: `Train with me!`,
       TrainWithMeText: `Let's build the path to your goals together! With personalized plans and continuous support, I help you achieve what you've always desired. Start now and shape your future!`,
       BookNow: `Book an appointment`,
       Services: `Services`,
       PersonalizedTraining: `Personal Training`,
-      NutritionPlans: `Nutrition Counseling`,
+      NutritionPlans: `Nutrition Consulting`,
       trainingSection: {
         title: "Training Options",
         plans: {
@@ -59,7 +75,7 @@ const resources = {
             price: "75,000 Ft",
             details: [
               "Includes 8 personal training sessions",
-              "Can be used anytime within 2 months",
+              "Valid for 2 months",
             ],
           },
           Pair: {
@@ -81,17 +97,17 @@ const resources = {
           },
         },
         consultation:
-          "Every first session includes a 75-minute consultation & assessment, covering goal discussions and condition evaluation.",
+          "Every first session includes a 75-minute consultation & assessment, which includes discussing your goals and evaluating your current fitness level.",
         contactButton: "CONTACT ME",
       },
       Nutrition: {
         quote: '"There is no forbidden food, only quantities to avoid"',
         title: "The Harmony ",
         title2: "of Nutrition",
-        subtitle: "Conscious eating for sustainable health",
-        text: "My nutrition counseling is not based on quick diets or forbidden foods but on principles that help you achieve your goals and contribute to your health in the long term. Nutrition should be varied and colorful, but it is not just about what you eat; it is also about how you experience your meals. Since everyone is different, I tailor meals to individual needs, taking unique requirements into account. You don't have to give up your favorite foods or eliminate food groups, but it is important to learn how to incorporate them into your ideal diet. My goal is to help you understand the role of nutrients and develop healthy habits through conscious decisions that can be integrated into your daily life.",
+        subtitle: "Mindful eating for sustainable health",
+        text: "My nutrition guidance is not based on quick diets or foods that are off-limits but on principles that help you reach your goals and contribute to your long-term health. Nutrition should be diverse and colorful, but it’s not just about what you eat – it’s also about how you experience your meals. Since everyone is different, I tailor meal plans to individual needs. You don’t have to give up your favorite foods or eliminate food groups, but it’s important to learn how to incorporate them into your ideal meals. My goal is to help you understand the role of nutrients and make mindful choices to develop healthy habits that fit seamlessly into your everyday life.",
         NutritionSection: {
-          title: "Nutrition Options",
+          title: "Consulting options",
           plans: {
             Basic: {
               title: "Basic",
@@ -118,24 +134,24 @@ const resources = {
           },
         },
         WhoCanIHelp: {
-          title: "Who Can I Help?",
-          text: "I can primarily assist healthy individuals who do not have severe food allergies or hormonal issues. Gluten and lactose intolerance are not a problem, and I also consider vegetarian and vegan dietary preferences when creating meal plans if such preferences arise.",
+          title: "Who I can help",
+          text: "I primarily offer assistance to healthy individuals who don’t have major food allergies or hormonal issues. However, gluten and lactose sensitivity are not a problem, and I also take vegetarian and vegan eating habits into account when creating meal plans, should such preferences arise.",
         },
         contactButton: "CONTACT ME",
         WhatToExpect: {
-            title: "What to expect?",
-            text1:
-                "Reimagined, healthy breakfasts that are quick, delicious, and nutritious.",
-            text2:
-                "Wholesome, colorful meals packed with vitamins and minerals.",
-            text3:
-                "Protein-rich, healthy desserts for everyday consumption.",
+          title: "What to expect?",
+          text1:
+            "Reimagined, healthy breakfasts that are quick, delicious, and nutritious.",
+          text2:
+            "Whole foods, colorful meals packed with vitamins and minerals.",
+          text3: "Protein-rich, healthy desserts for everyday enjoyment.",
         },
       },
     },
   },
   hu: {
     translation: {
+      newheights: "JÓLLÉT ÚJ SZINTJEI JÓLLÉT ÚJ SZINTJEI JÓLLÉT ÚJ SZINTJEI",
       home: "Kezdőlap",
       about: "Rólam",
       training: "Edzés",
@@ -165,7 +181,7 @@ const resources = {
       helpItem3: `Gyorsaság, robbanékonyság, állóképesség fejlesztés`,
       helpItem4: `Mobilizáló & funkcionális edzések`,
       ctacoverText: `Mindenki egyedi, így a megoldásaink is azok. Én segítek megtalálni a Te utadat!`,
-      newHeightsText: `"A Jóllét Új Szintjei"`,
+      newHeightsText: `"A jóllét új szintjei"`,
       myMission: `Rólam`,
       myMissionText: `Személyre szabott edzésekkel és táplálkozási tanácsokkal segítek abban, hogy a legjobb formádat hozd ki magadból, és új szintre emeld a jóllétedet. Több mint egy évtizedes versenysport hátterem, külföldi tapasztalataim, valamint edzői és táplálkozási képesítéseim alapján olyan holisztikus megközelítést kínálok, amely figyelembe veszi az egyedi céljaidat, igényeidet, és hozzásegít egy egészségesebb élethez. A változás nem csak lehetséges, hanem fenntartható is. Nem kell tökéletesnek lenned, de folyamatosan jobbá válhatsz. Kezdd el most!`,
       ReadMore: `Tovább`,
