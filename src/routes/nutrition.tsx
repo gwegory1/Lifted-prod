@@ -115,7 +115,7 @@ const LandingPage = () => {
                 variant="body1"
                 sx={{
                   fontSize: { xs: "1.2rem", sm: "1.3rem" },
-                  textAlign: { xs: "justify", md: "left" },
+                  textAlign: "left",
                   mt: 2,
                 }}
               >

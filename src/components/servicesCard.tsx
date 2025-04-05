@@ -121,8 +121,7 @@ const ServicesCard: React.FC<ServiceCardProps> = ({ services }) => {
             width: "max-content", // Ensures text doesn't get cut off
           }}
         >
-          NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF
-          WELLNESS
+          {t("newheights")}
         </BackgroundText>        
         <Typography
           variant="h2"

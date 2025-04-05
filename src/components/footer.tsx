@@ -29,47 +29,74 @@ const Footer = () => {
                 >
                     {/* Contact Section */}
                     <Box>
-                        <Typography variant="h5" gutterBottom fontWeight="medium" sx={{ mb: 1.5 }}>
+                        <Typography variant="h4" gutterBottom fontWeight="medium" sx={{ mb: 1.5 }}>
                             {t('GetIntTouch')}
                         </Typography>
                         <Box>
+                            {/* Contact Email */}
                             <Link 
                                 href="mailto:abrahamvivien@lifted.hu" 
                                 color="inherit" 
                                 display="flex" 
                                 alignItems="center"
                                 sx={{ 
+                                    textDecoration: 'none',
                                     transition: 'all 0.2s',
-                                    '&:hover': { color: theme.palette.primary.main, transform: 'translateX(3px)' } 
+                                    '&:hover': { color: theme.palette.primary.main, transform: 'translateX(5px)' } 
                                 }}
                             >
-                                <Email sx={{ mr: 1 }} />
-                                abrahamvivien@lifted.hu
-                            </Link>
-                        </Box>
-                        
-                        {/* Social Media */}
-                        <Box mt={2} display="flex" gap={1}>
-                            {[
-                                { icon: <Facebook />, label: "facebook", url: "https://www.facebook.com/share/16GswaDzSP/?mibextid=wwXIfr" },
-                                { icon: <Instagram />, label: "instagram", url: "https://www.instagram.com/viviabraham?igsh=aGk5dnVpcHY5ZG5l&utm_source=qr" },
-                            ].map((social, index) => (
                                 <IconButton 
-                                    key={index} 
                                     color="inherit" 
-                                    aria-label={social.label} 
-                                    href={social.url}
-                                    sx={{ 
-                                        transition: 'all 0.2s',
-                                        '&:hover': { 
-                                            color: theme.palette.primary.main,
-                                            transform: 'translateY(-3px)' 
-                                        } 
-                                    }}
+                                    aria-label="email" 
+                                    sx={{ mr: 2, p: 0 }}
                                 >
-                                    {social.icon}
+                                    <Email fontSize="large" />
                                 </IconButton>
-                            ))}
+                                <Typography variant="body1" fontWeight="medium">abrahamvivien@lifted.hu</Typography>
+                            </Link>
+
+                            {/* Social Media */}
+                            <Box mt={1} display="flex" flexDirection="column" gap={1}>
+                                {[
+                                    { 
+                                        icon: <Facebook fontSize="large" />, 
+                                        label: "facebook", 
+                                        url: "https://www.facebook.com/share/16GswaDzSP/?mibextid=wwXIfr", 
+                                        username: "Vivien Ábrahám" 
+                                    },
+                                    { 
+                                        icon: <Instagram fontSize="large" />, 
+                                        label: "instagram", 
+                                        url: "https://www.instagram.com/viviabraham?igsh=aGk5dnVpcHY5ZG5l&utm_source=qr", 
+                                        username: "@viviabraham" 
+                                    },
+                                ].map((social, index) => (
+                                    <Link 
+                                        key={index} 
+                                        href={social.url} 
+                                        color="inherit" 
+                                        display="flex" 
+                                        alignItems="center" 
+                                        sx={{ 
+                                            textDecoration: 'none',
+                                            transition: 'all 0.2s',
+                                            '&:hover': { 
+                                                color: theme.palette.primary.main, 
+                                                transform: 'translateX(5px)' 
+                                            } 
+                                        }}
+                                    >
+                                        <IconButton 
+                                            color="inherit" 
+                                            aria-label={social.label} 
+                                            sx={{ mr: 2, p: 0 }}
+                                        >
+                                            {social.icon}
+                                        </IconButton>
+                                        <Typography variant="body1" fontWeight="medium">{social.username}</Typography>
+                                    </Link>
+                                ))}
+                            </Box>
                         </Box>
                     </Box>
                     

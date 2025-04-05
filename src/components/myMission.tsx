@@ -89,19 +89,20 @@ const MyMission: React.FC = () => {
         sx={{
           order: { xs: 1, md: 2 },
           display: "flex",
-          justifyContent: { xs: "center", md: "flex-end" }, // Center in phone mode
+          justifyContent: { xs: "center", md: "flex-end" },
           alignItems: "center",
-          width: "100%", // Ensure it spans the full width
-          height: "70vh", // Optional: Make it span the full viewport height
-          overflow: "hidden", // Prevent overflow
+          width: "100%",
+          height: "70vh",
+          overflow: "hidden",
+          minWidth: "500px",
         }}
       >
         <CardMedia
           component="img"
           sx={{
-            width: "auto", // Maintain aspect ratio
-            height: "100%", // Fill the height
-            objectFit: "cover",
+        width: "150%", // Increase width to make the picture wider
+        height: "100%",
+        objectFit: "cover",
           }}
           image={myMissionImage}
           alt={"Kép"}

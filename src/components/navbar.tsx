@@ -302,6 +302,7 @@ const Navbar: React.FC = () => {
           </Menu>
         </Box>
       ) : (
+        <Stack direction={"row"} alignItems="center" justifyContent="space-between" pl={14} pr={5} >
         <Box
           sx={{
             width: "100%",
@@ -311,31 +312,30 @@ const Navbar: React.FC = () => {
             boxSizing: "border-box",
             display: "flex",
             alignItems: "center",
-            justifyContent: "center", // Center the content horizontally
-            px: 3, // Add horizontal padding for spacing
+            
+            px: 4, // Add horizontal padding for spacing
             position: "relative", // Enable relative positioning for offset
-            left: "2%", // Offset the entire content slightly to the right
           }}
         >
-          <ul style={{ ...navStyles.navList, flex: 1, justifyContent: "space-evenly" }}>
+          <ul style={{ ...navStyles.navList, flex: 1, justifyContent: "flex-end", marginRight: 100 }}>
             <Stack {...navStackProps}>
               <li
-            style={navStyles.navItem(hoveredItem === 0)}
-            onMouseEnter={() => setHoveredItem(0)}
-            onMouseLeave={() => setHoveredItem(null)}
+          style={navStyles.navItem(hoveredItem === 0)}
+          onMouseEnter={() => setHoveredItem(0)}
+          onMouseLeave={() => setHoveredItem(null)}
               >
-            <Link style={navStyles.navLink(hoveredItem === 0)} to="/">
-              {t("home")}
-            </Link>
+          <Link style={navStyles.navLink(hoveredItem === 0)} to="/">
+            {t("home")}
+          </Link>
               </li>
               <li
-            style={navStyles.navItem(hoveredItem === 1)}
-            onMouseEnter={() => setHoveredItem(1)}
-            onMouseLeave={() => setHoveredItem(null)}
+          style={navStyles.navItem(hoveredItem === 1)}
+          onMouseEnter={() => setHoveredItem(1)}
+          onMouseLeave={() => setHoveredItem(null)}
               >
-            <Link style={navStyles.navLink(hoveredItem === 1)} to="/about">
-              {t("about")}
-            </Link>
+          <Link style={navStyles.navLink(hoveredItem === 1)} to="/about">
+            {t("about")}
+          </Link>
               </li>
             </Stack>
           </ul>
@@ -348,32 +348,32 @@ const Navbar: React.FC = () => {
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
               flexShrink: 0,
-              mx: 4, // Add margin to separate the logo from the nav items
             }}
           />
-          <ul style={{ ...navStyles.navList, flex: 1, justifyContent: "space-evenly" }}>
+          <ul style={{ ...navStyles.navList, flex: 1, justifyContent: "flex-start", marginLeft: 100 }}>
             <Stack {...navStackProps}>
               <li
-            style={navStyles.navItem(hoveredItem === 2)}
-            onMouseEnter={() => setHoveredItem(2)}
-            onMouseLeave={() => setHoveredItem(null)}
+          style={navStyles.navItem(hoveredItem === 2)}
+          onMouseEnter={() => setHoveredItem(2)}
+          onMouseLeave={() => setHoveredItem(null)}
               >
-            <Link style={navStyles.navLink(hoveredItem === 2)} to="/training">
-              {t("training")}
-            </Link>
+          <Link style={navStyles.navLink(hoveredItem === 2)} to="/training">
+            {t("training")}
+          </Link>
               </li>
               <li
-            style={navStyles.navItem(hoveredItem === 3)}
-            onMouseEnter={() => setHoveredItem(3)}
-            onMouseLeave={() => setHoveredItem(null)}
+          style={navStyles.navItem(hoveredItem === 3)}
+          onMouseEnter={() => setHoveredItem(3)}
+          onMouseLeave={() => setHoveredItem(null)}
               >
-            <Link style={navStyles.navLink(hoveredItem === 3)} to="/nutrition">
-              {t("nutrition")}
-            </Link>
+          <Link style={navStyles.navLink(hoveredItem === 3)} to="/nutrition">
+            {t("nutrition")}
+          </Link>
               </li>
             </Stack>
           </ul>
-          <Box sx={{ ml: 4 }}> {/* Increase margin for spacing */}
+          </Box>
+          <Box sx={{ ml: 1 }}> {/* Increased spacing from the right */}
             <IconButton
               onClick={handleLanguageClick}
               sx={{ color: "#333" }}
@@ -389,14 +389,14 @@ const Navbar: React.FC = () => {
               onClose={handleClose}
             >
               <MenuItem onClick={() => handleLanguageChange("hu")}>
-            Magyar
+          Magyar
               </MenuItem>
               <MenuItem onClick={() => handleLanguageChange("en")}>
-            English
+          English
               </MenuItem>
             </Menu>
           </Box>
-        </Box>
+          </Stack>
       )}
     </nav>
   );
