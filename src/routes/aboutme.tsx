@@ -18,6 +18,7 @@ import { motion } from "framer-motion";
 import theme from "../theme/theme";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 
 const AboutMe = () => {
@@ -72,6 +73,13 @@ const AboutMe = () => {
         p: 0,
       }}
     >
+      <Helmet>
+        <title>About Me - Lifted</title>
+        <meta
+          name="description"
+          content="Learn more about Vivien Ábrahám's holistic approach to health and wellness, focusing on movement, nutrition, and mental well-being."
+        />
+      </Helmet>
       <Navbar />
       <ScrollToTopButton isVisible={isVisible} exec={scrollToTop} />
       <Container

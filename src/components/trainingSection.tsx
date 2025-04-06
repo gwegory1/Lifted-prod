@@ -267,7 +267,7 @@ const TrainingSection = () => {
           variants={titleVariants}
           sx={{
             color: "#ddd",
-            textAlign: isMobile ? "justify" : "justify",
+            textAlign: 'left',
             fontWeight: "500",
             fontFamily: "Montserrat, sans-serif",
             paddingTop: theme.spacing(2),

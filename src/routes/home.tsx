@@ -10,6 +10,7 @@ import MyMission from "../components/myMission";
 import Footer from "../components/footer";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 
 const Home: React.FC = () => {
@@ -37,6 +38,15 @@ const Home: React.FC = () => {
 
   return (
     <Stack width="100%">
+      <Helmet>
+        <title>{t("Home")}</title>
+        <meta name="description" content={t("HomeDescription")} />
+        <link rel="canonical" href="/" />
+        <meta property="og:title" content={t("Home")} />
+        <meta property="og:description" content={t("HomeDescription")} />
+        <meta property="og:url" content="/" />
+      </Helmet>
+      
       <Navbar />
       <ScrollToTopButton isVisible={isVisible} exec={scrollToTop} />
       <CtaCover />

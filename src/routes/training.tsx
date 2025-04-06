@@ -8,6 +8,7 @@ import Footer from "../components/footer";
 import TrainingSection from "../components/trainingSection";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 const Training: React.FC = () => {
   const theme = useTheme();
@@ -43,6 +44,14 @@ const Training: React.FC = () => {
       width: "100%", // Changed from 100vw to 100% to prevent overflow
       }}
     >
+      <Helmet>
+        <title>{t("Training")}</title>
+        <meta name="description" content={t("TrainingDescription")} />
+        <link rel="canonical" href="/training" />
+        <meta property="og:title" content={t("Training")} />
+        <meta property="og:description" content={t("TrainingDescription")} />
+        <meta property="og:url" content="/training" />
+      </Helmet>
       <Navbar />
       <ScrollToTopButton isVisible={isVisible} exec={scrollToTop} />
 
@@ -179,7 +188,7 @@ const Training: React.FC = () => {
           direction={"row"}
           alignItems="center"
           gap={1}
-          flexWrap="nowrap"
+          flexWrap="wrap"
         >
           <Typography
           color="#FFC056"
@@ -192,6 +201,7 @@ const Training: React.FC = () => {
           variant={isMobile ? "h5" : "h3"}
           color="#475569"
           fontWeight="bold"
+          noWrap
           sx={{ fontFamily: "Montserrat, sans-serif" }}
           >
           {t("section2Title2")}
@@ -199,6 +209,7 @@ const Training: React.FC = () => {
         </Stack>
         <Typography
           variant="body1"
+
           sx={{
           fontFamily: "Montserrat, sans-serif",
           color: "#333",

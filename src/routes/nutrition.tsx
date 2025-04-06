@@ -8,6 +8,7 @@ import NutritionGallery from "../components/nutritionGalery";
 import ScrollToTopButton from "../components/ScrollToTopButton";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Helmet } from "react-helmet";
 
 const HeroSection = styled(Box)(({ theme }) => ({
   backgroundColor: "#ffffff",
@@ -57,6 +58,14 @@ const LandingPage = () => {
         justifyContent: "center",
       }}
     >
+      <Helmet>
+        <title>{t("Nutrition")}</title>
+        <meta name="description" content={t("NutritionDescription")} />
+        <link rel="canonical" href="/nutrition" />
+        <meta property="og:title" content={t("Nutrition")} />
+        <meta property="og:description" content={t("NutritionDescription")} />
+        <meta property="og:url" content="/nutrition" />
+      </Helmet>
       <Navbar />
       <ScrollToTopButton isVisible={isVisible} exec={scrollToTop} />
 

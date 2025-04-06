@@ -4,6 +4,7 @@ import { initReactI18next } from "react-i18next";
 const resources = {
   en: {
     translation: {
+      Navigation: "Navigation",
       newheights: "NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS",
       home: "Home",
       about: "About Me",
@@ -147,10 +148,24 @@ const resources = {
           text3: "Protein-rich, healthy desserts for everyday enjoyment.",
         },
       },
+      contactForm: {
+        title: "Contact Form",
+        nameLabel: "Full Name",
+        emailLabel: "Email",
+        phoneLabel: "Phone Number",
+        messageLabel: "Message",
+        messagePlaceholder: "Tell me about your goals or questions",
+        cancelButton: "Cancel",
+        sendButton: "Send Message",
+        sendingButton: "Sending...",
+        successMessage: "Your message has been sent successfully!",
+        errorMessage: "Failed to send the message. Please try again later.",
+      },
     },
   },
   hu: {
     translation: {
+      Navigation: "Navigáció",
       newheights: "JÓLLÉT ÚJ SZINTJEI JÓLLÉT ÚJ SZINTJEI JÓLLÉT ÚJ SZINTJEI",
       home: "Kezdőlap",
       about: "Rólam",
@@ -276,6 +291,19 @@ const resources = {
           text3:
             "Fehérjében gazdag, egészséges édességek, mindennapi fogyasztásra.",
         },
+      },
+      contactForm: {
+        title: "Kapcsolatfelvétel",
+        nameLabel: "Teljes Név",
+        emailLabel: "Email",
+        phoneLabel: "Telefonszám",
+        messageLabel: "Üzenet",
+        messagePlaceholder: "Meséljen a céljairól vagy kérdéseiről",
+        cancelButton: "Mégse",
+        sendButton: "Üzenet Küldése",
+        sendingButton: "Küldés...",
+        successMessage: "Üzenetét sikeresen elküldtük!",
+        errorMessage: "Nem sikerült elküldeni az üzenetet. Próbálja újra később.",
       },
     },
   },

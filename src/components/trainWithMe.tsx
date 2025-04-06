@@ -3,8 +3,8 @@ import TWM1 from "../assets/compressed/ROL04494.jpg";
 import TWM2 from "../assets/compressed/ROL04660.jpg";
 import { Box, Button, Stack, Typography, useMediaQuery, Fade } from "@mui/material";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import ContactFormDialog from "./contactDialog";
 
 const MotionBox = motion(Box);
 
@@ -43,7 +43,8 @@ const ImageSection: React.FC<{ isMobile: boolean; position: "left" | "right" }> 
 );
 
 const TextSection: React.FC = () => {
-  const navigate = useNavigate();
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
+
 
   const { t } = useTranslation();
 
@@ -115,7 +116,7 @@ const TextSection: React.FC = () => {
           component={motion.button}
           whileHover={{ scale: 1.08, backgroundColor: "#FFF5E6" }}
           whileTap={{ scale: 0.96 }}
-          onClick={() => navigate("/training")}
+          onClick={() => setDrawerOpen(true)}
           sx={{
             backgroundColor: "#FFFFFF",
             color: "#FFC056",
@@ -134,6 +135,7 @@ const TextSection: React.FC = () => {
           {t("BookNow")}
         </Button>
       </MotionBox>
+      <ContactFormDialog open={drawerOpen} setOpen={setDrawerOpen} />
     </Stack>
   );
 };

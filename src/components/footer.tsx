@@ -100,40 +100,40 @@ const Footer = () => {
                         </Box>
                     </Box>
                     
+                    {/* Sitemap Section */}
+                    <Box>
+                        <Typography variant="h4" gutterBottom fontWeight="medium" sx={{ mb: 1.5 }}>
+                            {t('Navigation')}
+                        </Typography>
+                        <Stack spacing={1}>
+                            {[
+                                { label: t('home'), url: '/' },
+                                { label: t('training'), url: '/training' },
+                                { label: t('nutrition'), url: '/nutrition' },
+                                { label: t('about'), url: '/about' },
+                            ].map((link, index) => (
+                                <Link 
+                                    key={index} 
+                                    href={link.url} 
+                                    color="inherit" 
+                                    sx={{ 
+                                        textDecoration: 'none',
+                                        transition: 'all 0.2s',
+                                        '&:hover': { color: theme.palette.primary.main } 
+                                    }}
+                                >
+                                    {link.label}
+                                </Link>
+                            ))}
+                        </Stack>
+                    </Box>
+
                     {/* Copyright Section */}
                     <Box textAlign={{ xs: 'center', md: 'center' }} alignSelf="center">
                         <Typography variant="body2">
                             &copy; {new Date().getFullYear()} Lifted. All rights reserved.
                         </Typography>
                     </Box>
-                    
-                    {/* 
-                    Links Section 
-                    <Box textAlign={{ xs: 'center', md: 'right' }} alignSelf="center">
-                        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={{ xs: 1.5, sm: 2 }} justifyContent="center">
-                            <Link 
-                                href="/privacy" 
-                                color="inherit"
-                                sx={{ 
-                                    transition: 'all 0.2s',
-                                    '&:hover': { color: theme.palette.primary.main } 
-                                }}
-                            >
-                                Privacy Policy
-                            </Link>
-                            <Link 
-                                href="/terms" 
-                                color="inherit"
-                                sx={{ 
-                                    transition: 'all 0.2s',
-                                    '&:hover': { color: theme.palette.primary.main } 
-                                }}
-                            >
-                                Terms of Service
-                            </Link>
-                        </Stack>
-                    </Box>
-                    */}
                 </Stack>
             </Container>
         </Box>

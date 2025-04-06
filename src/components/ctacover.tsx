@@ -9,7 +9,7 @@ const MotionBox = motion(Box);
 const MotionTypography = motion(Typography);
 
 const CtaCover = () => {
-  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('md'));
+  const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const { t } = useTranslation();
 
   return (
@@ -73,7 +73,8 @@ const CtaCover = () => {
                 color: "white",
                 textAlign: "center",
                 fontFamily: "'Montserrat', sans-serif",
-                maxWidth: "600px",
+                wordWrap: "nowrap",
+                maxWidth: "700px",
                 fontSize: { xs: "1rem", sm: "1.2rem", md: "1.5rem" },
                 mt: { xs: 2, md: 3 },
                 textShadow: "1px 1px 3px rgba(0,0,0,0.3)",
