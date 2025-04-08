@@ -39,7 +39,7 @@ const Home: React.FC = () => {
   return (
     <Stack width="100%">
       <Helmet>
-        <title>{t("Home")}</title>
+        <title>{"Lifted"}</title>
         <meta name="description" content={t("HomeDescription")} />
         <link rel="canonical" href="/" />
         <meta property="og:title" content={t("Home")} />

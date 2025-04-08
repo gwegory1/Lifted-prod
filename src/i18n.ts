@@ -5,7 +5,8 @@ const resources = {
   en: {
     translation: {
       Navigation: "Navigation",
-      newheights: "NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS",
+      newheights:
+        "NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS",
       home: "Home",
       about: "About Me",
       training: "Training",
@@ -40,7 +41,7 @@ const resources = {
       section1Text: `Every person is different, and so are my workouts. I tailor each plan to your individual needs and goals, considering your current level and lifestyle. I believe in foundational movements and functional training that drive lasting progress. My goal is to help you find the most effective path to achieving your goals.`,
       section2Title: `Success`,
       section2Title2: `Step by step`,
-      section2Text: `My main goal isn’t quick fixes but fostering long-term, sustainable progress.. In every training session, I focus on finding the best approach for you—one that fits your lifestyle and is truly maintainable. The key is building healthy habits and gradually integrating training in a way that feels natural. Progress comes from small, daily choices that lead to significant results over time.`,
+      section2Text: `My main goal isn’t quick fixes but fostering long-term, sustainable progress. In every training session, I focus on finding the best approach for you—one that fits your lifestyle and is truly maintainable. The key is building healthy habits and gradually integrating training in a way that feels natural. Progress comes from small, daily choices that lead to significant results over time.`,
       section3Title: `Challenge`,
       section3Title2: `that motivates`,
       section3Text: `Every workout is a new opportunity to step out of your comfort zone and push past your limits. My goal is to help you embrace these challenges in a way that makes training enjoyable and keeps you motivated.`,
@@ -65,7 +66,7 @@ const resources = {
         plans: {
           Single: {
             title: "Single Session",
-            price: "10,000 Ft",
+            price: "10.000 Ft",
             details: [
               "60-minute personal training session",
               "Purchased as a single ticket",
@@ -73,7 +74,7 @@ const resources = {
           },
           Package: {
             title: "Package",
-            price: "75,000 Ft",
+            price: "75.000 Ft",
             details: [
               "Includes 8 personal training sessions",
               "Valid for 2 months",
@@ -81,7 +82,7 @@ const resources = {
           },
           Pair: {
             title: "Pair Training",
-            price: "8,500 Ft/Person",
+            price: "8.500 Ft/Person",
             details: [
               "Training session for two people",
               "Ideal for training with a friend or partner",
@@ -89,7 +90,7 @@ const resources = {
           },
           Plan: {
             title: "Training Plan",
-            price: "15,000 Ft",
+            price: "15.000 Ft",
             details: [
               "1-month personalized training plan",
               "Based on a 75-minute consultation and assessment",
@@ -98,7 +99,7 @@ const resources = {
           },
         },
         consultation:
-          "Every first session includes a 75-minute consultation & assessment, which includes discussing your goals and evaluating your current fitness level.",
+          "Every first session includes a 75-minute consultation & assessment, discussing your goals and evaluating your current fitness level.",
         contactButton: "CONTACT ME",
       },
       Nutrition: {
@@ -172,7 +173,7 @@ const resources = {
       training: "Edzés",
       nutrition: "Táplálkozás",
       healthJourney: "Egy út az egészség és egyensúly felé",
-      aboutmetext1: `Az egészség nem gyors megoldásokról vagy sablonos programokról szól—hanem a számodra megfelelő életmód kialakításáról. Sok embert láttam küzdeni a valóságtól elrugaszkodott fitnesz elvárásokkal és fenntarthatatlan módszerekkel. Ezért a holisztikus filozófiám három alappilléren alapul: a mozgáson, a tápanyagokban gazdag ételeken és a mentális jólléten. A folyamatosan változó divatdiéták és túlbonyolított edzések helyett az alapvető, funkcionális gyakorlatokra összpontosítok, amelyek erőt és állóképességet építenek, a teljes értékű ételekre, amelyek táplálnak és energiát adnak, valamint egy olyan gondolkodásmódra, amely elősegíti a hosszútávú sikert.`,
+      aboutmetext1: `Az egészség nem gyors megoldásokról vagy sablonos programokról szól, hanem a számodra megfelelő életmód kialakításáról. Sok embert láttam küzdeni a valóságtól elrugaszkodott fitnesz elvárásokkal és fenntarthatatlan módszerekkel. Ezért a holisztikus megközelítésem három alappilléren alapul: a mozgáson, a tápanyagokban gazdag ételeken és a mentális jólléten. A folyamatosan változó divatdiéták és túlbonyolított edzések helyett az alapvető, funkcionális gyakorlatokra összpontosítok, amelyek erőt és állóképességet építenek, a teljes értékű ételekre, amelyek táplálnak és energiát adnak, valamint egy olyan gondolkodásmódra, amely elősegíti a hosszútávú sikert.`,
       aboutmetext2: `A sport miatt sok helyre volt alkalmam utazni, végül sportösztöndíjjal az Egyesült Államokba mentem, ahol Média és Stratégiai Kommunikáció szakon szereztem alap-, és mesterdiplomát, miközben mélyítettem tudásomat az edzés, és a teljesítmény területén. Közben a Fitness Akadémián elvégeztem a fitness instruktori képzést, majd megszereztem a személyi edzői és táplálkozási tanácsadói képesítéseket is. A hátterem azonban nem csak a képesítésekről szól - hanem a több mint egy évtizedes versenysportban szerzett tapasztalatomról, nehézségekről, amelyek megtanítottak újraépíteni és megerősíteni a testemet és az elmémet, valamint az elkötelezettségről, hogy másoknak segítsek megtalálni az egyensúlyt a saját útjukon.`,
       personalizedGuidance: `1:1 személyre szabott edzés- és táplálkozási útmutatókat tervezek, mert a valódi fejlődés egy olyan tervből ered, amely neked készült, nem pedig a tömegek számára. Akár az általános egészségeden szeretnél javítani, akár erősebbnek és magabiztosabbnak érezni magad, én itt vagyok, hogy vezesselek, eloszlassam a tévhiteket, és segítsek kialakítani azokat a szokásokat, amelyek egy életen át elkísérnek.`,
       buildHealthyLife: `Építsünk együtt egy egészségesebb életet!`,
@@ -187,8 +188,8 @@ const resources = {
       section2Title: `Sikerek`,
       section2Title2: `lépésről lépésre`,
       section2Text: `A legfőbb célom nem a gyors eredmények elérése, hanem a hosszú távú, fenntartható fejlődés. Az edzések során mindig figyelek arra, hogy a legjobb megoldást találjuk meg a számodra, ami valóban fenntartható és illeszkedik az életstílusodhoz. A hangsúly az egészséges szokások kialakításán és az edzés fokozatos, stabil beépítésén van. A fejlődés az apró, napi szintű döntésekről szól, amelyek hosszú távon komoly eredményeket hoznak.`,
-      section3Title: `Kihívás`,
-      section3Title2: `, ami motivál`,
+      section3Title: `Kihívás,`,
+      section3Title2: `ami motivál`,
       section3Text: `Minden egyes edzés egy új esély arra, hogy kilépj a komfortzónádból és túllépj a saját határaidon. A célom az, hogy ezeket a kihívásokat úgy éld meg, hogy közben az edzés örömmé váljon és motivációt adjon.`,
       helpTitle: `Miben tudok segíteni?`,
       helpItem1: `Izomtömeg növelés`,
@@ -211,12 +212,12 @@ const resources = {
         plans: {
           Single: {
             title: "EGY ALKALMAS",
-            price: "10,000 Ft",
+            price: "10.000 Ft",
             details: ["60 perces személyi edzés", "Egyszeri jegy vásárlása"],
           },
           Package: {
             title: "BÉRLET",
-            price: "75,000 Ft",
+            price: "75.000 Ft",
             details: [
               "8 személyi edzést tartalmaz",
               "2 hónap alatt felhasználható",
@@ -224,7 +225,7 @@ const resources = {
           },
           Pair: {
             title: "PÁROS EDZÉS",
-            price: "8,500 Ft/Fő",
+            price: "8.500 Ft/Fő",
             details: [
               "Két fő részére szóló edzés",
               "Ideális, ha baráttal/barátnővel szeretnél edzeni",
@@ -232,7 +233,7 @@ const resources = {
           },
           Plan: {
             title: "EDZÉSTERV",
-            price: "15,000 Ft",
+            price: "15.000 Ft",
             details: [
               "1 hónapos személyre szabott edzésterv",
               "75 perces konzultáció és felmérés alapján",
@@ -241,7 +242,7 @@ const resources = {
           },
         },
         consultation:
-          "Minden első alkalommal 75 perces konzultáció és felmérés történik, amely a célok átbeszélésére és az állapotfelmérésre terjed ki.",
+          "Az első alkalom egy 75 perces konzultáció, amely célmeghatározást és állapotfelmérést tartalmaz.",
         contactButton: "KAPCSOLATFELVÉTEL",
       },
       Nutrition: {
@@ -255,7 +256,7 @@ const resources = {
           plans: {
             Basic: {
               title: "Alap",
-              price: "29,000 Ft",
+              price: "29.000 Ft",
               details: [
                 "1 órás konzultáció",
                 "Étkezési napló elemzése",
@@ -265,7 +266,7 @@ const resources = {
             },
             Premium: {
               title: "Prémium",
-              price: "69,000 Ft",
+              price: "69.000 Ft",
               details: [
                 "1 órás konzultáció",
                 "Étkezési napló elemzése",
@@ -303,8 +304,16 @@ const resources = {
         sendButton: "Üzenet Küldése",
         sendingButton: "Küldés...",
         successMessage: "Üzenetét sikeresen elküldtük!",
-        errorMessage: "Nem sikerült elküldeni az üzenetet. Próbálja újra később.",
+        errorMessage:
+          "Nem sikerült elküldeni az üzenetet. Próbálja újra később.",
       },
+      HomeDescription:
+        "Discover personalized training and nutrition plans that fit your needs. Join me on a journey to a healthier lifestyle!",
+      NutritionDescription:
+        "Explore personalized nutrition plans and mindful eating strategies for a healthier lifestyle. Join me on a journey to wellness!",
+      TrainingDescription:
+        "Explore personalized training plans and functional workouts tailored to your goals. Join me on a journey to fitness!",
+      
     },
   },
 };

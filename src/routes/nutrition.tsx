@@ -66,6 +66,7 @@ const LandingPage = () => {
         <meta property="og:description" content={t("NutritionDescription")} />
         <meta property="og:url" content="/nutrition" />
       </Helmet>
+      
       <Navbar />
       <ScrollToTopButton isVisible={isVisible} exec={scrollToTop} />
 

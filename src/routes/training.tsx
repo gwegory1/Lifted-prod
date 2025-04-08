@@ -252,7 +252,8 @@ const Training: React.FC = () => {
           direction={"row"}
           alignItems="center"
           gap={1}
-          flexWrap="nowrap"
+          flexWrap="wrap"
+          
         >
           <Typography
           color="#FFC056"
@@ -265,6 +266,7 @@ const Training: React.FC = () => {
           variant={isMobile ? "h5" : "h3"}
           color="#475569"
           fontWeight="bold"
+          noWrap
           sx={{ fontFamily: "Montserrat, sans-serif" }}
           >
           {t("section3Title2")}
