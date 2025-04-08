@@ -67,10 +67,14 @@ const Training: React.FC = () => {
       }}
       >
       <Typography
-        variant={isMobile ? "h4" : "h2"}
+        variant="h1"
         color="#FFC056"
         fontWeight="bold"
-        sx={{ fontFamily: "Montserrat, sans-serif", mb: 2 }}
+        sx={{
+          fontFamily: "Montserrat, sans-serif",
+          mb: 2,
+          fontSize: isMobile ? "2.6rem" : "4.2rem",
+        }}
       >
         {t("heroTitle")}
       </Typography>

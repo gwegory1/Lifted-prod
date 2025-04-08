@@ -133,6 +133,9 @@ const Footer = () => {
                         <Typography variant="body2">
                             &copy; {new Date().getFullYear()} Lifted. All rights reserved.
                         </Typography>
+                        <Typography variant="body1" mt={1}>
+                            Budapest
+                        </Typography>
                     </Box>
                 </Stack>
             </Container>

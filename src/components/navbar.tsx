@@ -8,8 +8,6 @@ import {
   ListItemText,
   useMediaQuery,
   useTheme,
-  Menu,
-  MenuItem,
 } from "@mui/material";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
@@ -25,21 +23,10 @@ const Navbar: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const { t } = useTranslation();
 
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null); // Anchor element for language menu
-
-  const handleLanguageClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const handleLanguageChange = (lang: string) => {
-    setAnchorEl(null);
     // Save the selected language to localStorage or a global state
     localStorage.setItem("language", lang);
     window.location.reload(); // Reload to apply language changes
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
   };
 
   const navStackProps = {
@@ -270,19 +257,7 @@ const Navbar: React.FC = () => {
               backgroundRepeat: "no-repeat",
             }}
           />
-          <IconButton
-            onClick={handleLanguageClick}
-            sx={{
-              position: "absolute", // Position the button absolutely
-              right: 16, // Align it to the right
-              color: "#333",
-              fontSize: "1.5rem",
-            }}
-            aria-controls="language-menu"
-            aria-haspopup="true"
-          >
-            <LanguageIcon />
-          </IconButton>
+         
           <Drawer
             anchor="left"
             open={drawerOpen}
@@ -291,15 +266,50 @@ const Navbar: React.FC = () => {
           >
             {drawerContent}
           </Drawer>
-          <Menu
-            id="language-menu"
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem onClick={() => handleLanguageChange("hu")}>Magyar</MenuItem>
-            <MenuItem onClick={() => handleLanguageChange("en")}>English</MenuItem>
-          </Menu>
+          <Box
+              sx={{
+              position: "absolute",
+              right: 16,
+              display: "flex",
+              alignItems: "center",
+              gap: 0.5,
+              color: "#333",
+              fontSize: "1.2rem",
+              fontFamily: "Montserrat, sans-serif",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              padding: "0.5rem 1rem",
+              borderRadius: "0.5rem",
+              "&:hover": {
+                color: "#555",
+                transform: "translateY(-2px)",
+              },
+              }}
+              onClick={() =>
+              handleLanguageChange(
+                localStorage.getItem("language") === "hu" ? "en" : "hu"
+              )
+              }
+            >
+              <span
+              style={{
+                fontWeight: 550,
+                textTransform: "uppercase",
+                letterSpacing: "0.5px",
+              }}
+              >
+              {localStorage.getItem("language") === "hu" ? "en" : "hu"}
+              </span>
+              <LanguageIcon
+              sx={{
+                fontSize: "1.5rem",
+                transition: "transform 0.3s ease",
+                "&:hover": {
+                transform: "scale(1.2)",
+                },
+              }}
+              />
+            </Box>
         </Box>
       ) : (
         <Stack direction={"row"} alignItems="center" justifyContent="space-between" pl={14} pr={5} >
@@ -313,11 +323,11 @@ const Navbar: React.FC = () => {
             display: "flex",
             alignItems: "center",
             
-            px: 4, // Add horizontal padding for spacing
+           
             position: "relative", // Enable relative positioning for offset
           }}
         >
-          <ul style={{ ...navStyles.navList, flex: 1, justifyContent: "flex-end", marginRight: 100 }}>
+          <ul style={{ ...navStyles.navList, flex: 1, justifyContent: "flex-end", marginRight: 120 }}>
             <Stack {...navStackProps}>
               <li
           style={navStyles.navItem(hoveredItem === 0)}
@@ -350,7 +360,7 @@ const Navbar: React.FC = () => {
               flexShrink: 0,
             }}
           />
-          <ul style={{ ...navStyles.navList, flex: 1, justifyContent: "flex-start", marginLeft: 100 }}>
+          <ul style={{ ...navStyles.navList, flex: 1, justifyContent: "flex-start", marginLeft: 120 }}>
             <Stack {...navStackProps}>
               <li
           style={navStyles.navItem(hoveredItem === 2)}
@@ -373,30 +383,52 @@ const Navbar: React.FC = () => {
             </Stack>
           </ul>
           </Box>
-          <Box sx={{ ml: 1 }}> {/* Increased spacing from the right */}
-            <IconButton
-              onClick={handleLanguageClick}
-              sx={{ color: "#333" }}
-              aria-controls="language-menu"
-              aria-haspopup="true"
+            <Box
+              sx={{
+              position: "absolute",
+              right: 16,
+              display: "flex",
+              alignItems: "center",
+              gap: 0.5,
+              color: "#333",
+              fontSize: "1.2rem",
+              fontFamily: "Montserrat, sans-serif",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              padding: "0.5rem 1rem",
+              borderRadius: "0.5rem",
+              "&:hover": {
+                color: "#555",
+                transform: "translateY(-2px)",
+              },
+              }}
+              onClick={() =>
+              handleLanguageChange(
+                localStorage.getItem("language") === "hu" ? "en" : "hu"
+              )
+              }
             >
-              <LanguageIcon />
-            </IconButton>
-            <Menu
-              id="language-menu"
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={handleClose}
-            >
-              <MenuItem onClick={() => handleLanguageChange("hu")}>
-          Magyar
-              </MenuItem>
-              <MenuItem onClick={() => handleLanguageChange("en")}>
-          English
-              </MenuItem>
-            </Menu>
-          </Box>
+              <span
+              style={{
+                fontWeight: 550,
+                textTransform: "uppercase",
+                letterSpacing: "0.5px",
+              }}
+              >
+              {localStorage.getItem("language") === "hu" ? "en" : "hu"}
+              </span>
+              <LanguageIcon
+              sx={{
+                fontSize: "1.5rem",
+                transition: "transform 0.3s ease",
+                "&:hover": {
+                transform: "scale(1.2)",
+                },
+              }}
+              />
+            </Box>
           </Stack>
+          
       )}
     </nav>
   );

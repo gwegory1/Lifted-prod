@@ -98,7 +98,7 @@ const LandingPage = () => {
           >
             <Box sx={{ flex: 1, width: "100%" }}>
               <Typography
-                variant="h3"
+                variant="h1"
                 align="center"
                 gutterBottom
                 sx={{

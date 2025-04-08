@@ -100,7 +100,7 @@ const AboutMe = () => {
             transition={{ duration: 1, ease: "easeOut" }}
           >
             <Typography
-              variant="h2"
+              variant="h1"
               component="h1"
               sx={{
                 textAlign: "center",

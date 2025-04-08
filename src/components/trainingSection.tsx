@@ -252,11 +252,11 @@ const TrainingSection = () => {
             <Typography 
               variant="body1"
               sx={{
-                fontFamily: "Montserrat, sans-serif",
-                fontSize: { xs: "1rem", sm: "1.2rem" },
+              fontFamily: "Montserrat, sans-serif",
+              fontSize: { xs: "1rem", sm: "1.2rem" },
               }}
             >
-              Victory Fitness - Hűvösvölgy
+              Victory Fitness - Hűvösvölgy, Budapest
             </Typography>
           </MotionBox>
         </MotionBox>
