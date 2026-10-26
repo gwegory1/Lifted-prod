@@ -1,54 +1,58 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../components/navbar";
+import { useState } from "react";
+import { Box, Button, Typography } from "@mui/material";
 import CtaCover from "../components/ctacover";
 import TrainWithMe from "../components/trainWithMe";
-import { Stack } from "@mui/material";
 import ServicesCard from "../components/servicesCard";
-import NutriImage from "../assets/compressed/ROL04332.jpg";
-import TrainImage from "../assets/compressed/IMG_5259.jpg";
 import MyMission from "../components/myMission";
-import Footer from "../components/footer";
-import ScrollToTopButton from "../components/ScrollToTopButton";
+import PageMeta from "../components/PageMeta";
+import Reveal from "../components/Reveal";
+import ContactFormDialog from "../components/contactDialog";
+import NutriImage from "../assets/img/ROL04332.webp";
+import TrainImage from "../assets/img/IMG_5259.webp";
 import { useTranslation } from "react-i18next";
-import { Helmet } from "react-helmet";
+import { ctaButtonSx, tokens } from "../theme/theme";
 
-
-const Home: React.FC = () => {
-
-    const [isVisible, setIsVisible] = useState(true);
-    const { t } = useTranslation(); // Assuming you have a translation function
-  
-    const handleScroll = () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      //console.log("Scroll position:", scrollTop); // Debug log
-      setIsVisible(scrollTop > 50); // Show button after scrolling 50px
-    };
-  
-    const scrollToTop = () => {
-      //console.log("Scroll to top triggered"); // Debug log
-      document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
-    };
-  
-    useEffect(() => {
-      window.addEventListener("scroll", handleScroll);
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-      };
-    }, []);
+// Closing invitation: one last, quiet place to book before the footer.
+const ClosingCta = () => {
+  const { t } = useTranslation();
+  const [open, setOpen] = useState(false);
 
   return (
-    <Stack width="100%">
-      <Helmet>
-        <title>{"Lifted"}</title>
-        <meta name="description" content={t("HomeDescription")} />
-        <link rel="canonical" href="/" />
-        <meta property="og:title" content={t("Home")} />
-        <meta property="og:description" content={t("HomeDescription")} />
-        <meta property="og:url" content="/" />
-      </Helmet>
-      
-      <Navbar />
-      <ScrollToTopButton isVisible={isVisible} exec={scrollToTop} />
+    <Box
+      component="section"
+      aria-labelledby="closing-cta"
+      sx={{
+        background: `radial-gradient(ellipse 70% 90% at 50% 0%, rgba(255, 192, 86, 0.12), transparent 70%), ${tokens.night}`,
+        color: "#fff",
+        textAlign: "center",
+        px: 2,
+        py: { xs: 6, md: 8 },
+      }}
+    >
+      <Reveal>
+        <Box aria-hidden sx={{ width: 56, height: 2, bgcolor: tokens.gold, mx: "auto", mb: 2.5 }} />
+        <Typography
+          id="closing-cta"
+          component="h2"
+          sx={{ fontWeight: 800, fontSize: { xs: "1.7rem", sm: "2.1rem", md: "2.4rem" }, lineHeight: 1.15, maxWidth: "20ch", mx: "auto" }}
+        >
+          {t("buildHealthyLife")}
+        </Typography>
+        <Button variant="contained" disableElevation onClick={() => setOpen(true)} sx={{ ...ctaButtonSx, mt: { xs: 3, md: 3.5 } }}>
+          {t("BookNow")}
+        </Button>
+      </Reveal>
+      <ContactFormDialog open={open} setOpen={setOpen} />
+    </Box>
+  );
+};
+
+const Home = () => {
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <PageMeta title="Lifted – Ábrahám Vivien" description={t("HomeDescription")} path="/" />
       <CtaCover />
       <TrainWithMe />
       <ServicesCard
@@ -58,8 +62,8 @@ const Home: React.FC = () => {
         ]}
       />
       <MyMission />
-      <Footer />
-    </Stack>
+      <ClosingCta />
+    </>
   );
 };
 

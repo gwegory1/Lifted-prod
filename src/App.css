@@ -1,66 +1,107 @@
-body {
-  font-family: 'Montserrat', sans-serif;
-  background-color: #fff;
-  padding: 0;
-  margin: 0;
-  overflow-x: hidden; /* Prevent horizontal scrolling */
-}
-
-/* Reset box-sizing for all elements */
-*, 
-*::before, 
-*::after {
-  box-sizing: border-box;
-}
-
-/* Ensure the root and html elements fill the viewport */
-:root,
-html {
-  width: 100%;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-/* Additional rule to prevent horizontal overflow in all elements */
-img, 
-video,
-iframe,
-table,
-div {
-  max-width: 100%;
-}
-
-
-@font-face {
-  font-family: 'Montserrat';
-  src: url('./assets/fonts/Montserrat-VariableFont_wght.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Montserrat';
-  src: url('./assets/fonts/Montserrat-Italic-VariableFont_wght.ttf') format('truetype');
-  font-weight: normal;
-  font-style: italic;
-}
-
 @font-face {
   font-family: 'Chloe';
-  src: url('./assets/fonts/Chloe-Regular.otf') format('opentype');
-  font-weight: normal;
+  src: url('./assets/fonts/Chloe-Regular.woff2') format('woff2');
+  font-weight: 400;
   font-style: normal;
+  font-display: swap;
 }
 
 @font-face {
   font-family: 'OoohBaby';
-  src: url('./assets/fonts/OoohBaby-Regular.ttf') format('truetype');
+  src: url('./assets/fonts/OoohBaby-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
 
-.font-montserrat {
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  scrollbar-color: #d9b48a #fff5f0;
+  caret-color: #8a5a00;
+  accent-color: #ffc056;
+}
+
+a {
+  text-underline-offset: 0.2em;
+}
+
+body {
+  margin: 0;
   font-family: 'Montserrat', sans-serif;
+  background-color: #fff;
+  color: #2a2a2a;
+  overflow-x: hidden;
+  /* Chloe and OoohBaby ship one weight; never fake bold/italic them */
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
 }
 
-.font-chloe {
-  font-family: 'Chloe', serif;
+img,
+video,
+iframe,
+table {
+  max-width: 100%;
+}
+
+img {
+  display: block;
+  height: auto;
+}
+
+h1, h2, h3 {
+  text-wrap: balance;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+::selection {
+  background: #ffc056;
+  color: #1f1f1f;
+}
+
+:focus-visible {
+  outline: 3px solid #8a5a00;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 2000;
+  padding: 12px 20px;
+  background: #1f1f1f;
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 8px;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* CSS keyframe entrances and the marquee: show the end state, keep color/opacity state changes */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }

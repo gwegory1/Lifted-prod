@@ -1,436 +1,181 @@
-import {
-  Stack,
-  Box,
-  IconButton,
-  Drawer,
-  List,
-  ListItem,
-  ListItemText,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import LOGO from "../assets/LOGO.svg";
-import { Menu as MenuIcon } from "@mui/icons-material";
-import { Language as LanguageIcon } from "@mui/icons-material";
+import { useEffect, useState } from "react";
+import { Box, ButtonBase, Drawer, IconButton } from "@mui/material";
+import { Link, NavLink } from "react-router-dom";
+import { Menu as MenuIcon, Language as LanguageIcon } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
+import LOGO from "../assets/LOGO.svg";
+import { tokens } from "../theme/theme";
 
-const Navbar: React.FC = () => {
-  const [hoveredItem, setHoveredItem] = useState<number | null>(null);
+const linkSx = {
+  position: "relative",
+  display: "inline-flex",
+  alignItems: "center",
+  minHeight: 44,
+  px: 1,
+  color: tokens.ink,
+  fontWeight: 500,
+  fontSize: "1.05rem",
+  textDecoration: "none",
+  whiteSpace: "nowrap",
+  "&::after": {
+    content: '""',
+    position: "absolute",
+    left: 8,
+    right: 8,
+    bottom: 6,
+    height: 2,
+    backgroundColor: tokens.gold,
+    transform: "scaleX(0)",
+    transformOrigin: "left",
+    transition: "transform 220ms cubic-bezier(0.22, 1, 0.36, 1)",
+  },
+  "&:hover::after, &.active::after": { transform: "scaleX(1)" },
+  "&.active": { fontWeight: 700 },
+} as const;
+
+const Logo = ({ height }: { height: number }) => (
+  <Box component={Link} to="/" aria-label="Lifted" sx={{ display: "block", lineHeight: 0, flexShrink: 0 }}>
+    <img src={LOGO} alt="" width={Math.round((height * 305) / 119)} height={height} style={{ height, width: "auto" }} />
+  </Box>
+);
+
+const Navbar = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const { t } = useTranslation();
+  const [scrolled, setScrolled] = useState(false);
 
-  const handleLanguageChange = (lang: string) => {
-    // Save the selected language to localStorage or a global state
-    localStorage.setItem("language", lang);
-    window.location.reload(); // Reload to apply language changes
-  };
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+  const { t, i18n } = useTranslation();
+  const nextLang = i18n.language === "en" ? "hu" : "en";
 
-  const navStackProps = {
-    direction: "row" as const,
-    alignItems: "center" as const,
-    gap: 3,
-    justifyContent: "space-around" as const,
-  };
+  const links = [
+    { text: t("home"), path: "/" },
+    { text: t("about"), path: "/about" },
+    { text: t("training"), path: "/training" },
+    { text: t("nutrition"), path: "/nutrition" },
+  ];
 
-  const navStyles = {
-    navbar: {
-      background: "linear-gradient(to right, #F8E5DE, #ffffff, #F8E5DE)",
-      padding: "1rem 0",
-      margin: 0,
-      top: 0,
-      left: 0,
-      right: 0,
-      fontFamily: "Montserrat, sans-serif",
-      fontSize: "1.3rem",
-      width: "100%",
-      position: "relative" as "relative",
-      zIndex: 1000,
-      overflowX: "hidden" as "hidden", // Prevent horizontal overflow
-      boxSizing: "border-box" as "border-box", // Include padding in width calculation
-    },
-    navList: {
-      display: "flex",
-      listStyle: "none",
-      gap: "1rem",
-      margin: 0,
-      padding: 0,
-      justifyContent: "space-around",
-      width: "100%", // Use 100% instead of maxWidth
-      fontFamily: "Montserrat, sans-serif",
-      flexWrap: "nowrap" as "nowrap", // Prevent wrapping
-    },
-    navItem: (isHovered: boolean) => ({
-      padding: "0.5rem",
-      borderRadius: "0.25rem",
-      transition: "all 0.2s ease",
-      fontFamily: "Montserrat, sans-serif",
-      transform: isHovered ? "translateY(-2px)" : "translateY(0)",
-      whiteSpace: "nowrap" as "nowrap", // Prevent text wrapping
-    }),
-    navLink: (isHovered: boolean) => ({
-      textDecoration: "none",
-      color: "#333",
-      fontWeight: 500,
-      transition: "color 0.3s ease",
-      fontFamily: "Montserrat, sans-serif",
-      textShadow: isHovered ? "0 0 5px rgba(0, 0, 0, 0.1)" : "none",
-    }),
-    drawer: {
-      backgroundColor: "#fff",
-      fontFamily: "Montserrat, sans-serif",
-      fontSize: "1.2rem",
-      width: 250,
-      height: "100%",
-    },
-    drawerItem: {
-      padding: "0.5rem 1rem",
-      transition: "background 0.3s ease, color 0.3s ease",
-      "&:hover": {
-        background: "#333",
-        "& .MuiListItemText-primary": {
-          color: "#fff",
-        },
-      },
-    },
-    drawerLink: {
-      textDecoration: "none",
-      color: "#333",
-      width: "100%",
-      display: "block",
-      fontWeight: 500,
-      fontFamily: "Montserrat, sans-serif",
-    },
-  };
-
-  const toggleDrawer =
-    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event.type === "keydown" &&
-        ((event as React.KeyboardEvent).key === "Tab" ||
-          (event as React.KeyboardEvent).key === "Shift")
-      ) {
-        return;
-      }
-      setDrawerOpen(open);
-    };
-
-  const drawerContent = (
-    <Box
-      sx={{
-        ...navStyles.drawer,
-        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.08)",
-        background: "linear-gradient(to bottom, #FFFFFF, #F9F9F9)",
-      }}
-      role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
-    >
-      <Box
-        sx={{
-          padding: "20px 16px",
-          borderBottom: "1px solid rgba(0, 0, 0, 0.06)",
-          display: "flex",
-          justifyContent: "center",
-          mb: 2,
-        }}
-      >
-        <Box
-          sx={{
-            height: "40px",
-            width: "100px",
-            backgroundImage: `url(${LOGO})`,
-            backgroundSize: "contain",
-            backgroundPosition: "center",
-            backgroundRepeat: "no-repeat",
-            maxWidth: "100%",
-            animation: "fadeIn 0.6s ease-in-out",
-            "@keyframes fadeIn": {
-              "0%": { opacity: 0, transform: "translateY(-10px)" },
-              "100%": { opacity: 1, transform: "translateY(0)" },
-            },
-          }}
-        />
-      </Box>
-
-      <List sx={{ p: 0 }}>
-        {[
-          { text: t("home"), path: "/" },
-          { text: t("about"), path: "/about" },
-          { text: t("training"), path: "/training" },
-          { text: t("nutrition"), path: "/nutrition" },
-        ].map((item, index) => (
-          <ListItem
-            key={item.text}
-            disablePadding
-            sx={{
-              borderBottom:
-            index < 3 ? "1px solid rgba(0, 0, 0, 0.06)" : "none",
-              "&:hover": {
-            backgroundColor: "rgba(248, 229, 222, 0.3)",
-            transform: "translateX(5px)",
-              },
-              transition: "all 0.3s ease",
-              animation: `fadeSlideIn 0.${index + 4}s ease-out`,
-              "@keyframes fadeSlideIn": {
-            "0%": { opacity: 0, transform: "translateX(-20px)" },
-            "100%": { opacity: 1, transform: "translateX(0)" },
-              },
-            }}
-          >
-            <Link
-              to={item.path}
-              style={{
-            ...navStyles.drawerLink,
-            padding: "12px 24px",
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-              }}
-            >
-              <ListItemText
-            primary={item.text}
-            primaryTypographyProps={{
-              fontSize: "1rem",
-              fontFamily: "Montserrat, sans-serif",
-              fontWeight: 500,
-              letterSpacing: "0.3px",
-            }}
-              />
-            </Link>
-          </ListItem>
-        ))}
-      </List>
-      <Box
-        sx={{
-          p: 2,
-          mt: 4,
-          textAlign: "center",
-          borderTop: "1px solid rgba(0, 0, 0, 0.06)",
-          opacity: 0.7,
-          fontSize: "0.85rem",
-          fontFamily: "Montserrat, sans-serif",
-        }}
-      >
-        LIFTED © {new Date().getFullYear()}
-      </Box>
+  const navItem = (item: (typeof links)[number]) => (
+    <Box component={NavLink} key={item.path} to={item.path} end sx={linkSx}>
+      {item.text}
     </Box>
   );
 
+  const languageToggle = (
+    <ButtonBase
+      onClick={() => i18n.changeLanguage(nextLang)}
+      aria-label={t("switchLanguage")}
+      lang={nextLang}
+      sx={{
+        gap: 0.75,
+        minHeight: 44,
+        px: 1.5,
+        borderRadius: 2,
+        color: tokens.ink,
+        fontFamily: "inherit",
+        fontWeight: 600,
+        fontSize: "0.95rem",
+        letterSpacing: "0.04em",
+        textTransform: "uppercase",
+        transition: "background-color 150ms",
+        "&:hover": { backgroundColor: "rgba(42, 42, 42, 0.06)" },
+      }}
+    >
+      {nextLang}
+      <LanguageIcon sx={{ fontSize: "1.3rem" }} aria-hidden />
+    </ButtonBase>
+  );
+
   return (
-    <nav style={navStyles.navbar}>
-      {isMobile ? (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center", // Center the content horizontally
-            alignItems: "center",
-            p: 1,
-            width: "100%",
-            boxSizing: "border-box",
-            position: "relative", // Enable relative positioning for offset
-          }}
-        >
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={toggleDrawer(true)}
-            sx={{
-              position: "absolute", // Position the button absolutely
-              left: 16, // Align it to the left
-              "&:hover": { background: "rgba(0, 0, 0, 0.1)" },
-            }}
-          >
+    <Box
+      component="header"
+      sx={{
+        position: "sticky",
+        top: 0,
+        zIndex: 1100,
+        background: `linear-gradient(to right, ${tokens.peach}, #ffffff, ${tokens.peach})`,
+        boxShadow: scrolled ? "0 10px 30px -18px rgba(42, 42, 42, 0.35)" : "0 1px 0 rgba(42, 42, 42, 0.06)",
+        transition: "box-shadow 300ms ease-out",
+      }}
+    >
+      <Box
+        component="nav"
+        aria-label={t("Navigation")}
+        sx={{
+          display: "grid",
+          gridTemplateColumns: { xs: "1fr auto 1fr", md: "1fr 1fr auto 1fr 1fr" },
+          alignItems: "center",
+          columnGap: { md: 6 },
+          maxWidth: 1400,
+          mx: "auto",
+          px: { xs: 1, md: 4 },
+          py: { xs: 1, md: 1.25 },
+        }}
+      >
+        {/* Mobile: menu button | logo | language */}
+        <Box sx={{ display: { xs: "block", md: "none" } }}>
+          <IconButton onClick={() => setDrawerOpen(true)} aria-label={t("openMenu")} sx={{ width: 48, height: 48, color: tokens.ink }}>
             <MenuIcon />
           </IconButton>
-          <Box
-            sx={{
-              height: "50px",
-              width: "120px", // Fixed width instead of 100%
-              backgroundImage: `url(${LOGO})`,
-              backgroundSize: "contain",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-            }}
-          />
-         
-          <Drawer
-            anchor="left"
-            open={drawerOpen}
-            onClose={toggleDrawer(false)}
-            PaperProps={{ sx: { background: "transparent" } }}
-          >
-            {drawerContent}
-          </Drawer>
-          <Box
-              sx={{
-              position: "absolute",
-              right: 16,
-              display: "flex",
-              alignItems: "center",
-              gap: 0.5,
-              color: "#333",
-              fontSize: "1.2rem",
-              fontFamily: "Montserrat, sans-serif",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              padding: "0.5rem 1rem",
-              borderRadius: "0.5rem",
-              "&:hover": {
-                color: "#555",
-                transform: "translateY(-2px)",
-              },
-              }}
-              onClick={() =>
-              handleLanguageChange(
-                localStorage.getItem("language") === "hu" ? "en" : "hu"
-              )
-              }
-            >
-              <span
-              style={{
-                fontWeight: 550,
-                textTransform: "uppercase",
-                letterSpacing: "0.5px",
-              }}
-              >
-              {localStorage.getItem("language") === "hu" ? "en" : "hu"}
-              </span>
-              <LanguageIcon
-              sx={{
-                fontSize: "1.5rem",
-                transition: "transform 0.3s ease",
-                "&:hover": {
-                transform: "scale(1.2)",
-                },
-              }}
-              />
-            </Box>
         </Box>
-      ) : (
-        <Stack direction={"row"} alignItems="center" justifyContent="space-between" pl={14} pr={5} >
-        <Box
-          sx={{
-            width: "100%",
-            maxWidth: "1600px",
-            mx: "auto",
-            overflow: "hidden",
-            boxSizing: "border-box",
-            display: "flex",
-            alignItems: "center",
-            
-           
-            position: "relative", // Enable relative positioning for offset
-          }}
-        >
-          <ul style={{ ...navStyles.navList, flex: 1, justifyContent: "flex-end", marginRight: 120 }}>
-            <Stack {...navStackProps}>
-              <li
-          style={navStyles.navItem(hoveredItem === 0)}
-          onMouseEnter={() => setHoveredItem(0)}
-          onMouseLeave={() => setHoveredItem(null)}
-              >
-          <Link style={navStyles.navLink(hoveredItem === 0)} to="/">
-            {t("home")}
-          </Link>
-              </li>
-              <li
-          style={navStyles.navItem(hoveredItem === 1)}
-          onMouseEnter={() => setHoveredItem(1)}
-          onMouseLeave={() => setHoveredItem(null)}
-              >
-          <Link style={navStyles.navLink(hoveredItem === 1)} to="/about">
-            {t("about")}
-          </Link>
-              </li>
-            </Stack>
-          </ul>
-          <Box
-            sx={{
-              height: "50px",
-              width: "120px", // Adjusted width for better visibility
-              backgroundImage: `url(${LOGO})`,
-              backgroundSize: "contain",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              flexShrink: 0,
-            }}
-          />
-          <ul style={{ ...navStyles.navList, flex: 1, justifyContent: "flex-start", marginLeft: 120 }}>
-            <Stack {...navStackProps}>
-              <li
-          style={navStyles.navItem(hoveredItem === 2)}
-          onMouseEnter={() => setHoveredItem(2)}
-          onMouseLeave={() => setHoveredItem(null)}
-              >
-          <Link style={navStyles.navLink(hoveredItem === 2)} to="/training">
-            {t("training")}
-          </Link>
-              </li>
-              <li
-          style={navStyles.navItem(hoveredItem === 3)}
-          onMouseEnter={() => setHoveredItem(3)}
-          onMouseLeave={() => setHoveredItem(null)}
-              >
-          <Link style={navStyles.navLink(hoveredItem === 3)} to="/nutrition">
-            {t("nutrition")}
-          </Link>
-              </li>
-            </Stack>
-          </ul>
-          </Box>
-            <Box
-              sx={{
-              position: "absolute",
-              right: 16,
-              display: "flex",
-              alignItems: "center",
-              gap: 0.5,
-              color: "#333",
-              fontSize: "1.2rem",
-              fontFamily: "Montserrat, sans-serif",
-              cursor: "pointer",
-              transition: "all 0.3s ease",
-              padding: "0.5rem 1rem",
-              borderRadius: "0.5rem",
-              "&:hover": {
-                color: "#555",
-                transform: "translateY(-2px)",
-              },
-              }}
-              onClick={() =>
-              handleLanguageChange(
-                localStorage.getItem("language") === "hu" ? "en" : "hu"
-              )
-              }
-            >
-              <span
-              style={{
-                fontWeight: 550,
-                textTransform: "uppercase",
-                letterSpacing: "0.5px",
-              }}
-              >
-              {localStorage.getItem("language") === "hu" ? "en" : "hu"}
-              </span>
-              <LanguageIcon
-              sx={{
-                fontSize: "1.5rem",
-                transition: "transform 0.3s ease",
-                "&:hover": {
-                transform: "scale(1.2)",
-                },
-              }}
-              />
+
+        {/* Desktop: two links | logo | two links | language */}
+        <Box sx={{ display: { xs: "none", md: "flex" }, gridColumn: "2", justifyContent: "flex-end", gap: 3 }}>
+          {links.slice(0, 2).map(navItem)}
+        </Box>
+        <Box sx={{ gridColumn: { xs: "2", md: "3" } }}>
+          <Logo height={44} />
+        </Box>
+        <Box sx={{ display: { xs: "none", md: "flex" }, gridColumn: "4", gap: 3 }}>
+          {links.slice(2).map(navItem)}
+        </Box>
+        <Box sx={{ gridColumn: { xs: "3", md: "5" }, justifySelf: "end" }}>{languageToggle}</Box>
+      </Box>
+
+      <Drawer anchor="left" open={drawerOpen} onClose={() => setDrawerOpen(false)}>
+        <Box sx={{ width: 270, height: "100%", display: "flex", flexDirection: "column", backgroundColor: "#fff" }}>
+          <Box sx={{ display: "flex", justifyContent: "center", py: 2.5, borderBottom: "1px solid rgba(0, 0, 0, 0.06)" }}>
+            <Box onClick={() => setDrawerOpen(false)}>
+              <Logo height={40} />
             </Box>
-          </Stack>
-          
-      )}
-    </nav>
+          </Box>
+          <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0 }}>
+            {links.map((item) => (
+              <li key={item.path}>
+                <Box
+                  component={NavLink}
+                  to={item.path}
+                  end
+                  onClick={() => setDrawerOpen(false)}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    minHeight: 52,
+                    px: 3,
+                    color: tokens.ink,
+                    fontWeight: 500,
+                    textDecoration: "none",
+                    borderBottom: "1px solid rgba(0, 0, 0, 0.06)",
+                    transition: "background-color 150ms",
+                    "&:hover": { backgroundColor: "rgba(248, 229, 222, 0.45)" },
+                    "&.active": { fontWeight: 700, backgroundColor: tokens.peach },
+                  }}
+                >
+                  {item.text}
+                </Box>
+              </li>
+            ))}
+          </Box>
+          <Box sx={{ mt: "auto", p: 2, textAlign: "center", fontSize: "0.85rem", color: tokens.inkSoft }}>
+            LIFTED © {new Date().getFullYear()}
+          </Box>
+        </Box>
+      </Drawer>
+    </Box>
   );
 };
 

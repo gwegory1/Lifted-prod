@@ -1,113 +1,68 @@
-import React from "react";
-import {
-  CardMedia,
-  Typography,
-  Button,
-  Box,
-  Stack,
-  Divider,
-} from "@mui/material";
-import myMissionImage from "../assets/compressed/ROL04866.jpg";
+import { Typography, Button, Box } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import myMissionImage from "../assets/img/ROL04866.webp";
+import Reveal from "./Reveal";
+import { tokens } from "../theme/theme";
 
-const MyMission: React.FC = () => {
-  const navigate = useNavigate();
-
-  const onReadMore = () => {
-    navigate("/about");
-  };
-
+const MyMission = () => {
   const { t } = useTranslation();
 
   return (
     <Box
+      component="section"
+      aria-labelledby="mission-title"
       sx={{
-        display: "flex",
-        flexDirection: { xs: "column-reverse", md: "row" },
-        backgroundColor: "background.paper",
+        display: "grid",
+        gridTemplateColumns: { xs: "1fr", md: "minmax(0, 1.15fr) minmax(0, 1fr)" },
+        alignItems: "stretch",
+        backgroundColor: "#fff",
       }}
     >
-      <Box
-        sx={{
-          order: { xs: 2, md: 1 },
-          p: { xs: 2, sm: 6 },
-        }}
-      >
-        <Stack
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            height: "100%",
-            p: { xs: 2, sm: 3 },
-          }}
-        >
+      <Reveal style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+        <Box sx={{ px: { xs: 3, sm: 6, lg: 10 }, py: { xs: 5, md: 7 } }}>
           <Typography
-            variant="h5"
+            id="mission-title"
             component="h2"
-            gutterBottom
-            sx={{ fontSize: { xs: "2rem", sm: "3rem" } }}
-            fontWeight={"1000"}
+            sx={{ fontSize: { xs: "1.9rem", sm: "2.4rem" }, fontWeight: 800, color: tokens.ink, mb: 2.5 }}
           >
             {t("myMission")}
           </Typography>
-          <Stack justifyContent={"space-between"} sx={{ flex: 1 }}>
-            <Typography
-              variant="body1"
-              color="text.primary"
+          <Typography sx={{ fontSize: { xs: "1.05rem", sm: "1.15rem" }, lineHeight: 1.65, color: tokens.ink, maxWidth: "60ch" }}>
+            {t("myMissionText")}
+          </Typography>
+          <Box sx={{ mt: 3, borderTop: `1px solid ${tokens.ink}`, borderBottom: `1px solid ${tokens.ink}`, maxWidth: "60ch" }}>
+            <Button
+              component={Link}
+              to="/about"
+              endIcon={<AddIcon />}
               sx={{
-                fontSize: { xs: "1.2rem", sm: "1.5rem" },
-                mb: 2,
+                minHeight: 56,
+                px: 0,
+                color: tokens.ink,
+                fontWeight: 800,
+                fontSize: { xs: "1rem", sm: "1.15rem" },
+                "&:hover": { backgroundColor: "transparent", color: tokens.goldInk },
+                "& .MuiButton-endIcon": { transition: "transform 250ms cubic-bezier(0.22, 1, 0.36, 1)" },
+                "&:hover .MuiButton-endIcon": { transform: "rotate(90deg)" },
               }}
             >
-              {t("myMissionText")}
-            </Typography>
-            <Stack gap={2}>
-              <Divider sx={{ borderWidth: "1px", borderColor: "black" }} />
-              <Stack direction="row" spacing={2} alignItems={"center"}>
-                <Button
-                  onClick={onReadMore}
-                  sx={{
-                    width: { xs: "100%", sm: "auto" },
-                    mt: { xs: 1, sm: 0 },
-                    color: "black",
-                    fontWeight: "800",
-                    fontSize: { xs: "1rem", sm: "1.6rem" },
-                  }}
-                  endIcon={<AddIcon />}
-                >
-                  {t("ReadMore")}
-                </Button>
-              </Stack>
-              <Divider sx={{ borderWidth: "1px", borderColor: "black" }} />
-            </Stack>
-          </Stack>
-        </Stack>
-      </Box>
-      <Box
-        sx={{
-          order: { xs: 1, md: 2 },
-          display: "flex",
-          justifyContent: { xs: "center", md: "flex-end" },
-          alignItems: "center",
-          width: "100%",
-          height: "70vh",
-          overflow: "hidden",
-          minWidth: "500px",
-        }}
-      >
-        <CardMedia
+              {t("ReadMore")}
+            </Button>
+          </Box>
+        </Box>
+      </Reveal>
+      <Reveal variant="clip">
+        <Box
           component="img"
-          sx={{
-        width: "150%", // Increase width to make the picture wider
-        height: "100%",
-        objectFit: "cover",
-          }}
-          image={myMissionImage}
-          alt={"Kép"}
+          src={myMissionImage}
+          alt=""
+          loading="lazy"
+          decoding="async"
+          sx={{ display: "block", width: "100%", height: { xs: "auto", md: "100%" }, minHeight: { md: "52vh" }, maxHeight: { md: 560 }, aspectRatio: { xs: "4 / 3", md: "auto" }, objectFit: "cover", objectPosition: "center 20%" }}
         />
-      </Box>
+      </Reveal>
     </Box>
   );
 };

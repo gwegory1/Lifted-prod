@@ -1,182 +1,49 @@
-import { Box, Typography, useTheme } from "@mui/material";
-import { styled } from "@mui/system";
-import { motion } from "framer-motion";
-import nutri4 from "../assets/compressed/ROL04162.jpg";
-import nutri5 from "../assets/compressed/ROL04397.jpg";
-import nutri6 from "../assets/compressed/ROL04366.jpg";
+import { Box, Typography } from "@mui/material";
 import { useTranslation } from "react-i18next";
-
-// Motion-enhanced components
-const MotionBox = motion(Box);
-const MotionTypography = motion(Typography);
-const MotionImage = motion.img;
-// Removed from here
-
-const ImageCard = styled(MotionBox)(({ theme }) => ({
-  flex: 1,
-  minWidth: 0,
-  textAlign: "center",
-  padding: theme.spacing(2),
-  transition: "all 0.3s ease-in-out",
-  boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
-}));
-
-const ImageWrapper = styled(MotionBox)(({ theme }) => ({
-  position: "relative",
-  overflow: "hidden",
-  borderRadius: theme.spacing(1.5),
-  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.05)",
-}));
-
-const TextWrapper = styled(MotionBox)(({ theme }) => ({
-  backgroundColor: "rgba(255, 255, 255, 0.9)",
-  borderRadius: theme.spacing(1),
-  padding: theme.spacing(1.5, 2),
-  marginTop: theme.spacing(2),
-  boxShadow: "0 2px 4px rgba(0, 0, 0, 0.05)",
-}));
+import nutri4 from "../assets/img/ROL04162.webp";
+import nutri5 from "../assets/img/ROL04397.webp";
+import nutri6 from "../assets/img/ROL04366.webp";
+import Reveal from "./Reveal";
+import { tokens } from "../theme/theme";
 
 const NutritionGallery = () => {
-  const theme = useTheme();
   const { t } = useTranslation();
 
-  const imageData = [
-    {
-      src: nutri6,
-      alt: "Nutrition Plan Image",
-      text: t("Nutrition.WhatToExpect.text1"),
-      maxHeight: { xs: 250, sm: 300 },
-      fontSize: { xs: "0.9rem", sm: "1rem" },
-    },
-    {
-      src: nutri4,
-      alt: "Nutrition Plan Image",
-      text: t("Nutrition.WhatToExpect.text2"),
-      height: { xs: 250, sm: 300 },
-      fontSize: { xs: "0.9rem", sm: "1rem" },
-    },
-    {
-      src: nutri5,
-      alt: "Nutrition Plan Image",
-      text: t("Nutrition.WhatToExpect.text3"),
-      height: { xs: 250, sm: 300 },
-      fontSize: { xs: "1rem", sm: "1.2rem" },
-    },
+  const items = [
+    { src: nutri6, text: t("Nutrition.WhatToExpect.text1") },
+    { src: nutri4, text: t("Nutrition.WhatToExpect.text2") },
+    { src: nutri5, text: t("Nutrition.WhatToExpect.text3") },
   ];
 
-  // Animation variants
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
-
-  const titleVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
-  };
-
-  const imageVariants = {
-    rest: { scale: 1 },
-    hover: { scale: 1.05, transition: { duration: 0.3 } },
-  };
-
-  const textVariants = {
-    rest: { y: 0 },
-    hover: { y: -5, transition: { duration: 0.3 } },
-  };
-
   return (
-    <Box sx={{ padding: { xs: theme.spacing(1), sm: theme.spacing(3) } }}>
-      <MotionTypography
-        variant="h4"
-        initial="hidden"
-        animate="visible"
-        variants={titleVariants}
-        sx={{
-          textAlign: "left",
-          marginBottom: theme.spacing(4),
-          fontWeight: 600,
-          color: "#333",
-          fontFamily: "Montserrat, sans-serif",
-          padding: theme.spacing(3),
-        }}
-      >
-        {t("Nutrition.WhatToExpect.title")}
-      </MotionTypography>
-      
-      <MotionBox
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          gap: { xs: 3, sm: 4 },
-          justifyContent: "center",
-          alignItems: "stretch",
-          maxWidth: "1200px",
-          margin: "0 auto",
-          padding: { xs: theme.spacing(0), sm: theme.spacing(3) }
-        }}
-      >
-        {imageData.map((item, index) => (
-          <ImageCard 
-            key={index} 
-            variants={itemVariants}
-            whileHover={{
-              y: -8,
-              boxShadow: "0 12px 24px rgba(0, 0, 0, 0.2)",
-              transition: { duration: 0.3 }
-            }}
-          >
-            <ImageWrapper>
-              <MotionImage
-                variants={imageVariants}
+    <Box component="section" aria-labelledby="what-to-expect" sx={{ textAlign: "left" }}>
+      <Reveal>
+        <Typography id="what-to-expect" component="h2" sx={{ fontWeight: 700, fontSize: { xs: "1.6rem", sm: "2rem" }, color: tokens.ink, mb: { xs: 2.5, md: 3 } }}>
+          {t("Nutrition.WhatToExpect.title")}
+        </Typography>
+      </Reveal>
+
+      <Box component="ul" sx={{ listStyle: "none", m: 0, p: 0, display: "grid", gridTemplateColumns: { xs: "1fr", sm: "repeat(3, minmax(0, 1fr))" }, gap: { xs: 4, sm: 3, md: 4 } }}>
+        {items.map((item, i) => (
+          <Box component="li" key={item.src}>
+            <Reveal variant="clip" delay={i * 0.12}>
+              <Box
+                component="img"
                 src={item.src}
-                alt={item.alt}
-                style={{
-                  width: "100%",
-                  height: typeof item.maxHeight === 'object' ? 
-                    `${item.maxHeight.sm}px` : 
-                    typeof item.height === 'object' ? 
-                      `${item.height.sm}px` : '300px',
-                  objectFit: "contain",
-                  borderRadius: `${theme.spacing(1.5)}`,
-                }}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                sx={{ display: "block", width: "100%", aspectRatio: "4 / 5", objectFit: "cover", borderRadius: 2 }}
               />
-            </ImageWrapper>
-            <TextWrapper initial="rest" whileHover="hover" variants={textVariants}>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: '1.2rem',
-                  fontWeight: 500,
-                  color: "#222",
-                  fontFamily: "Montserrat, sans-serif",
-                  lineHeight: 1.6,
-                  textShadow: "0 1px 2px rgba(0, 0, 0, 0.05)",
-                }}
-              >
+            </Reveal>
+            <Reveal delay={i * 0.12 + 0.2}>
+              <Typography sx={{ mt: 2, fontSize: { xs: "1.05rem", md: "1.15rem" }, fontWeight: 500, lineHeight: 1.55, color: tokens.ink }}>
                 {item.text}
               </Typography>
-            </TextWrapper>
-          </ImageCard>
+            </Reveal>
+          </Box>
         ))}
-      </MotionBox>
+      </Box>
     </Box>
   );
 };

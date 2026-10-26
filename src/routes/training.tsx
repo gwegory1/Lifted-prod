@@ -1,376 +1,116 @@
-import Navbar from "../components/navbar";
-import React, { useEffect, useState } from "react";
-import { Typography, Box, Stack, useMediaQuery, useTheme } from "@mui/material";
-import Image1 from "../assets/compressed/IMG_5257.jpg";
-import Image2 from "../assets/compressed/ROL04662.jpg";
-import Image3 from "../assets/compressed/ROL04772.jpg";
-import Footer from "../components/footer";
-import TrainingSection from "../components/trainingSection";
-import ScrollToTopButton from "../components/ScrollToTopButton";
+import { Typography, Box } from "@mui/material";
 import { useTranslation } from "react-i18next";
-import { Helmet } from "react-helmet";
+import Image1 from "../assets/img/IMG_5257.webp";
+import Image2 from "../assets/img/ROL04662.webp";
+import Image3 from "../assets/img/ROL04772.webp";
+import TrainingSection from "../components/trainingSection";
+import PageMeta from "../components/PageMeta";
+import Reveal from "../components/Reveal";
+import { displaySx, tokens } from "../theme/theme";
 
-const Training: React.FC = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-  const {t} = useTranslation(); // Assuming you have a translation function
+const sections = [
+  { n: 1, img: Image1, w: 1600, h: 1067 },
+  { n: 2, img: Image2, w: 1066, h: 1600 },
+  { n: 3, img: Image3, w: 1600, h: 1066 },
+];
 
-  const [isVisible, setIsVisible] = useState(true);
-
-  const handleScroll = () => {
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    //console.log("Scroll position:", scrollTop); // Debug log
-    setIsVisible(scrollTop > 50); // Show button after scrolling 50px
-  };
-
-  const scrollToTop = () => {
-    //console.log("Scroll to top triggered"); // Debug log
-    document.documentElement.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
+const Training = () => {
+  const { t } = useTranslation();
 
   return (
-    <Stack
-      sx={{
-      backgroundColor: "background.paper",
-      minHeight: "100vh",
-      alignItems: "center",
-      width: "100%", // Changed from 100vw to 100% to prevent overflow
-      }}
-    >
-      <Helmet>
-        <title>{t("Training")}</title>
-        <meta name="description" content={t("TrainingDescription")} />
-        <link rel="canonical" href="/training" />
-        <meta property="og:title" content={t("Training")} />
-        <meta property="og:description" content={t("TrainingDescription")} />
-        <meta property="og:url" content="/training" />
-      </Helmet>
-      <Navbar />
-      <ScrollToTopButton isVisible={isVisible} exec={scrollToTop} />
+    <>
+      <PageMeta title={`${t("training")} – Lifted`} description={t("TrainingDescription")} path="/training" />
 
-      {/* CTA Cover Section */}
-
-      {/* Hero Section */}
-      <Box
-      sx={{
-        width: "100%",
-        bgcolor: "#FFF5E6",
-        py: isMobile ? 4 : 8,
-        textAlign: "center",
-      }}
-      >
-      <Typography
-        variant="h1"
-        color="#FFC056"
-        fontWeight="bold"
-        sx={{
-          fontFamily: "Montserrat, sans-serif",
-          mb: 2,
-          fontSize: isMobile ? "2.6rem" : "4.2rem",
-        }}
-      >
-        {t("heroTitle")}
-      </Typography>
-      <Typography
-        variant={isMobile ? "body1" : "h6"}
-        sx={{
-        maxWidth: "800px",
-        mx: "auto",
-        px: 2,
-        fontFamily: "Montserrat, sans-serif",
-        }}
-      >
-        {t("heroSubtitle")}
-      </Typography>
+      <Box component="header" sx={{ bgcolor: tokens.cream, py: { xs: 4, md: 6 }, px: 2, textAlign: "center" }}>
+        <Reveal>
+          <Typography component="h1" sx={{ color: tokens.goldInk, ...displaySx, fontSize: { xs: "2.2rem", md: "3.2rem" }, lineHeight: 1.1, mb: 1.5 }}>
+            {t("heroTitle")}
+          </Typography>
+        </Reveal>
+        <Reveal delay={0.15}>
+          <Typography sx={{ maxWidth: "48ch", mx: "auto", fontSize: { xs: "1.05rem", md: "1.25rem" }, color: tokens.inkSoft }}>
+            {t("heroSubtitle")}
+          </Typography>
+        </Reveal>
       </Box>
 
-      {/* Main Content */}
-      <Stack
-      sx={{
-        width: "100%",
-        maxWidth: "1200px",
-        px: isMobile ? 2 : 4,
-        py: isMobile ? 2 : 4,
-        gap: isMobile ? 4 : 6,
-      }}
-      >
-      {/* Section 1 */}
-      <Stack
-        direction={isMobile ? "column" : "row"}
-        gap={isMobile ? 2 : 4}
-        alignItems="center"
-      >
-        <Box
-        sx={{
-          width: isMobile ? "100%" : "50%",
-          "&:hover img": {
-          transform: "scale(1.00)",
-          transition: "transform 0.3s",
-          },
-        }}
-        >
-        <img
-          src={Image1}
-          alt="Training Focus"
-          style={{
-          width: "100%",
-          height: "auto",
-          borderRadius: isMobile ? "0" : "8px",
-          }}
-          loading="lazy"
-        />
-        </Box>
-        <Stack gap={2} sx={{ width: isMobile ? "90%" : "50%" }}>
-        <Stack
-          direction={"row"}
-          alignItems="center"
-          gap={1}
-          flexWrap="nowrap"
-        >
-          <Typography
-          color="#FFC056"
-          variant={isMobile ? "h5" : "h3"}
-          fontWeight="bold"
+      <Box sx={{ maxWidth: 1200, mx: "auto", px: { xs: 2, md: 4 }, py: { xs: 4, md: 6 }, display: "grid", gap: { xs: 5, md: 6 } }}>
+        {sections.map(({ n, img, w, h }) => (
+          <Box
+            component="section"
+            key={n}
+            aria-labelledby={`training-s${n}`}
+            sx={{
+              display: "grid",
+              gridTemplateColumns: { xs: "1fr", md: "1fr 1fr" },
+              alignItems: "center",
+              gap: { xs: 2.5, md: 5 },
+              // alternate image side on desktop
+              "& > .photo": { order: { md: n % 2 === 0 ? 2 : 0 } },
+            }}
           >
-          {t("section1Title")}
-          </Typography>
-
-          <Typography
-          variant={isMobile ? "h5" : "h3"}
-          color="#475569"
-          fontWeight="bold"
-          sx={{ fontFamily: "Montserrat, sans-serif" }}
-          >
-          {t("section1Title2")}
-          </Typography>
-        </Stack>
-        <Typography
-          variant="body1"
-          sx={{
-          fontFamily: "Montserrat, sans-serif",
-          color: "#333",
-          lineHeight: 1.8,
-          fontSize: "1.3rem",
-          }}
-        >
-          {t("section1Text")}
-        </Typography>
-        </Stack>
-      </Stack>
-      {/* Section 2 */}
-      <Stack
-        direction={isMobile ? "column" : "row-reverse"}
-        gap={isMobile ? 2 : 4}
-        alignItems="center"
-        sx={{ bgcolor: "#FFF5E6", borderRadius: "8px", p: 3 }}
-      >
-        <Box
-        sx={{
-          width: isMobile ? "100%" : "50%",
-          "&:hover img": {
-          transform: "scale(1.00)",
-          transition: "transform 0.3s",
-          },
-        }}
-        >
-        <img
-          src={Image2}
-          alt="Training Progress"
-          style={{ width: "100%", height: "auto", borderRadius: "8px" }}
-          loading="lazy"
-        />
-        </Box>
-        <Stack gap={2} sx={{ width: isMobile ? "100%" : "50%" }}>
-        <Stack
-          direction={"row"}
-          alignItems="center"
-          gap={1}
-          flexWrap="wrap"
-        >
-          <Typography
-          color="#FFC056"
-          variant={isMobile ? "h5" : "h3"}
-          fontWeight="bold"
-          >
-          {t("section2Title")}
-          </Typography>
-          <Typography
-          variant={isMobile ? "h5" : "h3"}
-          color="#475569"
-          fontWeight="bold"
-          noWrap
-          sx={{ fontFamily: "Montserrat, sans-serif" }}
-          >
-          {t("section2Title2")}
-          </Typography>
-        </Stack>
-        <Typography
-          variant="body1"
-
-          sx={{
-          fontFamily: "Montserrat, sans-serif",
-          color: "#333",
-          lineHeight: 1.8,
-          fontSize: "1.3rem",
-          }}
-        >
-          {t("section2Text")}
-        </Typography>
-        </Stack>
-      </Stack>
-      {/* Section 3 */}
-      <Stack
-        direction={isMobile ? "column" : "row"}
-        gap={isMobile ? 2 : 4}
-        alignItems="center"
-      >
-        <Box
-        sx={{
-          width: isMobile ? "100%" : "50%",
-          "&:hover img": {
-          transform: "scale(1.00)",
-          transition: "transform 0.3s",
-          },
-        }}
-        >
-        <img
-          src={Image3}
-          alt="Training Challenge"
-          style={{
-          width: "100%",
-          height: "auto",
-          borderRadius: isMobile ? "0" : "8px",
-          }}
-          loading="lazy"
-        />
-        </Box>
-        <Stack gap={2} sx={{ width: isMobile ? "90%" : "50%" }}>
-        <Stack
-          direction={"row"}
-          alignItems="center"
-          gap={1}
-          flexWrap="wrap"
-          
-        >
-          <Typography
-          color="#FFC056"
-          variant={isMobile ? "h5" : "h3"}
-          fontWeight="bold"
-          >
-          {t("section3Title")}
-          </Typography>
-          <Typography
-          variant={isMobile ? "h5" : "h3"}
-          color="#475569"
-          fontWeight="bold"
-          noWrap
-          sx={{ fontFamily: "Montserrat, sans-serif" }}
-          >
-          {t("section3Title2")}
-          </Typography>
-        </Stack>
-        <Typography
-          variant="body1"
-          sx={{
-          fontFamily: "Montserrat, sans-serif",
-          color: "#333",
-          lineHeight: 1.8,
-          fontSize: "1.3rem",
-          }}
-        >
-          {t("section3Text")}
-        </Typography>
-        </Stack>
-      </Stack>
-      <Stack
-        sx={{
-        width: "95%",
-        bgcolor: "#FFF5E6",
-        borderRadius: "8px",
-        alignSelf: "center",
-        p: { xs: 3, sm: 4, md: 5 },
-        mt: { xs: 3, sm: 4, md: 6 },
-        }}
-      >
-        <Typography
-        variant={isMobile ? "h5" : "h3"}
-        color="#475569"
-        fontWeight="bold"
-        sx={{
-          fontFamily: "Montserrat, sans-serif",
-          textAlign: "center",
-          mb: { xs: 3, sm: 4 },
-        }}
-        >
-          {t("helpTitle")}
-        </Typography>
-        <Box
-          sx={{
-            display: "grid",
-            gridTemplateColumns: {
-              xs: "1fr",
-              sm: "repeat(2, 1fr)",
-            },
-            gap: 3,
-            width: "100%",
-          }}
-        >
-          {[
-            t("helpItem1"),
-            t("helpItem2"),
-            t("helpItem3"),
-            t("helpItem4"),
-          ].map((item, index) => (
-            <Box
-              key={index}
-              sx={{
-                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
-                bgcolor: "rgba(255, 255, 255, 0.3)",
-                borderRadius: "14px",
-                p: 2.5,
-                textAlign: "center",
-                transition: "transform 0.2s, box-shadow 0.2s",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                "&:hover": {
-                  transform: "translateY(-5px)",
-                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.1)",
-                },
-              }}
-            >
-              <Typography
-                variant="body1"
-                sx={{
-                  fontFamily: "Montserrat, sans-serif",
-                  color: "#333",
-                  fontWeight: "medium",
-                  fontSize: { xs: "1.1rem", sm: "1.1rem", md: "1.1rem" },
-                  wordBreak: "break-word",
-                  hyphens: "auto",
-                }}
-              >
-                {item}
+            <Reveal variant="clip" className="photo">
+              <Box
+                component="img"
+                src={img}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                sx={{ display: "block", width: "100%", aspectRatio: `${w} / ${h}`, maxHeight: { md: 420 }, objectFit: "cover", borderRadius: 2 }}
+              />
+            </Reveal>
+            <Reveal delay={0.12}>
+              <Typography id={`training-s${n}`} component="h2" sx={{ fontWeight: 700, fontSize: { xs: "1.6rem", md: "2.1rem" }, lineHeight: 1.15, mb: 2, color: tokens.ink }}>
+                <Box component="span" sx={{ color: tokens.goldInk }}>
+                  {t(`section${n}Title`)}
+                </Box>{" "}
+                {t(`section${n}Title2`)}
               </Typography>
-            </Box>
-          ))}
-        </Box>
-      </Stack>
-      {/* Training Section */}
-      <TrainingSection />
-      </Stack>
+              <Typography sx={{ color: tokens.ink, lineHeight: 1.75, fontSize: { xs: "1.05rem", md: "1.2rem" }, maxWidth: "62ch" }}>
+                {t(`section${n}Text`)}
+              </Typography>
+            </Reveal>
+          </Box>
+        ))}
 
-      <Footer />
-    </Stack>
+        <Reveal>
+          <Box component="section" aria-labelledby="help-title" sx={{ bgcolor: tokens.cream, borderRadius: 3, p: { xs: 3, sm: 3.5, md: 4.5 } }}>
+            <Typography id="help-title" component="h2" sx={{ fontWeight: 700, fontSize: { xs: "1.6rem", md: "2.1rem" }, textAlign: "center", mb: { xs: 2.5, md: 3 }, color: tokens.ink }}>
+              {t("helpTitle")}
+            </Typography>
+            <Box
+              component="ul"
+              sx={{ listStyle: "none", m: 0, p: 0, display: "grid", gridTemplateColumns: { xs: "1fr", sm: "repeat(2, 1fr)" }, gap: 2 }}
+            >
+              {[1, 2, 3, 4].map((i) => (
+                <Box
+                  component="li"
+                  key={i}
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1.5,
+                    p: 2.5,
+                    bgcolor: "#fff",
+                    borderRadius: 2,
+                    fontWeight: 500,
+                    fontSize: "1.1rem",
+                    color: tokens.ink,
+                    hyphens: "auto",
+                  }}
+                >
+                  <Box aria-hidden sx={{ width: 8, height: 8, borderRadius: "50%", bgcolor: tokens.gold, flexShrink: 0 }} />
+                  {t(`helpItem${i}`)}
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        </Reveal>
+
+        <TrainingSection />
+      </Box>
+    </>
   );
 };
 
 export default Training;
-

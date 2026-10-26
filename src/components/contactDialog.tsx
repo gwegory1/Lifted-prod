@@ -8,33 +8,51 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
+  CircularProgress,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material';
-import { motion } from 'framer-motion';
-import emailjs from  '@emailjs/browser'
+import emailjs from '@emailjs/browser';
 import { useTranslation } from 'react-i18next';
+import { tokens } from '../theme/theme';
 
 interface ContactFormDialogProps {
   open: boolean;
   setOpen: (open: boolean) => void;
 }
 
-const MotionBox = motion(Box);
-const MotionButton = motion(Button);
-const MotionTypography = motion(Typography);
+// EmailJS public identifiers (safe to ship in the browser by design).
+const EMAILJS = { serviceId: 'service_ck1xfpd', templateId: 'template_zwfqnn4', publicKey: 'FgEUG9Bwf0goqiuAV' };
+
+const fieldSx = {
+  '& .MuiOutlinedInput-root': {
+    borderRadius: '12px',
+    background: 'rgba(255, 255, 255, 0.05)',
+    color: '#F2F2F2',
+    '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.28)' },
+    '&:hover fieldset': { borderColor: tokens.gold },
+    '&.Mui-focused fieldset': { borderColor: tokens.gold, borderWidth: 2 },
+  },
+  '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.75)' },
+  '& .MuiInputLabel-root.Mui-focused': { color: tokens.gold },
+  '& .MuiInputLabel-asterisk': { color: tokens.gold },
+  '& textarea::placeholder': { color: 'rgba(255, 255, 255, 0.6)', opacity: 1 },
+};
+
+const emptyForm = { name: '', email: '', phone: '', message: '' };
 
 const ContactFormDialog = ({ open, setOpen }: ContactFormDialogProps) => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: '',
-  });
-  const [isSending, setIsSending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const { t } = useTranslation();
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const formRef = useRef<HTMLFormElement>(null);
+  const [formData, setFormData] = useState(emptyForm);
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle');
 
   const handleClose = () => {
+    if (status === 'sending') return;
     setOpen(false);
-    setError(null);
+    setStatus('idle');
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -42,55 +60,26 @@ const ContactFormDialog = ({ open, setOpen }: ContactFormDialogProps) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const { t } = useTranslation();
-
-  const dialogVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: 'easeOut' } },
-    exit: { opacity: 0, y: 20, transition: { duration: 0.3, ease: 'easeIn' } },
-  };
-
-  const fieldVariants = {
-    hidden: { opacity: 0, y: 10 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
-  };
-
-  const buttonVariants = {
-    hover: { scale: 1.03, boxShadow: '0 8px 20px rgba(255, 193, 7, 0.3)' },
-    tap: { scale: 0.97 },
-  };
-
-  const formRef = useRef<HTMLFormElement>(null);
-  const [success, setSuccess] = useState(false);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsSending(true);
-    setError(null);
-
+    if (!formRef.current) return;
+    setStatus('sending');
     try {
-      // Replace these with your actual EmailJS service, template and public key
-      const serviceId = 'service_ck1xfpd';
-      const templateId = 'template_zwfqnn4';
-      const publicKey = 'FgEUG9Bwf0goqiuAV';
-
-      if (formRef.current) {
-        await emailjs.sendForm(serviceId, templateId, formRef.current, publicKey);
-        
-        setFormData({ name: '', email: '', phone: '', message: '' });
-        setSuccess(true);
-        setTimeout(() => {
-          setSuccess(false);
-          handleClose();
-        }, 2000);
-      }
+      await emailjs.sendForm(EMAILJS.serviceId, EMAILJS.templateId, formRef.current, EMAILJS.publicKey);
+      setFormData(emptyForm);
+      setStatus('sent');
+      setTimeout(() => {
+        setOpen(false);
+        setStatus('idle');
+      }, 2500);
     } catch (err) {
-      setError('Nem sikerült elküldeni az üzenetet. Próbálja újra később.');
+      // keep what the user typed so they can retry
       console.error(err);
-    } finally {
-      setIsSending(false);
+      setStatus('error');
     }
   };
+
+  const sending = status === 'sending';
 
   return (
     <Dialog
@@ -98,229 +87,95 @@ const ContactFormDialog = ({ open, setOpen }: ContactFormDialogProps) => {
       onClose={handleClose}
       maxWidth="sm"
       fullWidth
+      fullScreen={fullScreen}
+      aria-labelledby="contact-title"
       PaperProps={{
-      sx: {
-        background: 'linear-gradient(145deg, #2A2A2A 0%, #1F1F1F 100%)',
-        borderRadius: '20px',
-        boxShadow: '0 12px 40px rgba(0, 0, 0, 0.6)',
-        border: '1px solid rgba(255, 193, 7, 0.1)',
-        overflow: 'hidden',
-      },
+        sx: {
+          background: tokens.night,
+          color: '#F2F2F2',
+          borderRadius: fullScreen ? 0 : '20px',
+          boxShadow: '0 24px 64px -16px rgba(0, 0, 0, 0.6)',
+          border: '1px solid rgba(255, 192, 86, 0.15)',
+        },
       }}
     >
-      <MotionBox variants={dialogVariants} initial="hidden" animate="visible" exit="exit">
-      <DialogTitle sx={{ bgcolor: 'rgba(255, 255, 255, 0.05)', py: 3 }}>
-        <MotionTypography
-        variant="h5"
-        align="center"
-        sx={{
-          color: '#FFC107',
-          fontWeight: 700,
-          fontFamily: 'Montserrat, sans-serif',
-          letterSpacing: '0.5px',
-          background: 'linear-gradient(90deg, #FFC107, #FFECB3)',
-          WebkitBackgroundClip: 'text',
-          WebkitTextFillColor: 'transparent',
-        }}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-        >
+      <DialogTitle id="contact-title" sx={{ pt: 4, pb: 1, textAlign: 'center', color: tokens.gold, fontWeight: 700, fontSize: '1.6rem' }}>
         {t('contactForm.title')}
-        </MotionTypography>
       </DialogTitle>
 
-      <DialogContent sx={{ px: 4, py: 3 }}>
+      <DialogContent sx={{ px: { xs: 3, sm: 4 } }}>
         <Box
-        component="form"
-        id="contact-form"
-        ref={formRef}
-        onSubmit={handleSubmit}
-        sx={{ display: 'flex', flexDirection: 'column', gap: 2.5 }}
+          component="form"
+          id="contact-form"
+          ref={formRef}
+          onSubmit={handleSubmit}
+          sx={{ display: 'flex', flexDirection: 'column', gap: 2.5, pt: 2 }}
         >
-        <MotionBox variants={fieldVariants} sx={{ mt: 2 }}>
+          <TextField label={t('contactForm.nameLabel')} name="name" autoComplete="name" value={formData.name} onChange={handleChange} required fullWidth sx={fieldSx} />
+          <TextField label={t('contactForm.emailLabel')} name="email" type="email" autoComplete="email" inputMode="email" value={formData.email} onChange={handleChange} required fullWidth sx={fieldSx} />
+          <TextField label={t('contactForm.phoneLabel')} name="phone" type="tel" autoComplete="tel" value={formData.phone} onChange={handleChange} fullWidth sx={fieldSx} />
           <TextField
-          label={t('contactForm.nameLabel')}
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          required
-          fullWidth
-          variant="outlined"
-          sx={{
-            '& .MuiOutlinedInput-root': {
-            borderRadius: '12px',
-            background: 'rgba(255, 255, 255, 0.05)',
-            color: '#E0E0E0',
-            fontFamily: 'Montserrat, sans-serif',
-            '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
-            '&:hover fieldset': { borderColor: '#FFC107' },
-            '&.Mui-focused fieldset': { borderColor: '#FFC107', borderWidth: 2 },
-            },
-            '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Montserrat, sans-serif' },
-            '& .MuiInputLabel-root.Mui-focused': { color: '#FFC107' },
-          }}
+            label={t('contactForm.messageLabel')}
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+            fullWidth
+            multiline
+            minRows={4}
+            placeholder={t('contactForm.messagePlaceholder')}
+            sx={fieldSx}
           />
-        </MotionBox>
-        <MotionBox variants={fieldVariants}>
-          <TextField
-          label={t('contactForm.emailLabel')}
-          name="email"
-          type="email"
-          value={formData.email}
-          onChange={handleChange}
-          required
-          fullWidth
-          variant="outlined"
-          sx={{
-            '& .MuiOutlinedInput-root': {
-            borderRadius: '12px',
-            background: 'rgba(255, 255, 255, 0.05)',
-            color: '#E0E0E0',
-            fontFamily: 'Montserrat, sans-serif',
-            '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
-            '&:hover fieldset': { borderColor: '#FFC107' },
-            '&.Mui-focused fieldset': { borderColor: '#FFC107', borderWidth: 2 },
-            },
-            '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Montserrat, sans-serif' },
-            '& .MuiInputLabel-root.Mui-focused': { color: '#FFC107' },
-          }}
-          />
-        </MotionBox>
-        <MotionBox variants={fieldVariants}>
-          <TextField
-          label={t('contactForm.phoneLabel')}
-          name="phone"
-          type="tel"
-          value={formData.phone}
-          onChange={handleChange}
-          fullWidth
-          variant="outlined"
-          sx={{
-            '& .MuiOutlinedInput-root': {
-            borderRadius: '12px',
-            background: 'rgba(255, 255, 255, 0.05)',
-            color: '#E0E0E0',
-            fontFamily: 'Montserrat, sans-serif',
-            '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
-            '&:hover fieldset': { borderColor: '#FFC107' },
-            '&.Mui-focused fieldset': { borderColor: '#FFC107', borderWidth: 2 },
-            },
-            '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Montserrat, sans-serif' },
-            '& .MuiInputLabel-root.Mui-focused': { color: '#FFC107' },
-          }}
-          />
-        </MotionBox>
-        <MotionBox variants={fieldVariants}>
-          <TextField
-          label={t('contactForm.messageLabel')}
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          required
-          fullWidth
-          multiline
-          rows={4}
-          variant="outlined"
-          placeholder={t('contactForm.messagePlaceholder')}
-          sx={{
-            '& .MuiOutlinedInput-root': {
-            borderRadius: '12px',
-            background: 'rgba(255, 255, 255, 0.05)',
-            color: '#E0E0E0',
-            fontFamily: 'Montserrat, sans-serif',
-            '& fieldset': { borderColor: 'rgba(255, 255, 255, 0.2)' },
-            '&:hover fieldset': { borderColor: '#FFC107' },
-            '&.Mui-focused fieldset': { borderColor: '#FFC107', borderWidth: 2 },
-            },
-            '& .MuiInputLabel-root': { color: 'rgba(255, 255, 255, 0.6)', fontFamily: 'Montserrat, sans-serif' },
-            '& .MuiInputLabel-root.Mui-focused': { color: '#FFC107' },
-          }}
-          />
-        </MotionBox>
-        {error && (
-          <MotionTypography
-          sx={{ color: '#FF6E40', textAlign: 'center', fontFamily: 'Montserrat, sans-serif' }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
+          <Typography
+            role="status"
+            sx={{
+              minHeight: '1.5em',
+              textAlign: 'center',
+              fontWeight: 600,
+              color: status === 'error' ? '#FF8A65' : '#81C784',
+            }}
           >
-          {t('contactForm.errorMessage')}
-          </MotionTypography>
-        )}
-        {success && (
-          <MotionTypography
-          sx={{ color: '#4CAF50', textAlign: 'center', fontFamily: 'Montserrat, sans-serif' }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          >
-          {t('contactForm.successMessage')}
-          </MotionTypography>
-        )}
+            {status === 'error' && t('contactForm.errorMessage')}
+            {status === 'sent' && t('contactForm.successMessage')}
+          </Typography>
         </Box>
       </DialogContent>
 
-      <DialogActions sx={{ justifyContent: 'space-between', px: 4, py: 3 }}>
-        <MotionButton
-        onClick={handleClose}
-        disabled={isSending}
-        sx={{
-          color: '#E0E0E0',
-          fontWeight: 600,
-          fontFamily: 'Montserrat, sans-serif',
-          borderRadius: '12px',
-          px: 3,
-          py: 1.5,
-          background: 'rgba(255, 255, 255, 0.08)',
-          border: '1px solid rgba(255, 255, 255, 0.2)',
-          '&:hover': {
-          background: 'rgba(255, 255, 255, 0.15)',
-          borderColor: '#FFC107',
-          },
-          '&:disabled': {
-          background: 'rgba(255, 255, 255, 0.05)',
-          color: '#757575',
-          },
-        }}
-        variants={buttonVariants}
-        whileHover="hover"
-        whileTap="tap"
+      <DialogActions sx={{ justifyContent: 'space-between', gap: 2, px: { xs: 3, sm: 4 }, pb: 4, pt: 1 }}>
+        <Button
+          onClick={handleClose}
+          disabled={sending}
+          sx={{
+            minHeight: 48,
+            px: 3,
+            borderRadius: '12px',
+            color: '#E0E0E0',
+            border: '1px solid rgba(255, 255, 255, 0.25)',
+            '&:hover': { background: 'rgba(255, 255, 255, 0.08)', borderColor: tokens.gold },
+          }}
         >
-        {t('contactForm.cancelButton')}
-        </MotionButton>
-        <MotionButton
-        type="submit"
-        form="contact-form"
-        variant="contained"
-        disabled={isSending}
-        sx={{
-          background: 'linear-gradient(45deg, #FFC107, #FFCA28)',
-          color: '#1F1F1F',
-          fontWeight: 700,
-          fontFamily: 'Montserrat, sans-serif',
-          borderRadius: '12px',
-          px: 4,
-          py: 1.5,
-          boxShadow: '0 4px 15px rgba(255, 193, 7, 0.4)',
-          '&:hover': {
-          background: 'linear-gradient(45deg, #FFCA28, #FFD54F)',
-          boxShadow: '0 6px 20px rgba(255, 193, 7, 0.6)',
-          },
-          '&:disabled': {
-          background: '#757575',
-          color: '#B0B0B0',
-          boxShadow: 'none',
-          },
-        }}
-        variants={buttonVariants}
-        whileHover="hover"
-        whileTap="tap"
+          {t('contactForm.cancelButton')}
+        </Button>
+        <Button
+          type="submit"
+          form="contact-form"
+          variant="contained"
+          disableElevation
+          disabled={sending || status === 'sent'}
+          startIcon={sending ? <CircularProgress size={18} sx={{ color: 'inherit' }} /> : undefined}
+          sx={{
+            minHeight: 48,
+            px: 4,
+            borderRadius: '12px',
+            backgroundColor: tokens.gold,
+            color: tokens.night,
+            '&:hover': { backgroundColor: tokens.goldHover },
+            '&.Mui-disabled': { backgroundColor: 'rgba(255, 192, 86, 0.45)', color: tokens.night },
+          }}
         >
-        {isSending ? t('contactForm.sendingButton') : t('contactForm.sendButton')}
-        </MotionButton>
+          {sending ? t('contactForm.sendingButton') : t('contactForm.sendButton')}
+        </Button>
       </DialogActions>
-      </MotionBox>
     </Dialog>
   );
 };

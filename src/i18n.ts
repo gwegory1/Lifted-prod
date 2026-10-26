@@ -5,6 +5,19 @@ const resources = {
   en: {
     translation: {
       Navigation: "Navigation",
+      skipToContent: "Skip to content",
+      backToTop: "Back to top",
+      openMenu: "Open menu",
+      switchLanguage: "Magyar nyelvre váltás",
+      rights: "All rights reserved.",
+      HomeDescription:
+        "Discover personalized training and nutrition plans that fit your needs. Join me on a journey to a healthier lifestyle!",
+      AboutDescription:
+        "Learn more about Vivien Ábrahám's holistic approach to health and wellness, focusing on movement, nutrition, and mental well-being.",
+      NutritionDescription:
+        "Explore personalized nutrition plans and mindful eating strategies for a healthier lifestyle. Join me on a journey to wellness!",
+      TrainingDescription:
+        "Explore personalized training plans and functional workouts tailored to your goals. Join me on a journey to fitness!",
       newheights:
         "NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS NEW HEIGHTS OF WELLNESS",
       home: "Home",
@@ -167,6 +180,11 @@ const resources = {
   hu: {
     translation: {
       Navigation: "Navigáció",
+      skipToContent: "Ugrás a tartalomra",
+      backToTop: "Vissza a lap tetejére",
+      openMenu: "Menü megnyitása",
+      switchLanguage: "Switch to English",
+      rights: "Minden jog fenntartva.",
       newheights: "JÓLLÉT ÚJ SZINTJEI JÓLLÉT ÚJ SZINTJEI JÓLLÉT ÚJ SZINTJEI",
       home: "Kezdőlap",
       about: "Rólam",
@@ -308,19 +326,37 @@ const resources = {
           "Nem sikerült elküldeni az üzenetet. Próbálja újra később.",
       },
       HomeDescription:
-        "Discover personalized training and nutrition plans that fit your needs. Join me on a journey to a healthier lifestyle!",
+        "Személyre szabott edzés- és táplálkozási tervek, amelyek az igényeidhez igazodnak. Tarts velem egy egészségesebb életmód felé!",
+      AboutDescription:
+        "Ismerd meg Ábrahám Vivien holisztikus szemléletét: mozgás, táplálkozás és mentális jóllét.",
       NutritionDescription:
-        "Explore personalized nutrition plans and mindful eating strategies for a healthier lifestyle. Join me on a journey to wellness!",
+        "Személyre szabott táplálkozási tanácsadás és tudatos étkezés a fenntartható egészségért.",
       TrainingDescription:
-        "Explore personalized training plans and functional workouts tailored to your goals. Join me on a journey to fitness!",
-      
+        "Személyre szabott edzéstervek és funkcionális edzések a céljaidhoz igazítva, Budapesten.",
     },
   },
 };
 
+const storedLanguage = (() => {
+  try {
+    return localStorage.getItem("language");
+  } catch {
+    return null;
+  }
+})();
+
+i18n.on("languageChanged", (lng) => {
+  document.documentElement.lang = lng;
+  try {
+    localStorage.setItem("language", lng);
+  } catch {
+    // storage blocked (private mode): language still switches for this visit
+  }
+});
+
 i18n.use(initReactI18next).init({
   resources,
-  lng: localStorage.getItem("language") || "hu", // Default language
+  lng: storedLanguage === "en" ? "en" : "hu",
   fallbackLng: "hu",
   interpolation: {
     escapeValue: false,

@@ -1,143 +1,101 @@
-import { Typography, Link, Box, Container, IconButton, Stack, Divider, useMediaQuery, useTheme } from '@mui/material';
+import { Typography, Link, Box, Container, Stack } from '@mui/material';
 import { Email, Facebook, Instagram } from '@mui/icons-material';
+import { Link as RouterLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { tokens } from '../theme/theme';
+
+const linkSx = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    gap: 1.5,
+    minHeight: 44,
+    color: tokens.ink,
+    fontWeight: 500,
+    textDecoration: 'none',
+    textUnderlineOffset: '4px',
+    transition: 'color 150ms',
+    '&:hover': { color: tokens.goldInk, textDecoration: 'underline' },
+};
 
 const Footer = () => {
-    const theme = useTheme();
-    const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-    const { t } = useTranslation(); // Assuming you have a translation function 
-    
+    const { t } = useTranslation();
+
+    const contacts = [
+        { icon: <Email />, label: 'abrahamvivien@lifted.hu', url: 'mailto:abrahamvivien@lifted.hu' },
+        { icon: <Facebook />, label: 'Vivien Ábrahám', url: 'https://www.facebook.com/share/16GswaDzSP/?mibextid=wwXIfr' },
+        { icon: <Instagram />, label: '@viviabraham', url: 'https://www.instagram.com/viviabraham' },
+    ];
+
+    const pages = [
+        { label: t('home'), url: '/' },
+        { label: t('training'), url: '/training' },
+        { label: t('nutrition'), url: '/nutrition' },
+        { label: t('about'), url: '/about' },
+    ];
+
     return (
-        <Box 
-            component="footer" 
+        <Box
+            component="footer"
             sx={{
-                background: "linear-gradient(135deg, #F8E5DE 0%, #ffffff 50%, #F8E5DE 100%)",
-                color: 'black', 
+                background: `linear-gradient(135deg, ${tokens.peach} 0%, #ffffff 50%, ${tokens.peach} 100%)`,
+                color: tokens.ink,
                 py: { xs: 4, md: 5 },
-                width: '100%',
-                boxShadow: '0px -2px 10px rgba(0,0,0,0.05)',
-                position: 'relative',
-                zIndex: 1
+                borderTop: '1px solid rgba(42, 42, 42, 0.06)',
             }}
         >
             <Container maxWidth="lg">
-                <Stack 
-                    direction={{ xs: 'column', md: 'row' }} 
-                    spacing={{ xs: 4, md: 3 }} 
-                    justifyContent="space-between"
-                    divider={isMobile ? <Divider flexItem sx={{ my: 1 }} /> : null}
+                <Box
+                    sx={{
+                        display: 'grid',
+                        gridTemplateColumns: { xs: '1fr', md: '1.4fr 1fr 1fr' },
+                        gap: { xs: 4, md: 6 },
+                        alignItems: 'start',
+                    }}
                 >
-                    {/* Contact Section */}
                     <Box>
-                        <Typography variant="h4" gutterBottom fontWeight="medium" sx={{ mb: 1.5 }}>
+                        <Typography component="h2" sx={{ fontSize: { xs: '1.6rem', md: '1.9rem' }, fontWeight: 500, mb: 1.5 }}>
                             {t('GetIntTouch')}
                         </Typography>
-                        <Box>
-                            {/* Contact Email */}
-                            <Link 
-                                href="mailto:abrahamvivien@lifted.hu" 
-                                color="inherit" 
-                                display="flex" 
-                                alignItems="center"
-                                sx={{ 
-                                    textDecoration: 'none',
-                                    transition: 'all 0.2s',
-                                    '&:hover': { color: theme.palette.primary.main, transform: 'translateX(5px)' } 
-                                }}
-                            >
-                                <IconButton 
-                                    color="inherit" 
-                                    aria-label="email" 
-                                    sx={{ mr: 2, p: 0 }}
-                                >
-                                    <Email fontSize="large" />
-                                </IconButton>
-                                <Typography variant="body1" fontWeight="medium">abrahamvivien@lifted.hu</Typography>
-                            </Link>
-
-                            {/* Social Media */}
-                            <Box mt={1} display="flex" flexDirection="column" gap={1}>
-                                {[
-                                    { 
-                                        icon: <Facebook fontSize="large" />, 
-                                        label: "facebook", 
-                                        url: "https://www.facebook.com/share/16GswaDzSP/?mibextid=wwXIfr", 
-                                        username: "Vivien Ábrahám" 
-                                    },
-                                    { 
-                                        icon: <Instagram fontSize="large" />, 
-                                        label: "instagram", 
-                                        url: "https://www.instagram.com/viviabraham?igsh=aGk5dnVpcHY5ZG5l&utm_source=qr", 
-                                        username: "@viviabraham" 
-                                    },
-                                ].map((social, index) => (
-                                    <Link 
-                                        key={index} 
-                                        href={social.url} 
-                                        color="inherit" 
-                                        display="flex" 
-                                        alignItems="center" 
-                                        sx={{ 
-                                            textDecoration: 'none',
-                                            transition: 'all 0.2s',
-                                            '&:hover': { 
-                                                color: theme.palette.primary.main, 
-                                                transform: 'translateX(5px)' 
-                                            } 
-                                        }}
+                        <Stack component="ul" sx={{ listStyle: 'none', m: 0, p: 0 }}>
+                            {contacts.map((c) => (
+                                <li key={c.url}>
+                                    <Link
+                                        href={c.url}
+                                        sx={linkSx}
+                                        {...(c.url.startsWith('http') && { target: '_blank', rel: 'noopener noreferrer' })}
                                     >
-                                        <IconButton 
-                                            color="inherit" 
-                                            aria-label={social.label} 
-                                            sx={{ mr: 2, p: 0 }}
-                                        >
-                                            {social.icon}
-                                        </IconButton>
-                                        <Typography variant="body1" fontWeight="medium">{social.username}</Typography>
+                                        <Box component="span" aria-hidden sx={{ display: 'inline-flex' }}>{c.icon}</Box>
+                                        {c.label}
                                     </Link>
-                                ))}
-                            </Box>
-                        </Box>
-                    </Box>
-                    
-                    {/* Sitemap Section */}
-                    <Box>
-                        <Typography variant="h4" gutterBottom fontWeight="medium" sx={{ mb: 1.5 }}>
-                            {t('Navigation')}
-                        </Typography>
-                        <Stack spacing={1}>
-                            {[
-                                { label: t('home'), url: '/' },
-                                { label: t('training'), url: '/training' },
-                                { label: t('nutrition'), url: '/nutrition' },
-                                { label: t('about'), url: '/about' },
-                            ].map((link, index) => (
-                                <Link 
-                                    key={index} 
-                                    href={link.url} 
-                                    color="inherit" 
-                                    sx={{ 
-                                        textDecoration: 'none',
-                                        transition: 'all 0.2s',
-                                        '&:hover': { color: theme.palette.primary.main } 
-                                    }}
-                                >
-                                    {link.label}
-                                </Link>
+                                </li>
                             ))}
                         </Stack>
                     </Box>
 
-                    {/* Copyright Section */}
-                    <Box textAlign={{ xs: 'center', md: 'center' }} alignSelf="center">
-                        <Typography variant="body2">
-                            &copy; {new Date().getFullYear()} Lifted. All rights reserved.
+                    <Box component="nav" aria-label={t('Navigation')}>
+                        <Typography component="h2" sx={{ fontSize: { xs: '1.6rem', md: '1.9rem' }, fontWeight: 500, mb: 1.5 }}>
+                            {t('Navigation')}
                         </Typography>
-                        <Typography variant="body1" mt={1}>
+                        <Stack component="ul" sx={{ listStyle: 'none', m: 0, p: 0 }}>
+                            {pages.map((p) => (
+                                <li key={p.url}>
+                                    <Link component={RouterLink} to={p.url} sx={linkSx}>
+                                        {p.label}
+                                    </Link>
+                                </li>
+                            ))}
+                        </Stack>
+                    </Box>
+
+                    <Box sx={{ alignSelf: { md: 'end' }, textAlign: { xs: 'left', md: 'right' }, color: tokens.inkSoft }}>
+                        <Typography variant="body2">
+                            © {new Date().getFullYear()} Lifted. {t('rights')}
+                        </Typography>
+                        <Typography variant="body2" mt={0.5}>
                             Budapest
                         </Typography>
                     </Box>
-                </Stack>
+                </Box>
             </Container>
         </Box>
     );
